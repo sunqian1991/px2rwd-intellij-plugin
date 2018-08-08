@@ -13,6 +13,7 @@ public class SetPX2REMTools extends JDialog {
     private JTextField base_value;
 
     public SetPX2REMTools() {
+        setTitle("设置比值");
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);

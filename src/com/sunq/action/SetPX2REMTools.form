@@ -5,7 +5,9 @@
     <constraints>
       <xy x="48" y="190" width="436" height="161"/>
     </constraints>
-    <properties/>
+    <properties>
+      <toolTipText value=""/>
+    </properties>
     <border type="none"/>
     <children>
       <grid id="94766" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -62,7 +64,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="基值"/>
+              <text value="比值"/>
             </properties>
           </component>
           <component id="e2c20" class="javax.swing.JTextField" binding="base_value">
