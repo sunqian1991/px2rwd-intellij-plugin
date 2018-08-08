@@ -1,10 +1,13 @@
 # WebStorm-PX2REM
 
 #### 项目介绍
-webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm中设置转化的基值(window-SetPX2REM),选中后通过快捷键shift+f来转化，如基值为100，选中"100px"后，点击shift+f，自动转化为1.00rem
+
+webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm中设置转化的基值(window-SetPX2REM),选中后通过快捷键shift+f来转化，如基值为100，选中"100px"后，点击shift+f，自动转化为1.00rem。
+
 本项目参考了 https://github.com/yclnycl/ideapx2rem 中的代码，在他的基础上加入的基值的设置，并修改了部分错误
 
 #### 联系我
+
 如有任何问题，请联系我
 QQ:991637393
 email:sunqian1991@gmail.com
