@@ -34,11 +34,11 @@ public class WebStormPX2REMTools extends AnAction {
 
         int index = s.indexOf("px");
         double rem;
-        int px;
+        double px;
         if(index == -1){
             return;
         }else{
-            px = Integer.valueOf(s.substring(0, index));
+            px = Double.valueOf(s.substring(0, index));
             rem = px / ConstValue.remBaseValue;
             WriteCommandAction.runWriteCommandAction(project, () ->
                     document.replaceString(start, end, String.format("%.2f", rem) + "rem")
