@@ -1,12 +1,15 @@
 <idea-plugin>
   <id>com.sunq.action.WebStormPX2REMTools</id>
   <name>WebStorm----px自动转rem工具</name>
-  <version>1.0</version>
-  <vendor email="sunqian1991@gmail.com" url="https://www.sunqian.tk">sunqian</vendor>
-
+  <version>1.1</version>
+  <vendor email="sunqian1991@gmail.com">sunqian</vendor>
   <description>webstorm中px自动转rem工具</description>
 
-  <change-notes>v1.0:初始编写，webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm中设置转化的比值(window-SetPX2REM),选中后通过快捷键shift+f来转化，如比值为100，选中"100px"后，点击shift+f，自动转化为1.00rem</change-notes>
+  <change-notes>
+    v1.1:在原有的基础上添加了自动转换当前光标所在行中可以转换的值，将设置比值的窗口更改到tools菜单下；
+    &#x000D;
+    v1.0:初始编写，webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm中设置转化的比值(window-SetPX2REM),选中后通过快捷键shift+f来转化，如比值为100，选中"100px"后，点击shift+f，自动转化为1.00rem
+  </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
   <idea-version since-build="131.0"/>
@@ -29,7 +32,7 @@
       <keyboard-shortcut keymap="$default" first-keystroke="shift f"/>
     </action>
     <action id="SetPX2REMID" class="com.sunq.action.SetPX2REM" text="SetPX2REM" description="SetPX2REM">
-      <add-to-group group-id="WindowMenu" anchor="last" />
+      <add-to-group group-id="ToolsMenu" anchor="last" />
     </action>
   </actions>
 
