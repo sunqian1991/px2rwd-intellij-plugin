@@ -6,6 +6,16 @@ webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm�
 
 本项目参考了 https://github.com/yclnycl/ideapx2rem 中的代码，在他的基础上加入的比值的设置，并修改了部分错误
 
+#### 当前版本
+
+V1.1.0
+
+#### 更新日志
+
+v1.1.0:在原有的基础上添加了自动转换当前光标所在行中可以转换的值，将设置比值的窗口更改到tools菜单下；
+
+v1.0.0:初始编写，webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm中设置转化的比值(window-SetPX2REM),选中后通过快捷键shift+f来转化，如比值为100，选中"100px"后，点击shift+f，自动转化为1.00rem
+
 #### 联系我
 
 如有任何问题，请联系我
