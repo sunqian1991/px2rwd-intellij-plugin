@@ -50,19 +50,23 @@ public class WebStormPX2REMTools extends AnAction {
             if(formatEnd==-1)
                 return;
             formatText = formatText.replace(";","");
-            String results = StringUtils.join(Arrays.asList(formatText.split(" ")).stream().map((ele)->{
-                if(ele==null||ele.indexOf("px")==-1||ele.equals(""))
-                    return ele.trim();
-                double rem;
-                double px;
-                px = Double.valueOf(ele.substring(0, ele.indexOf("px")).trim());
-                rem = px / ConstValue.remBaseValue;
-                return String.format("%.2f", rem).trim() + "rem";
-            }).collect(Collectors.toList()).toArray(), " ") + ";";
+            try{
+                String results = StringUtils.join(Arrays.asList(formatText.split(" ")).stream().map((ele)->{
+                    if(ele==null||ele.indexOf("px")==-1||ele.equals(""))
+                        return ele.trim();
+                    double rem;
+                    double px;
+                    px = Double.valueOf(ele.substring(0, ele.indexOf("px")).trim());
+                    rem = px / ConstValue.remBaseValue;
+                    return String.format("%.2f", rem).trim() + "rem";
+                }).collect(Collectors.toList()).toArray(), " ") + ";";
 
-            WriteCommandAction.runWriteCommandAction(project, () ->
-                    document.replaceString(lineStartOffset+formatStart, lineEndOffset, results)
-            );
+                WriteCommandAction.runWriteCommandAction(project, () ->
+                        document.replaceString(lineStartOffset+formatStart, lineEndOffset, results)
+                );
+            } catch (Exception ex){
+                return;
+            }
             return;
         }
 
