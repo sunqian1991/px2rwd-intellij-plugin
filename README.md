@@ -2,7 +2,7 @@
 
 #### 项目介绍
 
-webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm中设置转化的比值(window-SetPX2REM),选中后通过快捷键shift+f来转化，如比值为100，选中"100px"后，点击shift+f，自动转化为1.00rem。
+webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm中设置转化的比例值(File-Other Settings-PX2REM)
 
 本项目参考了 https://github.com/yclnycl/ideapx2rem 中的代码，在他的基础上加入的比值的设置，并修改了部分错误
 
@@ -34,8 +34,8 @@ Project SDK选择IntelliJ IDEA IU-*****,调试没有错误后，即可生成jar�
 
 #### 使用说明
 
-1. file-settings-plugins-install plugin from disk-选择生成的jar文件-restart webstorm
-2. file-Other Settings-PX2REM设置计算的比例值-选中代码段或光标移动到需要转换的行，如'100px'-后，点击shift+f
+1. File-Settings-plugins-install plugin from disk-选择生成的jar文件-restart webstorm
+2. File-Other Settings-PX2REM设置计算的比例值-选中代码段或光标移动到需要转换的行，如'100px'-后，点击shift+f
 3. 设置界面和快捷键设置可以在插件中自定义
 
 ![image][opt_gif]
