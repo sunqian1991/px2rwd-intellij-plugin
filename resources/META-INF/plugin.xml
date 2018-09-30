@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.sunq.action.WebStormPX2REMTools</id>
   <name>px2remForWebStorm</name>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
   <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/WebStorm-PX2REM">sunqian</vendor>
   <description>webstorm中px自动转rem工具</description>
 
