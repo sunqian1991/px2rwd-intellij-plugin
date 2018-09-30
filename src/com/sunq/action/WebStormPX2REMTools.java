@@ -14,7 +14,6 @@ import com.sunq.constvalue.ConstValue;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * Author:sunqian
@@ -42,28 +41,47 @@ public class WebStormPX2REMTools extends AnAction {
             int lineStartOffset = document.getLineStartOffset(lineNum);
             int lineEndOffset = document.getLineEndOffset(lineNum);
             String lineContent = document.getText(new TextRange(lineStartOffset, lineEndOffset));
+            //如果行内的样式不是以 ; 结束，则在末尾加上;
+            if(!lineContent.endsWith(";"))
+                lineContent = lineContent + ";";
+
             int formatStart = lineContent.indexOf(":")+1;
+            //如果行内的内容中不包含 : 或 px，则返回
             if(formatStart==0||lineContent.indexOf("px")==-1)
                 return;
-            String formatText = lineContent.substring(formatStart);
-            int formatEnd = formatText.indexOf("px");
-            if(formatEnd==-1)
-                return;
-            formatText = formatText.replace(";","");
             try{
-                String results = StringUtils.join(Arrays.asList(formatText.split(" ")).stream().map((ele)->{
-                    if(ele==null||ele.indexOf("px")==-1||ele.equals(""))
-                        return ele.trim();
-                    double rem;
-                    double px;
-                    px = Double.valueOf(ele.substring(0, ele.indexOf("px")).trim());
-                    rem = px / ConstValue.remBaseValue;
-                    return String.format("%.2f", rem).trim() + "rem";
-                }).collect(Collectors.toList()).toArray(), " ") + ";";
+                int semiCount = StringUtils.countMatches(lineContent,";");
+                System.out.println("semicount:"+semiCount);
+                if(semiCount > 1){
+                    //去除最后的  ;
+                    String formatText = lineContent;
 
-                WriteCommandAction.runWriteCommandAction(project, () ->
-                        document.replaceString(lineStartOffset+formatStart, lineEndOffset, results)
-                );
+                    if(lineContent.endsWith(";"))
+                        formatText = lineContent + ";";
+
+                    //这里是判断  :  的个数与样式的个数是否一样
+                    if(formatText.split(";").length != StringUtils.countMatches(formatText,":"))
+                        return;
+                    String cssLine = StringUtils.join(Arrays.stream(formatText.split(";")).map((ele)->{
+                        int colonIndex= ele.indexOf(":");
+                        if(colonIndex > -1 && ele.indexOf("px") > -1){
+                            String results = StringUtils.join(Arrays.stream(ele.substring(colonIndex+1).split(" ")).map((el)->(getFormatText(el))).toArray(), " ");
+                            return ele.substring(0, colonIndex+1) + results;
+                        }
+                        return ele;
+                    }).toArray(),";") + ";";
+                    WriteCommandAction.runWriteCommandAction(project, () ->
+                            document.replaceString(lineStartOffset, lineEndOffset, cssLine)
+                    );
+                }
+                else if(semiCount == 1){
+                    String formatText = lineContent.substring(formatStart);
+                    String results = StringUtils.join(Arrays.stream(formatText.split(" ")).map((ele)->(getFormatText(ele))).toArray(), " ") + ";";
+
+                    WriteCommandAction.runWriteCommandAction(project, () ->
+                            document.replaceString(lineStartOffset+formatStart, lineEndOffset, results)
+                    );
+                }
             } catch (Exception ex){
                 return;
             }
@@ -79,9 +97,19 @@ public class WebStormPX2REMTools extends AnAction {
             px = Double.valueOf(s.substring(0, index));
             rem = px / ConstValue.remBaseValue;
             WriteCommandAction.runWriteCommandAction(project, () ->
-                    document.replaceString(start, end, String.format("%.2f", rem) + "rem")
+                    document.replaceString(start, end, String.format("%.2f", rem) + "rem" + (s.endsWith(";")?";":""))
             );
             return;
         }
+    }
+
+    private String getFormatText(String ele){
+        if(ele==null||ele.indexOf("px")==-1||ele.equals(""))
+            return ele.trim();
+        double rem;
+        double px;
+        px = Double.valueOf(ele.substring(0, ele.indexOf("px")).trim());
+        rem = px / ConstValue.remBaseValue;
+        return String.format("%.2f", rem).trim() + "rem";
     }
 }
