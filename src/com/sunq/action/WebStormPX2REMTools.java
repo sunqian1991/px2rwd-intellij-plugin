@@ -69,17 +69,17 @@ public class WebStormPX2REMTools extends AnAction {
                             return ele.substring(0, colonIndex+1) + results;
                         }
                         return ele;
-                    }).toArray(),";") + ";";
+                    }).toArray(),";");
                     WriteCommandAction.runWriteCommandAction(project, () ->
-                            document.replaceString(lineStartOffset, lineEndOffset, cssLine)
+                            document.replaceString(lineStartOffset, lineEndOffset, cssLine + (cssLine.endsWith(";") ? "" : ";"))
                     );
                 }
                 else if(semiCount == 1){
                     String formatText = lineContent.substring(formatStart);
-                    String results = StringUtils.join(Arrays.stream(formatText.split(" ")).map((ele)->(getFormatText(ele))).toArray(), " ") + ";";
+                    String results = StringUtils.join(Arrays.stream(formatText.split(" ")).map((ele)->(getFormatText(ele))).toArray(), " ");
 
                     WriteCommandAction.runWriteCommandAction(project, () ->
-                            document.replaceString(lineStartOffset+formatStart, lineEndOffset, results)
+                            document.replaceString(lineStartOffset+formatStart, lineEndOffset, results + (results.endsWith(";") ? "" : ";"))
                     );
                 }
             } catch (Exception ex){
