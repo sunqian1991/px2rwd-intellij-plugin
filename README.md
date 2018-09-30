@@ -6,11 +6,15 @@ webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm�
 
 本项目参考了 https://github.com/yclnycl/ideapx2rem 中的代码，在他的基础上加入的比值的设置，并修改了部分错误
 
+目前是自动转换光标所在行内的正确书写的样式，或者转换光标选择的px样式，如果有更好的使用方式建议，欢迎提出，共同学习。
+
 #### 当前版本
 
-V1.1.0
+V1.1.1
 
 #### 更新日志
+
+v1.1.1:修复了当前行内包含多条样式时无法转换的问题，将设置窗口移动到file-other settings下
 
 v1.1.0:在原有的基础上添加了自动转换当前光标所在行中可以转换的值，将设置比值的窗口更改到tools菜单下，其中，需要注意行内不能包含多条样式；
 
@@ -31,8 +35,10 @@ Project SDK选择IntelliJ IDEA IU-*****,调试没有错误后，即可生成jar�
 #### 使用说明
 
 1. file-settings-plugins-install plugin from disk-选择生成的jar文件-restart webstorm
-2. window-SetPX2REM设置计算的比值-选中代码段，如'100px'-后，点击shift+f
+2. file-Other Settings-PX2REM设置计算的比例值-选中代码段或光标移动到需要转换的行，如'100px'-后，点击shift+f
 3. 设置界面和快捷键设置可以在插件中自定义
+
+![image][opt_gif]
 
 #### 参与贡献
 
@@ -40,3 +46,9 @@ Project SDK选择IntelliJ IDEA IU-*****,调试没有错误后，即可生成jar�
 2. 新建 Feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request
+
+本项目遵循MIT开源协议，代码当然可以被任意使用，同时也希望可以多多提交使用BUG和优化建议，如果能够pull request，那就太棒了！
+
+
+
+[opt_gif]:https://github.com/sunqian1991/WebStorm-PX2REM/raw/dev/resources/option.gif
