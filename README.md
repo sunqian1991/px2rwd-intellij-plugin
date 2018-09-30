@@ -51,4 +51,4 @@ Project SDK选择IntelliJ IDEA IU-*****,调试没有错误后，即可生成jar�
 
 
 
-[opt_gif]:https://github.com/sunqian1991/WebStorm-PX2REM/tree/dev/resources/option.gif
+[opt_gif]:https://github.com/sunqian1991/WebStorm-PX2REM/raw/dev/resources/option.gif
