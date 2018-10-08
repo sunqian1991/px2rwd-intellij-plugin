@@ -2,6 +2,8 @@ package com.sunq.action;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.project.Project;
 
 import java.awt.*;
 
@@ -12,9 +14,12 @@ import java.awt.*;
  */
 public class SetPX2REM extends AnAction {
 
+    private Project project;
+
     @Override
     public void actionPerformed(AnActionEvent e) {
-        SetPX2REMTools dialog = new SetPX2REMTools();
+        project = e.getRequiredData(CommonDataKeys.PROJECT);
+        SetPX2REMTools dialog = new SetPX2REMTools(project);
         dialog.pack();
         dialog.setSize(300,150);
         int windowWidth = dialog.getWidth(); //获得窗口宽

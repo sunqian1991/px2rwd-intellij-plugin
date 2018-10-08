@@ -22,8 +22,14 @@ import java.util.Arrays;
  */
 public class WebStormPX2REMTools extends AnAction {
 
+    private ConstValue constValue;
+    private Project project;
+
     @Override
     public void actionPerformed(AnActionEvent e) {
+        project = e.getRequiredData(CommonDataKeys.PROJECT);
+        constValue = ConstValue.getInstance(project);
+
         final Editor editor = e.getRequiredData(CommonDataKeys.EDITOR);
         final Project project = e.getRequiredData(CommonDataKeys.PROJECT);
         final Document document = editor.getDocument();
@@ -95,7 +101,7 @@ public class WebStormPX2REMTools extends AnAction {
             return;
         }else{
             px = Double.valueOf(s.substring(0, index));
-            rem = px / ConstValue.remBaseValue;
+            rem = px / constValue.getRemBaseValue();
             WriteCommandAction.runWriteCommandAction(project, () ->
                     document.replaceString(start, end, String.format("%.2f", rem) + "rem" + (s.endsWith(";")?";":""))
             );
@@ -109,7 +115,7 @@ public class WebStormPX2REMTools extends AnAction {
         double rem;
         double px;
         px = Double.valueOf(ele.substring(0, ele.indexOf("px")).trim());
-        rem = px / ConstValue.remBaseValue;
+        rem = px / constValue.getRemBaseValue();
         return String.format("%.2f", rem).trim() + "rem";
     }
 }

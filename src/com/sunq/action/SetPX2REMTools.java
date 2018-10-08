@@ -1,5 +1,6 @@
 package com.sunq.action;
 
+import com.intellij.openapi.project.Project;
 import com.sunq.constvalue.ConstValue;
 
 import javax.swing.*;
@@ -11,14 +12,16 @@ public class SetPX2REMTools extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField base_value;
+    private ConstValue constValue;
 
-    public SetPX2REMTools() {
+    public SetPX2REMTools(Project project) {
+        constValue = ConstValue.getInstance(project);
         setTitle("设置比值");
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
-        base_value.setText(ConstValue.remBaseValue+"");
+        base_value.setText(constValue.getRemBaseValue()+"");
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -52,7 +55,7 @@ public class SetPX2REMTools extends JDialog {
         // add your code here
         String value = base_value.getText();
         try{
-            ConstValue.remBaseValue=Double.parseDouble(value);
+            constValue.setRemBaseValue(Double.parseDouble(value)+"");
         }
         catch (Exception e){
 
@@ -66,7 +69,7 @@ public class SetPX2REMTools extends JDialog {
     }
 
     public static void main(String[] args) {
-        SetPX2REMTools dialog = new SetPX2REMTools();
+        /*SetPX2REMTools dialog = new SetPX2REMTools();
         dialog.pack();
         dialog.setSize(300,150);
         int windowWidth = dialog.getWidth(); //获得窗口宽
@@ -76,6 +79,6 @@ public class SetPX2REMTools extends JDialog {
         int screenHeight = kit.getScreenSize().height; //获取屏幕的高
         dialog.setLocation(screenWidth/2 - windowWidth/2, screenHeight/2 - windowHeight/2);//设置窗口居中显示
         dialog.setVisible(true);
-        System.exit(0);
+        System.exit(0);*/
     }
 }

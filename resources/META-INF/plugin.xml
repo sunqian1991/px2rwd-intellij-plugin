@@ -1,15 +1,12 @@
 <idea-plugin>
   <id>com.sunq.action.WebStormPX2REMTools</id>
   <name>px2remForWebStorm</name>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/WebStorm-PX2REM">sunqian</vendor>
-  <description>webstorm中px自动转rem工具</description>
+  <description>a tool which can convert px to rem in webstorm</description>
 
   <change-notes>
-    v1.1.1:修复了当前行内包含多条样式时无法转换的问题，将设置窗口移动到file-other settings下
-    v1.1.0:在原有的基础上添加了自动转换当前光标所在行中可以转换的值，将设置比值的窗口更改到tools菜单下；
-    &#x000D;
-    v1.0.0:初始编写，webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm中设置转化的比值(window-SetPX2REM),选中后通过快捷键shift+f来转化，如比值为100，选中"100px"后，点击shift+f，自动转化为1.00rem
+    you can find notes at https://github.com/sunqian1991/WebStorm-PX2REM
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
@@ -24,6 +21,10 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
+    <applicationService
+            serviceImplementation="com.sunq.constvalue.ConstValue"
+            serviceInterface="com.sunq.constvalue.ConstValue"
+    />
   </extensions>
 
   <actions>
