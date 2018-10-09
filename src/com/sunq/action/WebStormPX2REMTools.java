@@ -57,7 +57,6 @@ public class WebStormPX2REMTools extends AnAction {
                 return;
             try{
                 int semiCount = StringUtils.countMatches(lineContent,";");
-                System.out.println("semicount:"+semiCount);
                 if(semiCount > 1){
                     //去除最后的  ;
                     String formatText = lineContent;
