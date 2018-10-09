@@ -40,22 +40,23 @@ public class WebStormPX2REMTools extends AnAction {
         //获取idea选中区域数字
         String s = selectionModel.getSelectedText();
 
-        if(s==null||s.equals("")){
-            CaretModel caretModel = editor.getCaretModel();
-            int caretOffset = caretModel.getOffset();
-            int lineNum = document.getLineNumber(caretOffset);
-            int lineStartOffset = document.getLineStartOffset(lineNum);
-            int lineEndOffset = document.getLineEndOffset(lineNum);
-            String lineContent = document.getText(new TextRange(lineStartOffset, lineEndOffset));
-            //如果行内的样式不是以 ; 结束，则在末尾加上;
-            if(!lineContent.endsWith(";"))
-                lineContent = lineContent + ";";
+        try{
+            if(s==null||s.equals("")){
+                CaretModel caretModel = editor.getCaretModel();
+                int caretOffset = caretModel.getOffset();
+                int lineNum = document.getLineNumber(caretOffset);
+                int lineStartOffset = document.getLineStartOffset(lineNum);
+                int lineEndOffset = document.getLineEndOffset(lineNum);
+                String lineContent = document.getText(new TextRange(lineStartOffset, lineEndOffset));
+                //如果行内的样式不是以 ; 结束，则在末尾加上;
+                if(!lineContent.endsWith(";"))
+                    lineContent = lineContent + ";";
 
-            int formatStart = lineContent.indexOf(":")+1;
-            //如果行内的内容中不包含 : 或 px，则返回
-            if(formatStart==0||lineContent.indexOf("px")==-1)
-                return;
-            try{
+                int formatStart = lineContent.indexOf(":")+1;
+                //如果行内的内容中不包含 : 或 px，则返回
+                if(formatStart==0||lineContent.indexOf("px")==-1)
+                    return;
+
                 int semiCount = StringUtils.countMatches(lineContent,";");
                 if(semiCount > 1){
                     //去除最后的  ;
@@ -87,23 +88,23 @@ public class WebStormPX2REMTools extends AnAction {
                             document.replaceString(lineStartOffset+formatStart, lineEndOffset, results + (results.endsWith(";") ? "" : ";"))
                     );
                 }
-            } catch (Exception ex){
                 return;
             }
-            return;
-        }
 
-        int index = s.indexOf("px");
-        double rem;
-        double px;
-        if(index == -1){
-            return;
-        }else{
-            px = Double.valueOf(s.substring(0, index));
-            rem = px / constValue.getRemBaseValue();
-            WriteCommandAction.runWriteCommandAction(project, () ->
-                    document.replaceString(start, end, String.format("%.2f", rem) + "rem" + (s.endsWith(";")?";":""))
-            );
+            int index = s.indexOf("px");
+            double rem;
+            double px;
+            if(index == -1){
+                return;
+            }else{
+                px = Double.valueOf(s.substring(0, index));
+                rem = px / constValue.getRemBaseValue();
+                WriteCommandAction.runWriteCommandAction(project, () ->
+                        document.replaceString(start, end, String.format("%.2f", rem) + "rem" + (s.endsWith(";")?";":""))
+                );
+                return;
+            }
+        } catch (Exception ex){
             return;
         }
     }
