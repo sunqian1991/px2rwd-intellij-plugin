@@ -1,12 +1,12 @@
 <idea-plugin>
   <id>com.sunq.action.WebStormPX2REMTools</id>
   <name>px2remForWebStorm</name>
-  <version>1.1.2</version>
+  <version>1.1.3</version>
   <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/WebStorm-PX2REM">sunqian</vendor>
   <description>a tool which can convert px to rem in webstorm</description>
 
   <change-notes>
-    you can find notes at https://github.com/sunqian1991/WebStorm-PX2REM
+    you can use shortcut key 'shift f' to convert px to rem from a line or a selected text in webstorm. find more notes at https://github.com/sunqian1991/WebStorm-PX2REM.
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
