@@ -39,8 +39,8 @@ Project SDK选择IntelliJ IDEA IU-*****,调试没有错误后，即可生成jar�
 
 #### 使用说明
 
-1. File-Settings-plugins-install plugin from disk-选择生成的jar文件-restart webstorm
-2. File-Other Settings-PX2REM设置计算的比例值-选中代码段或光标移动到需要转换的行，如'100px'-后，点击shift+f
+1. File - Settings - plugins-Browse repositories... - 搜索 'px2remforwebstorm' - Install (也可以通过 File-Settings-plugins-install plugin from disk-选择生成的jar文件-restart webstorm 在本地安装)
+2. File-Other Settings-PX2REM设置计算的比例值-选中代码段或光标移动到需要转换的行，点击shift+f
 3. 设置界面和快捷键设置可以在插件中自定义
 
 ![image][opt_gif]
