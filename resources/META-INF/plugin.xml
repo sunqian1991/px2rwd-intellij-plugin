@@ -11,7 +11,7 @@
     Instructions:
     1.find menu at 'File - Other Settings - PX2REM', set a proportion.
     2.select a text which contains a 'px' value or move cursor at a line.
-    3.use shortcut key 'shift f' to convert px to rem.
+    3.use shortcut key 'shift f' to convert px to rem; btw, you can reset the shortcut at 'File - Settings - keymap - Plug-ins - px2remForWebStorm'.
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
