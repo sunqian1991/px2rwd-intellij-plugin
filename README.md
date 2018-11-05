@@ -35,6 +35,8 @@ QQ:991637393
 
 email:sunqian1991@gmail.com
 
+**如果觉得还不算坏，请点个赞吧2333**
+
 #### 安装教程
 
 Project SDK选择IntelliJ IDEA IU-*****,调试没有错误后，即可生成jar文件，在webstorm中使用
