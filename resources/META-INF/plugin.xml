@@ -1,18 +1,43 @@
-<idea-plugin>
+<idea-plugin url="https://plugins.jetbrains.com/plugin/11187-px2remforwebstorm">
   <id>com.sunq.action.WebStormPX2REMTools</id>
   <name>px2remForWebStorm</name>
-  <version>1.1.4</version>
+  <version>2.0.0</version>
   <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/WebStorm-PX2REM">sunqian</vendor>
   <description>a tool which can convert px to rem in webstorm</description>
 
-  <change-notes>
-    you can use shortcut key 'shift f' to convert px to rem from a line or a selected text in webstorm. you can also set a proportion at the menu of 'File - Other Settings - PX2REM', which will be used when
-    calculate the rem value. you can find more notes at https://github.com/sunqian1991/WebStorm-PX2REM.
-    Instructions:
-    1.find menu at 'File - Other Settings - PX2REM', set a proportion.
-    2.select a text which contains a 'px' value or move cursor at a line.
-    3.use default shortcut key 'shift f' to convert px to rem; btw, you can reset the shortcut at 'File - Settings - keymap - Plug-ins - px2remForWebStorm'.
-  </change-notes>
+  <change-notes><![CDATA[
+    <p>you can use shortcut key <span style="color:#117ebf;font-weight: bold;">'shift d'</span> to convert px to rem from a line or a selected text in webstorm. you can also set a proportion at the menu of 'File - Other Settings - PX2REM', which will be used when
+    calculate the rem value. you can find more notes at <a style="text-decoration:none;" href="https://github.com/sunqian1991/WebStorm-PX2REM">github</a>.</p>
+    <br />
+    <p style="color:#18b525;font-weight: bold;">In the edition of V2.0.0, we can use shortcut key <span style="color:#117ebf;font-weight: bold;">'ctrl shift d'</span> to convert px to rem from a entire file.</p>
+    <br />
+    <p style="color:#e28b3f;font-weight: bold;">if you like this, please give me a star at <a style="text-decoration:none;" href="https://github.com/sunqian1991/WebStorm-PX2REM">github</a>. it's very important for me.</p>
+    <br />
+    <p>Instructions:</p>
+    <p>1. find menu at 'File - Other Settings - PX2REM', set a proportion.</p>
+    <p>2. select a text which contains a 'px' value or move cursor at a line.</p>
+    <p>3. use default shortcut key <span style="color:#117ebf;font-weight: bold;">'shift d'</span> to convert px to rem with a line; btw, you can reset the shortcut at 'File - Settings - keymap - Plug-ins - px2remForWebStorm'.</p>
+    <p>4. use default shortcut key <span style="color:#117ebf;font-weight: bold;">'ctrl shift d'</span> to convert px to rem with a file.</p>
+    <br />
+    <br />
+    <p>webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm中设置转化的比例值(File-Other Settings-PX2REM)。</p>
+    <br />
+    <p>目前是自动转换光标所在行内的正确书写的样式，或者转换光标选择的px样式。</p>
+    <br />
+    <p style="color:#18b525;font-weight: bold;">在最新的版本中，提供了通过快捷键<span style="color:#117ebf;font-weight: bold;">'ctrl shift d'</span>转换整个文件的功能</p>
+    <br />
+    <p>如果有更好的使用方式建议，欢迎<a style="text-decoration:none;" href="https://github.com/sunqian1991/WebStorm-PX2REM/issues/new">提出</a>，共同学习。</p>
+    <br />
+    <p>如果在使用时发现有问题或BUG，还希望可以在我的<a style="text-decoration:none;" href="https://github.com/sunqian1991/WebStorm-PX2REM">github</a>中提<a style="text-decoration:none;" href="https://github.com/sunqian1991/WebStorm-PX2REM/issues/new">issue</a></p>
+    <br />
+    <p style="color:#e28b3f;font-weight: bold;">如果觉得这个插件还不错，希望可以在<a style="text-decoration:none;" href="https://github.com/sunqian1991/WebStorm-PX2REM">github</a>上给我点个赞，非常感激。</p>
+    <br />
+    <p>使用说明：</p>
+    <p>1. File - Settings - plugins - Browse repositories... - 搜索 'px2remforwebstorm' - Install (也可以通过 File-Settings-plugins-install plugin from disk-选择生成的jar文件-restart webstorm 在本地安装)</p>
+    <p>2. File-Other Settings-PX2REM设置计算的比例值-选中代码段或光标移动到需要转换的行，点击<span style="color:#117ebf;font-weight: bold;">shift+d</span></p>
+    <p>3. 设置界面和快捷键设置可以在插件中自定义</p>
+    <p>4. 也可以使用快捷键<span style="color:#117ebf;font-weight: bold;">'ctrl shift d'</span>来转换整个文件中需要转换的单位</p>
+  ]]></change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
   <idea-version since-build="131.0"/>
@@ -36,7 +61,11 @@
     <!-- Add your actions here -->
     <action id="WebStormPX2REMToolsID" class="com.sunq.action.WebStormPX2REMTools" text="WebStormPX2REMTools"
             description="WebStormPX2REMTools">
-      <keyboard-shortcut keymap="$default" first-keystroke="shift f"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="shift d"/>
+    </action>
+    <action id="PX2REMWithFileID" class="com.sunq.action.PX2REMWithFile" text="PX2REMWithFile"
+            description="PX2REMWithFile">
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift d"/>
     </action>
     <action id="SetPX2REMID" class="com.sunq.action.SetPX2REM" text="PX2REM" description="SetPX2REM">
       <add-to-group group-id="FileSettingsGroup" anchor="last" />

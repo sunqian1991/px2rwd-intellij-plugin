@@ -11,9 +11,7 @@ import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.sunq.constvalue.ConstValue;
-import org.apache.commons.lang.StringUtils;
-
-import java.util.Arrays;
+import com.sunq.utils.FormatTools;
 
 /**
  * Author:sunqian
@@ -24,11 +22,13 @@ public class WebStormPX2REMTools extends AnAction {
 
     private ConstValue constValue;
     private Project project;
+    private FormatTools formatTools;
 
     @Override
     public void actionPerformed(AnActionEvent e) {
         project = e.getRequiredData(CommonDataKeys.PROJECT);
         constValue = ConstValue.getInstance(project);
+        formatTools = new FormatTools(constValue);
 
         final Editor editor = e.getRequiredData(CommonDataKeys.EDITOR);
         final Project project = e.getRequiredData(CommonDataKeys.PROJECT);
@@ -37,7 +37,6 @@ public class WebStormPX2REMTools extends AnAction {
 
         final int start = selectionModel.getSelectionStart();
         final int end = selectionModel.getSelectionEnd();
-        //获取idea选中区域数字
         String s = selectionModel.getSelectedText();
 
         try{
@@ -48,46 +47,13 @@ public class WebStormPX2REMTools extends AnAction {
                 int lineStartOffset = document.getLineStartOffset(lineNum);
                 int lineEndOffset = document.getLineEndOffset(lineNum);
                 String lineContent = document.getText(new TextRange(lineStartOffset, lineEndOffset));
-                //如果行内的样式不是以 ; 结束，则在末尾加上;
-                if(!lineContent.endsWith(";"))
-                    lineContent = lineContent + ";";
 
-                int formatStart = lineContent.indexOf(":")+1;
-                //如果行内的内容中不包含 : 或 px，则返回
-                if(formatStart==0||lineContent.indexOf("px")==-1)
-                    return;
-
-                int semiCount = StringUtils.countMatches(lineContent,";");
-                if(semiCount > 1){
-                    //去除最后的  ;
-                    String formatText = lineContent;
-
-                    if(lineContent.endsWith(";"))
-                        formatText = lineContent + ";";
-
-                    //这里是判断  :  的个数与样式的个数是否一样
-                    if(formatText.split(";").length != StringUtils.countMatches(formatText,":"))
-                        return;
-                    String cssLine = StringUtils.join(Arrays.stream(formatText.split(";")).map((ele)->{
-                        int colonIndex= ele.indexOf(":");
-                        if(colonIndex > -1 && ele.indexOf("px") > -1){
-                            String results = StringUtils.join(Arrays.stream(ele.substring(colonIndex+1).split(" ")).map((el)->(getFormatText(el))).toArray(), " ");
-                            return ele.substring(0, colonIndex+1) + results;
-                        }
-                        return ele;
-                    }).toArray(),";");
+                if(lineContent.toLowerCase().indexOf("px") > -1) {
                     WriteCommandAction.runWriteCommandAction(project, () ->
-                            document.replaceString(lineStartOffset, lineEndOffset, cssLine + (cssLine.endsWith(";") ? "" : ";"))
+                            document.replaceString(lineStartOffset, lineEndOffset, formatTools.getFormatLine(lineContent))
                     );
                 }
-                else if(semiCount == 1){
-                    String formatText = lineContent.substring(formatStart);
-                    String results = StringUtils.join(Arrays.stream(formatText.split(" ")).map((ele)->(getFormatText(ele))).toArray(), " ");
 
-                    WriteCommandAction.runWriteCommandAction(project, () ->
-                            document.replaceString(lineStartOffset+formatStart, lineEndOffset, results + (results.endsWith(";") ? "" : ";"))
-                    );
-                }
                 return;
             }
 
@@ -107,15 +73,5 @@ public class WebStormPX2REMTools extends AnAction {
         } catch (Exception ex){
             return;
         }
-    }
-
-    private String getFormatText(String ele){
-        if(ele==null||ele.indexOf("px")==-1||ele.equals(""))
-            return ele.trim();
-        double rem;
-        double px;
-        px = Double.valueOf(ele.substring(0, ele.indexOf("px")).trim());
-        rem = px / constValue.getRemBaseValue();
-        return String.format("%.2f", rem).trim() + "rem";
     }
 }
