@@ -11,6 +11,7 @@ import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.sunq.constvalue.ConstValue;
+import com.sunq.utils.FormatAccuracy;
 import com.sunq.utils.FormatTools;
 
 /**
@@ -23,12 +24,14 @@ public class WebStormPX2REMTools extends AnAction {
     private ConstValue constValue;
     private Project project;
     private FormatTools formatTools;
+    private FormatAccuracy formatAccuracy;
 
     @Override
     public void actionPerformed(AnActionEvent e) {
         project = e.getRequiredData(CommonDataKeys.PROJECT);
         constValue = ConstValue.getInstance(project);
         formatTools = new FormatTools(constValue);
+        formatAccuracy = new FormatAccuracy();
 
         final Editor editor = e.getRequiredData(CommonDataKeys.EDITOR);
         final Project project = e.getRequiredData(CommonDataKeys.PROJECT);
@@ -66,7 +69,7 @@ public class WebStormPX2REMTools extends AnAction {
                 px = Double.valueOf(s.substring(0, index));
                 rem = px / constValue.getRemBaseValue();
                 WriteCommandAction.runWriteCommandAction(project, () ->
-                        document.replaceString(start, end, String.format("%.2f", rem) + "rem" + (s.endsWith(";")?";":""))
+                        document.replaceString(start, end, String.format(formatAccuracy.getAccuracy(constValue.getRemBaseValue()+""), rem).replaceAll("0*$","").replaceAll("\\.$","") + "rem" + (s.endsWith(";")?";":""))
                 );
                 return;
             }
