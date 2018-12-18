@@ -15,9 +15,11 @@ import java.util.regex.Pattern;
 public class FormatTools {
 
     private ConstValue constValue;
+    private FormatAccuracy formatAccuracy;
 
     public FormatTools(ConstValue constValue){
         this.constValue = constValue;
+        formatAccuracy = new FormatAccuracy();
     }
 
     public String getFormatText(String ele){
@@ -28,7 +30,7 @@ public class FormatTools {
         px = Double.valueOf(ele.substring(0, ele.indexOf("px")).trim());
         rem = px / this.constValue.getRemBaseValue();
 //        rem = px / 100;
-        return String.format("%.2f", rem).trim() + "rem";
+        return String.format(formatAccuracy.getAccuracy(constValue.getRemBaseValue()+""), rem).replaceAll("0*$","").replaceAll("\\.$","").trim() + "rem";
     }
 
     public String getFormatLine(String content){

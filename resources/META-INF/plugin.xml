@@ -1,7 +1,7 @@
 <idea-plugin url="https://plugins.jetbrains.com/plugin/11187-px2remforwebstorm">
   <id>com.sunq.action.WebStormPX2REMTools</id>
   <name>px2remForWebStorm</name>
-  <version>2.0.0</version>
+  <version>2.0.1</version>
   <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/WebStorm-PX2REM">sunqian</vendor>
   <description>a tool which can convert px to rem in webstorm</description>
 

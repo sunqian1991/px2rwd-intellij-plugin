@@ -55,12 +55,15 @@ public class SetPX2REMTools extends JDialog {
         // add your code here
         String value = base_value.getText();
         try{
-            constValue.setRemBaseValue(Double.parseDouble(value)+"");
+            double rem = Double.parseDouble(value);
+            if(rem > 0){
+                constValue.setRemBaseValue(rem+"");
+                dispose();
+            }
         }
         catch (Exception e){
 
         }
-        dispose();
     }
 
     private void onCancel() {
