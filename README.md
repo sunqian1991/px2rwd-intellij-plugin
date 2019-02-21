@@ -1,5 +1,10 @@
 ## WebStorm-PX2REM----px转rem插件
 
+[![](https://img.shields.io/badge/license-MIT-000000.svg)](https://github.com/sunqian1991/WebStorm-PX2REM/blob/master/LICENSE)
+[![codebeat badge](https://codebeat.co/badges/9df154c4-38b7-42b9-820e-ebfd2c60c416)](https://codebeat.co/projects/github-com-sunqian1991-webstorm-px2rem-master)
+[![](https://img.shields.io/jetbrains/plugin/v/11187.svg)](https://plugins.jetbrains.com/plugin/11187-px2rem)
+[![](https://img.shields.io/jetbrains/plugin/d/11187.svg)](https://plugins.jetbrains.com/plugin/11187-px2rem)
+
 #### 项目介绍
 
 webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm中设置转化的比例值(File-Other Settings-PX2REM)
