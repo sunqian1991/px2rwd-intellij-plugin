@@ -15,10 +15,22 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
 
     public String remBaseValue;
 
+    public Boolean showCalculationProcess;
+
+    public Boolean getShowCalculationProcess() {
+        return showCalculationProcess == null ? false : showCalculationProcess;
+    }
+
+    public void setShowCalculationProcess(Boolean showCalculationProcess) {
+        this.showCalculationProcess = showCalculationProcess;
+    }
+
+    @Override
     public ConstValue getState() {
         return this;
     }
 
+    @Override
     public void loadState(ConstValue state) {
         XmlSerializerUtil.copyBean(state, this);
     }

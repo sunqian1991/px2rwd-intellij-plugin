@@ -1,7 +1,7 @@
 <idea-plugin url="https://plugins.jetbrains.com/plugin/11187-px2remforwebstorm">
   <id>com.sunq.action.WebStormPX2REMTools</id>
-  <name>px2remForWebStorm</name>
-  <version>2.0.1</version>
+  <name>px2rem</name>
+  <version>2.0.2</version>
   <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/WebStorm-PX2REM">sunqian</vendor>
   <description>a tool which can convert px to rem in webstorm</description>
 
@@ -14,9 +14,9 @@
     <p style="color:#e28b3f;font-weight: bold;">if you like this, please give me a star at <a style="text-decoration:none;" href="https://github.com/sunqian1991/WebStorm-PX2REM">github</a>. it's very important for me.</p>
     <br />
     <p>Instructions:</p>
-    <p>1. find menu at 'File - Other Settings - PX2REM', set a proportion.</p>
+    <p>1. find menu at 'File - Other Settings - PX2REM', set a proportion and select whether to show calculation process in comment block.</p>
     <p>2. select a text which contains a 'px' value or move cursor at a line.</p>
-    <p>3. use default shortcut key <span style="color:#117ebf;font-weight: bold;">'shift d'</span> to convert px to rem with a line; btw, you can reset the shortcut at 'File - Settings - keymap - Plug-ins - px2remForWebStorm'.</p>
+    <p>3. use default shortcut key <span style="color:#117ebf;font-weight: bold;">'shift d'</span> to convert px to rem with a line; btw, you can reset the shortcut at 'File - Settings - keymap - Plug-ins - px2rem'.</p>
     <p>4. use default shortcut key <span style="color:#117ebf;font-weight: bold;">'ctrl shift d'</span> to convert px to rem with a file.</p>
     <br />
     <br />
@@ -33,10 +33,11 @@
     <p style="color:#e28b3f;font-weight: bold;">如果觉得这个插件还不错，希望可以在<a style="text-decoration:none;" href="https://github.com/sunqian1991/WebStorm-PX2REM">github</a>上给我点个赞，非常感激。</p>
     <br />
     <p>使用说明：</p>
-    <p>1. File - Settings - plugins - Browse repositories... - 搜索 'px2remforwebstorm' - Install (也可以通过 File-Settings-plugins-install plugin from disk-选择生成的jar文件-restart webstorm 在本地安装)</p>
+    <p>1. File - Settings - plugins - Browse repositories... - 搜索 'px2rem' - Install (也可以通过 File-Settings-plugins-install plugin from disk-选择生成的jar文件-restart webstorm 在本地安装)</p>
     <p>2. File-Other Settings-PX2REM设置计算的比例值-选中代码段或光标移动到需要转换的行，点击<span style="color:#117ebf;font-weight: bold;">shift+d</span></p>
     <p>3. 设置界面和快捷键设置可以在插件中自定义</p>
     <p>4. 也可以使用快捷键<span style="color:#117ebf;font-weight: bold;">'ctrl shift d'</span>来转换整个文件中需要转换的单位</p>
+    <p>5. 在File-Other Settings-PX2REM选择勾选框可开启在注释中显示样式转换时的计算过程</p>
   ]]></change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->

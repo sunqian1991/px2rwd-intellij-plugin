@@ -21,7 +21,7 @@ public class SetPX2REM extends AnAction {
         project = e.getRequiredData(CommonDataKeys.PROJECT);
         SetPX2REMTools dialog = new SetPX2REMTools(project);
         dialog.pack();
-        dialog.setSize(300,150);
+        dialog.setSize(320,150);
         int windowWidth = dialog.getWidth(); //获得窗口宽
         int windowHeight = dialog.getHeight(); //获得窗口高
         Toolkit kit = Toolkit.getDefaultToolkit(); //定义工具包

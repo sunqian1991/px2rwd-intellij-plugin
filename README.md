@@ -11,9 +11,11 @@ webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm�
 
 #### 当前版本
 
-V2.0.1
+V2.0.2
 
 #### 更新日志
+
+v2.0.2:在注释中添加了计算的过程；修改了保留小数位数的设置，在可以被整除的情况下，不改变精度
 
 v2.0.1:添加了转换时精度与设置的比例相对应
 
@@ -47,10 +49,28 @@ Project SDK选择IntelliJ IDEA IU-*****,调试没有错误后，即可生成jar�
 
 #### 使用说明
 
-1. File - Settings - plugins - Browse repositories... - 搜索 'px2remforwebstorm' - Install (也可以通过 File-Settings-plugins-install plugin from disk-选择生成的jar文件-restart webstorm 在本地安装).
+1. File - Settings - plugins - Browse repositories... - 搜索 'px2rem' - Install (也可以通过 File-Settings-plugins-install plugin from disk-选择生成的jar文件-restart webstorm 在本地安装).
 2. File-Other Settings-PX2REM设置计算的比例值-选中代码段或光标移动到需要转换的行，点击shift+d.
 3. 设置界面和快捷键设置可以在插件中自定义.
 4. v2.0.0版本中加入了一键转换整个文件的功能，通过使用快捷键'ctrl shift d'来转换.
+5. v2.0.2版本中加入了选择在注释中生成转换样式时的计算过程，在File-Other Settings-PX2REM选择勾选框可开启
+
+#### 注意事项
+在使用插件转换时，**请避免在样式名称中使用值和`px`的组合**，如：
+```css
+.test200px{
+    ...
+}
+```
+此时`test200px`也会被自动转换，可能会造成极大风险
+
+当启用在注释中显示计算过程的功能时，插件会在每次转换的样式的后面添加注释，在一些情况下会极大影响样式的可读性，请谨慎开启！！如：
+```css
+.test{
+    box-shadow: 0.1rem    /* 10 / 100 */ 0.1rem    /* 10 / 100 */ 0.1rem    /* 10 / 100 */ #000;
+    width:calc(100% - 0.2rem    /* 20 / 100 */);
+}
+```
 
 ![image][opt_gif]
 
