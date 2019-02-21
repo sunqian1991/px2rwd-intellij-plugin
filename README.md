@@ -1,7 +1,7 @@
 ## WebStorm-PX2REM----px转rem插件
 
+[![codebeat badge](https://codebeat.co/badges/290c72c6-f4e8-4f45-81e0-b98c612805b6)](https://codebeat.co/projects/github-com-sunqian1991-webstorm-px2rem-master)
 [![](https://img.shields.io/badge/license-MIT-000000.svg)](https://github.com/sunqian1991/WebStorm-PX2REM/blob/master/LICENSE)
-[![codebeat badge](https://codebeat.co/badges/9df154c4-38b7-42b9-820e-ebfd2c60c416)](https://codebeat.co/projects/github-com-sunqian1991-webstorm-px2rem-master)
 [![](https://img.shields.io/jetbrains/plugin/v/11187.svg)](https://plugins.jetbrains.com/plugin/11187-px2rem)
 [![](https://img.shields.io/jetbrains/plugin/d/11187.svg)](https://plugins.jetbrains.com/plugin/11187-px2rem)
 
