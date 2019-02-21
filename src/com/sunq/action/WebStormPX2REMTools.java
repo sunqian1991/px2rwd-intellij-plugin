@@ -68,8 +68,11 @@ public class WebStormPX2REMTools extends AnAction {
             }else{
                 px = Double.valueOf(s.substring(0, index));
                 rem = px / constValue.getRemBaseValue();
+
+                boolean ifDivide = formatTools.check(px, this.constValue.getRemBaseValue());
+
                 WriteCommandAction.runWriteCommandAction(project, () ->
-                        document.replaceString(start, end, String.format(formatAccuracy.getAccuracy(constValue.getRemBaseValue()+""), rem).replaceAll("0*$","").replaceAll("\\.$","") + "rem" + (s.endsWith(";")?";":""))
+                        document.replaceString(start, end, ifDivide ? (rem+"").replaceAll("0*$","").replaceAll("\\.$","")+"rem"+formatTools.showComment(px, this.constValue.getRemBaseValue()) : String.format(formatAccuracy.getAccuracy(constValue.getRemBaseValue()+""), rem).replaceAll("0*$","").replaceAll("\\.$","") + "rem" + formatTools.showComment(px, this.constValue.getRemBaseValue()))
                 );
                 return;
             }
