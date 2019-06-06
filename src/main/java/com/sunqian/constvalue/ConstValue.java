@@ -6,26 +6,27 @@ import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
+import lombok.Setter;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 /**
- * Author:sunqian
- * Date:2018/8/8 12:19
- * Description:
+ * @author sunqian
+ * @date 2018/8/8 12:19
  */
 @State(name = "px2remForWebStorm",storages = {@Storage("px2remforwebstorm.xml")})
 public class ConstValue implements PersistentStateComponent<ConstValue> {
 
-    public String remBaseValue;
+    @Setter
+    private String remBaseValue;
 
-    public Boolean showCalculationProcess;
+    @Setter
+    private Boolean showCalculationProcess;
 
     public Boolean getShowCalculationProcess() {
-        return showCalculationProcess == null ? false : showCalculationProcess;
-    }
-
-    public void setShowCalculationProcess(Boolean showCalculationProcess) {
-        this.showCalculationProcess = showCalculationProcess;
+        return Optional.ofNullable(showCalculationProcess).orElse(false);
     }
 
     @Override
@@ -39,11 +40,7 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
     }
 
     public double getRemBaseValue() {
-        return Double.parseDouble(remBaseValue == null ? "100.0" : remBaseValue);
-    }
-
-    public void setRemBaseValue(String remBaseValue) {
-        this.remBaseValue = remBaseValue;
+        return NumberUtils.toDouble(Optional.ofNullable(this.remBaseValue).orElse("100.0"));
     }
 
     @Nullable

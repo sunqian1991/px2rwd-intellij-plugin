@@ -8,9 +8,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * 转换工具类
+ *
  * @author sunqian
  * @date 2018/12/8 15:39
- * description 转换工具类
  */
 public class FormatTools {
 
