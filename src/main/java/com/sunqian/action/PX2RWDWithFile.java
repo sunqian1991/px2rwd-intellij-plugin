@@ -20,7 +20,7 @@ import static com.sunqian.constvalue.MagicValue.PX_STYLE_TAG;
  * @date 2019/6/10
  */
 @SuppressWarnings("duplicate")
-public class PX2REMWithFile extends AnAction {
+public class PX2RWDWithFile extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent anActionEvent) {

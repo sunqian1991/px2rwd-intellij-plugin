@@ -64,8 +64,8 @@
                 description="PX2RWDWithLine">
             <keyboard-shortcut keymap="$default" first-keystroke="alt d"/>
         </action>
-        <action id="PX2REMWithFileID" class="com.sunqian.action.PX2REMWithFile" text="PX2REMWithFile"
-                description="PX2REMWithFile">
+        <action id="PX2RWDWithFileID" class="com.sunqian.action.PX2RWDWithFile" text="PX2RWDWithFile"
+                description="PX2RWDWithFile">
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt d"/>
         </action>
         <action id="SetPX2REMID" class="com.sunqian.action.SetPX2REM" text="PX2REM" description="SetPX2REM">
