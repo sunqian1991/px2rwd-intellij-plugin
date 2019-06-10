@@ -12,6 +12,7 @@ import java.util.stream.Stream;
  * @author sunqian
  * @date 2019/6/6
  */
+@SuppressWarnings({"unused"})
 public class CollectionUtils {
 
     private volatile static CollectionUtils collectionUtils;

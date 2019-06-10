@@ -4,48 +4,32 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.SelectionModel;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
-import com.sunqian.constvalue.ConstValue;
+import com.sunqian.model.ActionPerformer;
 import com.sunqian.utils.FormatTools;
 
+import java.util.Optional;
 import java.util.stream.IntStream;
 
+import static com.sunqian.constvalue.MagicValue.PX_STYLE_TAG;
+
 /**
- * Author:sunqian
- * Date:2018/12/8 15:31
- * Description:
+ * PX转响应式布局样式单位----按文件处理
+ *
+ * @author sunqian
+ * @date 2019/6/10
  */
+@SuppressWarnings("duplicate")
 public class PX2REMWithFile extends AnAction {
 
-    private ConstValue constValue;
-    private Project project;
-
-    private FormatTools formatTools;
-
     @Override
-    public void actionPerformed(AnActionEvent e) {
-        project = e.getRequiredData(CommonDataKeys.PROJECT);
-        constValue = ConstValue.getInstance(project);
-        formatTools = new FormatTools(constValue);
-
-        final Editor editor = e.getRequiredData(CommonDataKeys.EDITOR);
-        final Project project = e.getRequiredData(CommonDataKeys.PROJECT);
-        final Document document = editor.getDocument();
-        final SelectionModel selectionModel = editor.getSelectionModel();
-        IntStream.range(0,document.getLineCount()).forEach(lineNum -> {
-            int lineStartOffset = document.getLineStartOffset(lineNum);
-            int lineEndOffset = document.getLineEndOffset(lineNum);
-            String lineContent = document.getText(new TextRange(lineStartOffset, lineEndOffset));
-
-            if(lineContent.toLowerCase().indexOf("px") > -1){
-                WriteCommandAction.runWriteCommandAction(project, () ->
-                        document.replaceString(lineStartOffset, lineEndOffset, formatTools.getFormatLine(lineContent))
-                );
-            }
-        });
+    public void actionPerformed(AnActionEvent anActionEvent) {
+        Optional.of(ActionPerformer.getActionPerformer(anActionEvent.getRequiredData(CommonDataKeys.PROJECT), anActionEvent.getRequiredData(CommonDataKeys.EDITOR))).ifPresent(actionPerformer ->
+                Optional.of(FormatTools.getFormatTools(actionPerformer.getConstValue())).ifPresent(formatTools ->
+                        IntStream.range(0, actionPerformer.getDocument().getLineCount()).forEach(lineNum ->
+                                formatTools.formatLineCode(actionPerformer)
+                        )
+                )
+        );
     }
 }

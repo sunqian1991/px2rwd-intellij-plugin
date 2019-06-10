@@ -1,11 +1,19 @@
 package com.sunqian.utils;
 
+import com.intellij.openapi.command.WriteCommandAction;
+import com.intellij.openapi.util.TextRange;
 import com.sunqian.constvalue.ConstValue;
+import com.sunqian.model.ActionPerformer;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
-import java.math.BigDecimal;
-import java.util.regex.Matcher;
+import java.text.MessageFormat;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Pattern;
+
+import static com.sunqian.constvalue.MagicValue.*;
 
 /**
  * 转换工具类
@@ -13,44 +21,55 @@ import java.util.regex.Pattern;
  * @author sunqian
  * @date 2018/12/8 15:39
  */
+@NoArgsConstructor
 public class FormatTools {
 
+    private volatile static FormatTools formatTools;
+
     private ConstValue constValue;
-    private FormatAccuracy formatAccuracy;
 
-    private static Pattern NUMBER_PATTERN = Pattern.compile("-?[0-9]+(\\.[0-9]+)?");
+    private static Pattern NUMBER_PATTERN = Pattern.compile(NUMBER_PATTERN_FORMULA);
 
-    public FormatTools(ConstValue constValue){
+    private FormatTools(ConstValue constValue) {
         this.constValue = constValue;
-        formatAccuracy = new FormatAccuracy();
     }
 
-    private String getFormatText(String ele){
-        String styleTag = "px";
-        if(ele==null || !ele.contains(styleTag) || "".equals(ele)) {
-            return ele;
+    public static FormatTools getFormatTools(ConstValue constValue) {
+        if (formatTools == null) {
+            synchronized (LogicUtils.class) {
+                if (formatTools == null) {
+                    formatTools = new FormatTools(constValue);
+                }
+            }
         }
-        double rem;
-        double px;
-        px = Double.valueOf(ele.substring(0, ele.indexOf("px")).trim());
-        boolean ifDivide = check(px, this.constValue.getRemBaseValue());
-        rem = px / this.constValue.getRemBaseValue();
-//        rem = px / 100;
-        return ifDivide ? (rem+"").replaceAll("0*$","").replaceAll("\\.$","") + "rem" + showComment(px, this.constValue.getRemBaseValue()) : String.format(formatAccuracy.getAccuracy(constValue.getRemBaseValue()+""), rem).replaceAll("0*$","").replaceAll("\\.$","").trim() + "rem" + showComment(px, this.constValue.getRemBaseValue());
+        return formatTools;
     }
 
-    public String getFormatLine(String content){
-        int index = -1;
-        String styleTag = "px";
-        while((index = StringUtils.indexOf(content.toLowerCase(), styleTag)) > -1){
+    private String getFormatText(String ele) {
+        return Optional.ofNullable(ele).filter(text -> text.contains(PX_STYLE_TAG) && !Objects.equals(NULL_STRING, text)).map(text ->
+            Optional.of(NumberUtils.toDouble(text.substring(0, ele.indexOf(PX_STYLE_TAG)).trim())).map(px ->
+                Optional.of(px / this.constValue.getRemBaseValue()).map(rem ->
+                    Optional.of(check(px, this.constValue.getRemBaseValue())).filter(ifDivide -> ifDivide).map(ifDivide ->
+                        (rem.toString()).replaceAll("0*$", "").replaceAll("\\.$", "") + "rem" + showComment(px, this.constValue.getRemBaseValue())
+                    ).orElseGet(() ->
+                        String.format(getAccuracy(constValue.getRemBaseValue() + ""), rem).replaceAll("0*$", "").replaceAll("\\.$", "").trim() + "rem" + showComment(px, this.constValue.getRemBaseValue())
+                    )
+                )
+            ).get()
+        ).get().orElse(ele);
+    }
+
+    private String getFormatLine(String content) {
+        int index;
+        while ((index = StringUtils.indexOf(content.toLowerCase(), PX_STYLE_TAG)) > -1) {
             int startIndex = index;
-            while(isNumeric(content.substring(startIndex-1,index)) && startIndex > 0){
+            while (isNumeric(content.substring(startIndex - 1, index)) && startIndex > 0) {
                 startIndex--;
             }
-            if(startIndex != index){
-                String value = content.substring(startIndex,index) + "px";
-                content = content.substring(0, startIndex) + getFormatText(value) + content.substring(index +2);
-            } else{
+            if (startIndex != index) {
+                String value = content.substring(startIndex, index) + PX_STYLE_TAG;
+                content = content.substring(0, startIndex) + getFormatText(value) + content.substring(index + 2);
+            } else {
                 break;
             }
         }
@@ -62,45 +81,93 @@ public class FormatTools {
      * 匹配是否为数字
      */
     private static boolean isNumeric(String str) {
-        String bigStr;
-        try {
-            bigStr = new BigDecimal(str).toString();
-        } catch (Exception e) {
-            return false;
-        }
-
-        Matcher isNum = NUMBER_PATTERN.matcher(bigStr);
-        return isNum.matches();
+        return NUMBER_PATTERN.matcher(str).matches();
     }
 
     /**
      * 检查是否可以被除尽
+     *
      * @param amount 被除数
-     * @param count 除数
+     * @param count  除数
      * @return 是否可以被除尽
      */
-    public boolean check(double amount,double count){
-        if(amount % count == 0) {
-            return true;
-        }
-        else {
-            double m = count;
-            while(m % 2 == 0){
-                m = m / 2;
-            }
-            while(m % 5 == 0){
-                m = m / 5;
-            }
-            if(amount % m != 0){
-                return false;
-            }
-        }
-
-        return true;
+    private boolean check(double amount, double count) {
+        return Optional.of(amount % count).filter(times -> times == 0).map(times -> true).orElseGet(() ->
+            amount % LogicUtils.getLogic().funWithWhile(LogicUtils.getLogic().funWithWhile(count, m -> m % 2 == 0, m -> m / 2), n -> n % 5 == 0, n -> n / 5) == 0
+        );
     }
 
-    public String showComment(Object obj1, Object obj2){
-        return constValue.getShowCalculationProcess() ? "  /* " + obj1.toString().replaceAll("0*$","").replaceAll("\\.$","") + "/" + obj2.toString().replaceAll("0*$","").replaceAll("\\.$","") + " */" : "";
+    private String showComment(Object obj1, Object obj2) {
+        return constValue.getShowCalculationProcess() ? "  /* " + obj1.toString().replaceAll("0*$", "").replaceAll("\\.$", "") + "/" + obj2.toString().replaceAll("0*$", "").replaceAll("\\.$", "") + " */" : "";
+    }
+
+    private String getAccuracy(String remValue) {
+        return MessageFormat.format("%.{0}f", remValue.substring(0, !StringUtils.contains(remValue, ".") ? remValue.length() : StringUtils.indexOf(remValue, ".")).length() + 1);
+    }
+
+    /**
+     * 转换一行的代码
+     *
+     * @param actionPerformer 获取的动作参数
+     */
+    public void formatLineCode(ActionPerformer actionPerformer) {
+        // 行号
+        Optional.of(actionPerformer.getDocument().getLineNumber(actionPerformer.getCaretModel().getOffset())).ifPresent(lineNum -> {
+            // 行起始offset
+            Optional.of(actionPerformer.getDocument().getLineStartOffset(lineNum)).ifPresent(lineStartOffset -> {
+                // 行结束offset
+                Optional.of(actionPerformer.getDocument().getLineEndOffset(lineNum)).ifPresent(lineEndOffset ->
+                        Optional.of(actionPerformer.getDocument().getText(new TextRange(lineStartOffset, lineEndOffset)))
+                                .filter(lineContent -> lineContent.toLowerCase().contains(PX_STYLE_TAG))
+                                .map(lineContent -> {
+                                    WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
+                                            actionPerformer.getDocument().replaceString(
+                                                    lineStartOffset,
+                                                    lineEndOffset,
+                                                    getFormatLine(lineContent))
+                                    );
+                                    return lineContent;
+                                })
+                );
+            });
+        });
+    }
+
+    /**
+     * 转换选择的代码
+     *
+     * @param actionPerformer 获取的动作参数
+     */
+    public void formatSelectCode(ActionPerformer actionPerformer){
+        // 光标选择的文字
+        Optional.ofNullable(actionPerformer.getSelectionModel().getSelectedText()).ifPresent(selectText ->
+            Optional.of(selectText.indexOf(PX_STYLE_TAG)).filter(index -> index > -1).map(index -> {
+                // 选择区域开始
+                Optional.of(actionPerformer.getSelectionModel().getSelectionStart()).ifPresent(start -> {
+                    // 选择区域结束
+                    Optional.of(actionPerformer.getSelectionModel().getSelectionEnd()).ifPresent(end ->
+                        Optional.of(NumberUtils.toDouble(selectText.substring(0, index))).ifPresent(px ->
+                            Optional.of(px / actionPerformer.getConstValue().getRemBaseValue()).ifPresent(rem ->
+                                WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
+                                        actionPerformer.getDocument().replaceString(
+                                                start,
+                                                end,
+                                                Optional.of(check(px, actionPerformer.getConstValue().getRemBaseValue())).filter(ifDivide -> ifDivide).map(ifDivide ->
+                                                        (rem+"").replaceAll("0*$","").replaceAll("\\.$","")+"rem"+showComment(px, actionPerformer.getConstValue().getRemBaseValue())
+                                                ).orElseGet(() ->
+                                                        String.format(getAccuracy(actionPerformer.getConstValue().getRemBaseValue() + ""), rem)
+                                                                .replaceAll("0*$","")
+                                                                .replaceAll("\\.$","") + "rem" +
+                                                                showComment(px, actionPerformer.getConstValue().getRemBaseValue())
+                                                ))
+                                )
+                            )
+                        )
+                    );
+                });
+                return index;
+            })
+        );
     }
 
 }

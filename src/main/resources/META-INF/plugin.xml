@@ -1,5 +1,5 @@
 <idea-plugin url="https://plugins.jetbrains.com/plugin/11187-px2remforwebstorm">
-    <id>com.sunqian.action.WebStormPX2REMTools</id>
+    <id>com.sunqian.action.PX2RWDWithLine</id>
     <name>px2rem</name>
     <version>2.0.2</version>
     <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/WebStorm-PX2REM">sunqian</vendor>
@@ -60,13 +60,13 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="WebStormPX2REMToolsID" class="com.sunqian.action.WebStormPX2REMTools" text="WebStormPX2REMTools"
-                description="WebStormPX2REMTools">
-            <keyboard-shortcut keymap="$default" first-keystroke="shift d"/>
+        <action id="PX2RWDWithLineID" class="com.sunqian.action.PX2RWDWithLine" text="PX2RWDWithLine"
+                description="PX2RWDWithLine">
+            <keyboard-shortcut keymap="$default" first-keystroke="alt d"/>
         </action>
         <action id="PX2REMWithFileID" class="com.sunqian.action.PX2REMWithFile" text="PX2REMWithFile"
                 description="PX2REMWithFile">
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift d"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt d"/>
         </action>
         <action id="SetPX2REMID" class="com.sunqian.action.SetPX2REM" text="PX2REM" description="SetPX2REM">
             <add-to-group group-id="FileSettingsGroup" anchor="last" />

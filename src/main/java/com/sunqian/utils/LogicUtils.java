@@ -1,6 +1,5 @@
 package com.sunqian.utils;
 
-import lombok.NonNull;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.util.Arrays;
@@ -80,7 +79,7 @@ public class LogicUtils {
         return end;
     }
 
-    public <T> T funWithWhile(T t, ExceptionPredicate<T> predicate, ExceptionFunction<T, T> function) {
+    <T> T funWithWhile(T t, ExceptionPredicate<T> predicate, ExceptionFunction<T, T> function) {
         while (predicate.test(t)) {
             t = function.apply(t);
         }
@@ -93,15 +92,16 @@ public class LogicUtils {
         }
     }
 
-    public <T> T generateObject(T t, Consumer<T>... consumers){
-        Arrays.asList(consumers).forEach(consumer -> {
-            Optional.ofNullable(consumer).ifPresent(con -> con.accept(t));
-        });
+    @SafeVarargs
+    public final <T> T generateObject(T t, Consumer<T>... consumers){
+        Arrays.asList(consumers).forEach(consumer ->
+            Optional.ofNullable(consumer).ifPresent(con -> con.accept(t))
+        );
         return t;
     }
 
     @FunctionalInterface
-    private interface ExceptionConsumer<T> extends Consumer<T> {
+    public interface ExceptionConsumer<T> extends Consumer<T> {
 
         /**
          * 重写默认的accept函数
@@ -128,7 +128,7 @@ public class LogicUtils {
     }
 
     @FunctionalInterface
-    private interface ExceptionFunction<T, R> extends Function<T, R> {
+    public interface ExceptionFunction<T, R> extends Function<T, R> {
 
         /**
          * 重写默认的apply函数
@@ -157,7 +157,7 @@ public class LogicUtils {
     }
 
     @FunctionalInterface
-    private interface ExceptionPredicate<T> extends Predicate<T> {
+    public interface ExceptionPredicate<T> extends Predicate<T> {
 
         /**
          * 重写默认的test函数
