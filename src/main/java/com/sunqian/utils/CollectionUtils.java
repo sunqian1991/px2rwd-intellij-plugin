@@ -18,14 +18,11 @@ public class CollectionUtils {
     private volatile static CollectionUtils collectionUtils;
 
     public static CollectionUtils getCollections() {
-        if (collectionUtils == null) {
+        return Optional.ofNullable(collectionUtils).orElseGet(() -> {
             synchronized (CollectionUtils.class) {
-                if (collectionUtils == null) {
-                    collectionUtils = new CollectionUtils();
-                }
+                return Optional.ofNullable(collectionUtils).orElseGet(CollectionUtils::new);
             }
-        }
-        return collectionUtils;
+        });
     }
 
     public <E, R> R getFirst(List<E> list, Function<E, R> function) {

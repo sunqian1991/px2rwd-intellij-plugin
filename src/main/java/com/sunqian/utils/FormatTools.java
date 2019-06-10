@@ -35,14 +35,11 @@ public class FormatTools {
     }
 
     public static FormatTools getFormatTools(ConstValue constValue) {
-        if (formatTools == null) {
-            synchronized (LogicUtils.class) {
-                if (formatTools == null) {
-                    formatTools = new FormatTools(constValue);
-                }
+        return Optional.ofNullable(formatTools).orElseGet(() -> {
+            synchronized (FormatTools.class) {
+                return Optional.ofNullable(formatTools).orElseGet(() -> new FormatTools(constValue));
             }
-        }
-        return formatTools;
+        });
     }
 
     private String getFormatText(String ele) {

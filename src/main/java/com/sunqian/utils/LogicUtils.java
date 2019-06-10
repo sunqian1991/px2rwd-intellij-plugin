@@ -1,5 +1,6 @@
 package com.sunqian.utils;
 
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.util.Arrays;
@@ -15,23 +16,17 @@ import java.util.function.Predicate;
  * @date 2019/3/22
  */
 @SuppressWarnings("unused")
+@NoArgsConstructor
 public class LogicUtils {
 
     private volatile static LogicUtils logicUtils;
 
-    private LogicUtils() {
-
-    }
-
     public static LogicUtils getLogic() {
-        if (logicUtils == null) {
+        return Optional.ofNullable(logicUtils).orElseGet(() -> {
             synchronized (LogicUtils.class) {
-                if (logicUtils == null) {
-                    logicUtils = new LogicUtils();
-                }
+                return Optional.ofNullable(logicUtils).orElseGet(LogicUtils::new);
             }
-        }
-        return logicUtils;
+        });
     }
 
     public <T> void conOrElse(T t, ExceptionPredicate<T> predicate, ExceptionConsumer<T> consumerTrue, ExceptionConsumer<T> consumerFalse) {
