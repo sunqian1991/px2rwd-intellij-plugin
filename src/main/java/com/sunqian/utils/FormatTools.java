@@ -5,6 +5,7 @@ import com.intellij.openapi.util.TextRange;
 import com.sunqian.constvalue.ConstValue;
 import com.sunqian.model.ActionPerformer;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -24,6 +25,7 @@ import static com.sunqian.constvalue.MagicValue.*;
 @NoArgsConstructor
 public class FormatTools {
 
+    @Setter
     private volatile static FormatTools formatTools;
 
     private ConstValue constValue;
@@ -94,6 +96,13 @@ public class FormatTools {
         );
     }
 
+    /**
+     * 通过注释的方式生成计算过程
+     *
+     * @param obj1 被除数
+     * @param obj2 除数
+     * @return 返回计算公式
+     */
     private String showComment(Object obj1, Object obj2) {
         return constValue.getShowCalculationProcess() ? "  /* " + obj1.toString().replaceAll("0*$", "").replaceAll("\\.$", "") + "/" + obj2.toString().replaceAll("0*$", "").replaceAll("\\.$", "") + " */" : "";
     }
