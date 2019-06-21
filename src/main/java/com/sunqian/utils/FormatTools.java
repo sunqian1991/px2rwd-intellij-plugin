@@ -46,15 +46,15 @@ public class FormatTools {
 
     private String getFormatText(String ele) {
         return Optional.ofNullable(ele).filter(text -> text.contains(PX_STYLE_TAG) && !Objects.equals(NULL_STRING, text)).map(text ->
-            Optional.of(NumberUtils.toDouble(text.substring(0, ele.indexOf(PX_STYLE_TAG)).trim())).map(px ->
-                Optional.of(px / this.constValue.getRemBaseValue()).map(rem ->
-                    Optional.of(check(px, this.constValue.getRemBaseValue())).filter(ifDivide -> ifDivide).map(ifDivide ->
-                        (rem.toString()).replaceAll("0*$", "").replaceAll("\\.$", "") + "rem" + showComment(px, this.constValue.getRemBaseValue())
-                    ).orElseGet(() ->
-                        String.format(getAccuracy(constValue.getRemBaseValue() + ""), rem).replaceAll("0*$", "").replaceAll("\\.$", "").trim() + "rem" + showComment(px, this.constValue.getRemBaseValue())
-                    )
-                )
-            ).get()
+                Optional.of(NumberUtils.toDouble(text.substring(0, ele.indexOf(PX_STYLE_TAG)).trim())).map(px ->
+                        Optional.of(px / this.constValue.getRemBaseValue()).map(rem ->
+                                Optional.of(check(px, this.constValue.getRemBaseValue())).filter(ifDivide -> ifDivide).map(ifDivide ->
+                                        (rem.toString()).replaceAll("0*$", "").replaceAll("\\.$", "") + REM_STYLE_TAG + showComment(px, this.constValue.getRemBaseValue())
+                                ).orElseGet(() ->
+                                        String.format(getAccuracy(constValue.getRemBaseValue() + ""), rem).replaceAll("0*$", "").replaceAll("\\.$", "").trim() + REM_STYLE_TAG + showComment(px, this.constValue.getRemBaseValue())
+                                )
+                        )
+                ).get()
         ).get().orElse(ele);
     }
 
@@ -77,7 +77,10 @@ public class FormatTools {
     }
 
     /**
-     * 匹配是否为数字
+     * 判断字符串是否为数字
+     *
+     * @param str 被判断的字符串
+     * @return 返回是否是数字
      */
     private static boolean isNumeric(String str) {
         return NUMBER_PATTERN.matcher(str).matches();
@@ -92,7 +95,7 @@ public class FormatTools {
      */
     private boolean check(double amount, double count) {
         return Optional.of(amount % count).filter(times -> times == 0).map(times -> true).orElseGet(() ->
-            amount % LogicUtils.getLogic().funWithWhile(LogicUtils.getLogic().funWithWhile(count, m -> m % 2 == 0, m -> m / 2), n -> n % 5 == 0, n -> n / 5) == 0
+                amount % LogicUtils.getLogic().funWithWhile(LogicUtils.getLogic().funWithWhile(count, m -> m % 2 == 0, m -> m / 2), n -> n % 5 == 0, n -> n / 5) == 0
         );
     }
 
@@ -113,29 +116,38 @@ public class FormatTools {
 
     /**
      * 转换一行的代码
+     * <p>
+     * 这里行号取的是当前光标所在的行
      *
      * @param actionPerformer 获取的动作参数
      */
     public void formatLineCode(ActionPerformer actionPerformer) {
-        // 行号
-        Optional.of(actionPerformer.getDocument().getLineNumber(actionPerformer.getCaretModel().getOffset())).ifPresent(lineNum -> {
-            // 行起始offset
-            Optional.of(actionPerformer.getDocument().getLineStartOffset(lineNum)).ifPresent(lineStartOffset -> {
-                // 行结束offset
-                Optional.of(actionPerformer.getDocument().getLineEndOffset(lineNum)).ifPresent(lineEndOffset ->
-                        Optional.of(actionPerformer.getDocument().getText(new TextRange(lineStartOffset, lineEndOffset)))
-                                .filter(lineContent -> lineContent.toLowerCase().contains(PX_STYLE_TAG))
-                                .map(lineContent -> {
-                                    WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
-                                            actionPerformer.getDocument().replaceString(
-                                                    lineStartOffset,
-                                                    lineEndOffset,
-                                                    getFormatLine(lineContent))
-                                    );
-                                    return lineContent;
-                                })
-                );
-            });
+        formatLineCode(actionPerformer, actionPerformer.getDocument().getLineNumber(actionPerformer.getCaretModel().getOffset()));
+    }
+
+    /**
+     * 转换一行代码中的样式单位
+     *
+     * @param actionPerformer 获取的动作参数
+     * @param lineNum         行号
+     */
+    public void formatLineCode(ActionPerformer actionPerformer, int lineNum) {
+        // 行起始offset
+        Optional.of(actionPerformer.getDocument().getLineStartOffset(lineNum)).ifPresent(lineStartOffset -> {
+            // 行结束offset
+            Optional.of(actionPerformer.getDocument().getLineEndOffset(lineNum)).ifPresent(lineEndOffset ->
+                    Optional.of(actionPerformer.getDocument().getText(new TextRange(lineStartOffset, lineEndOffset)))
+                            .filter(lineContent -> lineContent.toLowerCase().contains(PX_STYLE_TAG))
+                            .map(lineContent -> {
+                                WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
+                                        actionPerformer.getDocument().replaceString(
+                                                lineStartOffset,
+                                                lineEndOffset,
+                                                getFormatLine(lineContent))
+                                );
+                                return lineContent;
+                            })
+            );
         });
     }
 
@@ -144,35 +156,35 @@ public class FormatTools {
      *
      * @param actionPerformer 获取的动作参数
      */
-    public void formatSelectCode(ActionPerformer actionPerformer){
+    public void formatSelectCode(ActionPerformer actionPerformer) {
         // 光标选择的文字
         Optional.ofNullable(actionPerformer.getSelectionModel().getSelectedText()).ifPresent(selectText ->
-            Optional.of(selectText.indexOf(PX_STYLE_TAG)).filter(index -> index > -1).map(index -> {
-                // 选择区域开始
-                Optional.of(actionPerformer.getSelectionModel().getSelectionStart()).ifPresent(start -> {
-                    // 选择区域结束
-                    Optional.of(actionPerformer.getSelectionModel().getSelectionEnd()).ifPresent(end ->
-                        Optional.of(NumberUtils.toDouble(selectText.substring(0, index))).ifPresent(px ->
-                            Optional.of(px / actionPerformer.getConstValue().getRemBaseValue()).ifPresent(rem ->
-                                WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
-                                        actionPerformer.getDocument().replaceString(
-                                                start,
-                                                end,
-                                                Optional.of(check(px, actionPerformer.getConstValue().getRemBaseValue())).filter(ifDivide -> ifDivide).map(ifDivide ->
-                                                        (rem+"").replaceAll("0*$","").replaceAll("\\.$","")+"rem"+showComment(px, actionPerformer.getConstValue().getRemBaseValue())
-                                                ).orElseGet(() ->
-                                                        String.format(getAccuracy(actionPerformer.getConstValue().getRemBaseValue() + ""), rem)
-                                                                .replaceAll("0*$","")
-                                                                .replaceAll("\\.$","") + "rem" +
-                                                                showComment(px, actionPerformer.getConstValue().getRemBaseValue())
-                                                ))
+                Optional.of(selectText.indexOf(PX_STYLE_TAG)).filter(index -> index > -1).map(index -> {
+                    // 选择区域开始
+                    Optional.of(actionPerformer.getSelectionModel().getSelectionStart()).ifPresent(start -> {
+                        // 选择区域结束
+                        Optional.of(actionPerformer.getSelectionModel().getSelectionEnd()).ifPresent(end ->
+                                Optional.of(NumberUtils.toDouble(selectText.substring(0, index))).ifPresent(px ->
+                                        Optional.of(px / actionPerformer.getConstValue().getRemBaseValue()).ifPresent(rem ->
+                                                WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
+                                                        actionPerformer.getDocument().replaceString(
+                                                                start,
+                                                                end,
+                                                                Optional.of(check(px, actionPerformer.getConstValue().getRemBaseValue())).filter(ifDivide -> ifDivide).map(ifDivide ->
+                                                                        (rem + "").replaceAll("0*$", "").replaceAll("\\.$", "") + REM_STYLE_TAG + showComment(px, actionPerformer.getConstValue().getRemBaseValue())
+                                                                ).orElseGet(() ->
+                                                                        String.format(getAccuracy(actionPerformer.getConstValue().getRemBaseValue() + ""), rem)
+                                                                                .replaceAll("0*$", "")
+                                                                                .replaceAll("\\.$", "") + REM_STYLE_TAG +
+                                                                                showComment(px, actionPerformer.getConstValue().getRemBaseValue())
+                                                                ))
+                                                )
+                                        )
                                 )
-                            )
-                        )
-                    );
-                });
-                return index;
-            })
+                        );
+                    });
+                    return index;
+                })
         );
     }
 

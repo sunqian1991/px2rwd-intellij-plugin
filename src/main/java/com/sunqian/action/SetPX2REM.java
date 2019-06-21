@@ -3,31 +3,33 @@ package com.sunqian.action;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.project.Project;
+import com.sunqian.utils.LogicUtils;
 
 import java.awt.*;
+import java.util.Optional;
+
+import static com.sunqian.constvalue.MagicValue.CONFIG_DIALOG_HEIGHT;
+import static com.sunqian.constvalue.MagicValue.CONFIG_DIALOG_WIDTH;
 
 /**
- * Author:sunqian
- * Date:2018/8/8 12:39
- * Description:
+ * 设置页面弹窗
+ *
+ * @author sunqian
+ * @date 2018/8/8
  */
 public class SetPX2REM extends AnAction {
 
-    private Project project;
-
     @Override
     public void actionPerformed(AnActionEvent e) {
-        project = e.getRequiredData(CommonDataKeys.PROJECT);
-        SetPX2REMTools dialog = new SetPX2REMTools(project);
-        dialog.pack();
-        dialog.setSize(320,150);
-        int windowWidth = dialog.getWidth(); //获得窗口宽
-        int windowHeight = dialog.getHeight(); //获得窗口高
-        Toolkit kit = Toolkit.getDefaultToolkit(); //定义工具包
-        int screenWidth = kit.getScreenSize().width; //获取屏幕的宽
-        int screenHeight = kit.getScreenSize().height; //获取屏幕的高
-        dialog.setLocation(screenWidth/2 - windowWidth/2, screenHeight/2 - windowHeight/2);//设置窗口居中显示
-        dialog.setVisible(true);
+        Optional.of(e.getRequiredData(CommonDataKeys.PROJECT)).ifPresent(project ->
+                LogicUtils.getLogic().generateObject(new SetPX2REMTools(project), dialog -> {
+                    dialog.pack();
+                    dialog.setSize(CONFIG_DIALOG_WIDTH, CONFIG_DIALOG_HEIGHT);
+                    Optional.ofNullable(Toolkit.getDefaultToolkit()).ifPresent(kit -> {
+                        dialog.setLocation(kit.getScreenSize().width / 2 - dialog.getWidth() / 2, kit.getScreenSize().height / 2 - dialog.getHeight() / 2);
+                        dialog.setVisible(true);
+                    });
+                })
+        );
     }
 }

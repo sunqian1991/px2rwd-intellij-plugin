@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * 转换特定对象管理类
+ *
  * @author sunqian
  * @date 2019/6/10
  */
@@ -31,7 +33,7 @@ public class ActionPerformer {
         this.editor = editor;
     }
 
-    public static ActionPerformer getActionPerformer(Project project, Editor editor){
+    public static ActionPerformer getActionPerformer(Project project, Editor editor) {
         if (actionPerformer == null) {
             synchronized (ActionPerformer.class) {
                 if (actionPerformer == null) {
