@@ -35,12 +35,11 @@ public class PX2RWDIntention extends PsiElementBaseIntentionAction implements In
 
     @Override
     public boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
-        System.out.println(element);
-        int lineNum = editor.getDocument().getLineNumber(editor.getCaretModel().getOffset());
-        int startNum = editor.getDocument().getLineStartOffset(lineNum);
-        int endNum = editor.getDocument().getLineEndOffset(lineNum);
-        String text = editor.getDocument().getText(new TextRange(startNum, endNum));
-        return Pattern.compile(STYLE_PATTERN_FORMAT).matcher(text.toLowerCase()).matches();
+        return Optional.of(editor.getDocument().getLineNumber(editor.getCaretModel().getOffset())).map(lineNum ->
+            Optional.of(editor.getDocument().getText(
+                    new TextRange(editor.getDocument().getLineStartOffset(lineNum), editor.getDocument().getLineEndOffset(lineNum))
+            )).map(text -> Pattern.compile(STYLE_PATTERN_FORMAT).matcher(text.toLowerCase()).matches()).get()
+        ).orElse(false);
     }
 
     @Nls(capitalization = Nls.Capitalization.Sentence)
@@ -53,7 +52,7 @@ public class PX2RWDIntention extends PsiElementBaseIntentionAction implements In
     @NotNull
     @Override
     public String getText() {
-        return "Px2rem";
+        return "PX2RWD";
     }
 
     @Override
