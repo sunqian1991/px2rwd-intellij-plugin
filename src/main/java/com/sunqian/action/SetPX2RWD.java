@@ -17,12 +17,12 @@ import static com.sunqian.constvalue.MagicValue.CONFIG_DIALOG_WIDTH;
  * @author sunqian
  * @date 2018/8/8
  */
-public class SetPX2REM extends AnAction {
+public class SetPX2RWD extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent e) {
         Optional.of(e.getRequiredData(CommonDataKeys.PROJECT)).ifPresent(project ->
-                LogicUtils.getLogic().generateObject(new SetPX2REMTools(project), dialog -> {
+                LogicUtils.getLogic().generateObject(new SetPX2RWDTools(project), dialog -> {
                     dialog.pack();
                     dialog.setSize(CONFIG_DIALOG_WIDTH, CONFIG_DIALOG_HEIGHT);
                     Optional.ofNullable(Toolkit.getDefaultToolkit()).ifPresent(kit -> {

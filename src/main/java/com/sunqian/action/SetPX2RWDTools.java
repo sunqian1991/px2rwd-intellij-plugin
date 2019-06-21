@@ -7,7 +7,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class SetPX2REMTools extends JDialog {
+public class SetPX2RWDTools extends JDialog {
     private static final long serialVersionUID = -9001684391377248720L;
     private JPanel contentPane;
     private JButton buttonOK;
@@ -16,7 +16,7 @@ public class SetPX2REMTools extends JDialog {
     private JCheckBox showCalculationProcessInCheckBox;
     private ConstValue constValue;
 
-    SetPX2REMTools(Project project) {
+    SetPX2RWDTools(Project project) {
         constValue = ConstValue.getInstance(project);
         setTitle("Plug-in Settings");
         setContentPane(contentPane);

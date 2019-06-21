@@ -23,4 +23,6 @@ public class MagicValue {
 
     public static final int CONFIG_DIALOG_HEIGHT = 150;
 
+    public static final String STYLE_PATTERN_FORMAT = "^[\\w\\W]+\\:[\\w\\W]*\\d+(\\.{1}(\\d+))?px[\\w\\W]*$";
+
 }

@@ -1,0 +1,63 @@
+package com.sunqian.intention;
+
+import com.intellij.codeInsight.intention.IntentionAction;
+import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction;
+import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.TextRange;
+import com.intellij.psi.PsiElement;
+import com.intellij.util.IncorrectOperationException;
+import com.sunqian.model.ActionPerformer;
+import com.sunqian.utils.FormatTools;
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
+import java.util.regex.Pattern;
+
+import static com.sunqian.constvalue.MagicValue.STYLE_PATTERN_FORMAT;
+
+/**
+ * intention action类
+ *
+ * @author sunqian
+ * @date 2019/6/21
+ */
+public class PX2RWDIntention extends PsiElementBaseIntentionAction implements IntentionAction {
+    @Override
+    public void invoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) throws IncorrectOperationException {
+        Optional.ofNullable(ActionPerformer.getActionPerformer(project, editor)).ifPresent(ap ->
+            Optional.of(FormatTools.getFormatTools(ap.getConstValue())).ifPresent(formatTools ->
+                formatTools.formatLineCode(ap)
+            )
+        );
+    }
+
+    @Override
+    public boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
+        System.out.println(element);
+        int lineNum = editor.getDocument().getLineNumber(editor.getCaretModel().getOffset());
+        int startNum = editor.getDocument().getLineStartOffset(lineNum);
+        int endNum = editor.getDocument().getLineEndOffset(lineNum);
+        String text = editor.getDocument().getText(new TextRange(startNum, endNum));
+        return Pattern.compile(STYLE_PATTERN_FORMAT).matcher(text.toLowerCase()).matches();
+    }
+
+    @Nls(capitalization = Nls.Capitalization.Sentence)
+    @NotNull
+    @Override
+    public String getFamilyName() {
+        return "PX2RWD converter";
+    }
+
+    @NotNull
+    @Override
+    public String getText() {
+        return "Px2rem";
+    }
+
+    @Override
+    public boolean startInWriteAction() {
+        return false;
+    }
+}
