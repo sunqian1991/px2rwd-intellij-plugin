@@ -209,23 +209,23 @@ public class FormatTools {
      */
     private void formatText(String style, int start, int end, ActionPerformer actionPerformer) {
         Optional.of(style).filter(FormatTools::isNumeric).ifPresent(text ->
-            Optional.of(NumberUtils.toDouble(text)).ifPresent(px ->
-                    Optional.of(px / actionPerformer.getConstValue().getRemBaseValue()).ifPresent(rem ->
-                            WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
-                                    actionPerformer.getDocument().replaceString(
-                                            start,
-                                            end,
-                                            Optional.of(check(px, actionPerformer.getConstValue().getRemBaseValue())).filter(ifDivide -> ifDivide).map(ifDivide ->
-                                                    (rem + "").replaceAll("0*$", "").replaceAll("\\.$", "") + REM_STYLE_TAG + showComment(px, actionPerformer.getConstValue().getRemBaseValue())
-                                            ).orElseGet(() ->
-                                                    String.format(getAccuracy(actionPerformer.getConstValue().getRemBaseValue() + ""), rem)
-                                                            .replaceAll("0*$", "")
-                                                            .replaceAll("\\.$", "") + REM_STYLE_TAG +
-                                                            showComment(px, actionPerformer.getConstValue().getRemBaseValue())
-                                            ))
-                            )
-                    )
-            )
+                Optional.of(NumberUtils.toDouble(text)).ifPresent(px ->
+                        Optional.of(px / actionPerformer.getConstValue().getRemBaseValue()).ifPresent(rem ->
+                                WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
+                                        actionPerformer.getDocument().replaceString(
+                                                start,
+                                                end,
+                                                Optional.of(check(px, actionPerformer.getConstValue().getRemBaseValue())).filter(ifDivide -> ifDivide).map(ifDivide ->
+                                                        (rem + "").replaceAll("0*$", "").replaceAll("\\.$", "") + REM_STYLE_TAG + showComment(px, actionPerformer.getConstValue().getRemBaseValue())
+                                                ).orElseGet(() ->
+                                                        String.format(getAccuracy(actionPerformer.getConstValue().getRemBaseValue() + ""), rem)
+                                                                .replaceAll("0*$", "")
+                                                                .replaceAll("\\.$", "") + REM_STYLE_TAG +
+                                                                showComment(px, actionPerformer.getConstValue().getRemBaseValue())
+                                                ))
+                                )
+                        )
+                )
         );
     }
 

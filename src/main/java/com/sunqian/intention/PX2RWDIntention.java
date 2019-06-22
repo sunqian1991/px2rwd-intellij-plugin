@@ -29,18 +29,18 @@ public class PX2RWDIntention extends PsiElementBaseIntentionAction implements In
     @Override
     public void invoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) throws IncorrectOperationException {
         Optional.ofNullable(ActionPerformer.getActionPerformer(project, editor)).ifPresent(ap ->
-            Optional.of(FormatTools.getFormatTools(ap.getConstValue())).ifPresent(formatTools ->
-                formatTools.formatLineCode(ap)
-            )
+                Optional.of(FormatTools.getFormatTools(ap.getConstValue())).ifPresent(formatTools ->
+                        formatTools.formatLineCode(ap)
+                )
         );
     }
 
     @Override
     public boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
         return Optional.of(element.getLanguage()).filter(language -> Objects.equals(language.getID(), STYLE_SHEET_LANGUAGE_ID)).map(language -> Optional.of(editor.getDocument().getLineNumber(editor.getCaretModel().getOffset())).map(lineNum ->
-            Optional.of(editor.getDocument().getText(
-                    new TextRange(editor.getDocument().getLineStartOffset(lineNum), editor.getDocument().getLineEndOffset(lineNum))
-            )).map(text -> Pattern.compile(STYLE_PATTERN_FORMAT).matcher(text.toLowerCase()).matches()).get()
+                Optional.of(editor.getDocument().getText(
+                        new TextRange(editor.getDocument().getLineStartOffset(lineNum), editor.getDocument().getLineEndOffset(lineNum))
+                )).map(text -> Pattern.compile(STYLE_PATTERN_FORMAT).matcher(text.toLowerCase()).matches()).get()
         ).orElse(false)).orElse(false);
     }
 
