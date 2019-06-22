@@ -19,7 +19,9 @@ dependencies {
 }
 
 intellij {
-    version 'IU-172.4574.19'
+    version 'IU-191.7479.19'
+    pluginName = 'px2rwd'
+    plugins = ['CSS']
 }
 patchPluginXml {
     changeNotes """

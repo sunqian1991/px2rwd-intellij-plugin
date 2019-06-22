@@ -1,6 +1,6 @@
 <idea-plugin url="https://plugins.jetbrains.com/plugin/11187-px2remforwebstorm">
-    <id>com.sunqian.action.PX2RWDWithLine</id>
-    <name>px2rem</name>
+    <id>com.sunqian.px2rwd</id>
+    <name>px2rwd</name>
     <version>2.0.2</version>
     <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/WebStorm-PX2REM">sunqian</vendor>
     <description>a tool which can convert px to rem in webstorm</description>
@@ -43,6 +43,7 @@
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
     <idea-version since-build="131.0"/>
     <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.css</depends>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
@@ -56,6 +57,7 @@
                 serviceImplementation="com.sunqian.constvalue.ConstValue"
                 serviceInterface="com.sunqian.constvalue.ConstValue"
         />
+        <completion.contributor language="CSS" implementationClass="com.sunqian.completion.PX2RWDCompletion"/>
         <intentionAction>
             <className>com.sunqian.intention.PX2RWDIntention</className>
             <category>CSS</category>
