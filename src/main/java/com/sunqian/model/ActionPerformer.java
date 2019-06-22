@@ -34,9 +34,9 @@ public class ActionPerformer {
     }
 
     public static ActionPerformer getActionPerformer(Project project, Editor editor) {
-        if (actionPerformer == null) {
+        if (actionPerformer == null || actionPerformer.getProject() != project || actionPerformer.getEditor() != editor) {
             synchronized (ActionPerformer.class) {
-                if (actionPerformer == null) {
+                if (actionPerformer == null || actionPerformer.getProject() != project || actionPerformer.getEditor() != editor) {
                     actionPerformer = new ActionPerformer(project, editor);
                 }
             }
