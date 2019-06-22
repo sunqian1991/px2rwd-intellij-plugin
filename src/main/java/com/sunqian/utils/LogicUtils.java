@@ -88,7 +88,7 @@ public class LogicUtils {
     }
 
     @SafeVarargs
-    public final <T> T generateObject(T t, Consumer<T>... consumers) {
+    public final <T> T generateObject(T t, ExceptionConsumer<T>... consumers) {
         Arrays.asList(consumers).forEach(consumer ->
                 Optional.ofNullable(consumer).ifPresent(con -> con.accept(t))
         );

@@ -152,6 +152,33 @@ public class FormatTools {
     }
 
     /**
+     * 格式化光标处往前最近的一个可格化的长度
+     *
+     * @param actionPerformer 获取的动作参数
+     */
+    public void formatNearCode(ActionPerformer actionPerformer) {
+        Optional.of(actionPerformer.getDocument()).ifPresent(document ->
+                Optional.of(actionPerformer.getCaretModel()).ifPresent(caretModel ->
+                        Optional.of(document.getText(new TextRange(document.getLineStartOffset(document.getLineNumber(caretModel.getOffset())), actionPerformer.getCaretModel().getOffset()))).ifPresent(lineContent ->
+                                Optional.of(lineContent.substring(getNearCode(lineContent) + 1, lineContent.length() - 2).trim()).ifPresent(content ->
+                                        formatText(content, caretModel.getOffset() - content.length() - 2, caretModel.getOffset(), actionPerformer)
+                                )
+                        )
+                )
+        );
+    }
+
+    /**
+     * 取一个长度单位的起始index
+     *
+     * @param content 待处理文本
+     * @return 返回文本中包含的一个长度单位的起始index
+     */
+    private int getNearCode(String content) {
+        return NumberUtils.max(StringUtils.lastIndexOf(content, COLON_STRING), StringUtils.lastIndexOf(content, BLANK_STRING));
+    }
+
+    /**
      * 转换选择的代码
      *
      * @param actionPerformer 获取的动作参数
@@ -164,27 +191,41 @@ public class FormatTools {
                     Optional.of(actionPerformer.getSelectionModel().getSelectionStart()).ifPresent(start -> {
                         // 选择区域结束
                         Optional.of(actionPerformer.getSelectionModel().getSelectionEnd()).ifPresent(end ->
-                                Optional.of(NumberUtils.toDouble(selectText.substring(0, index))).ifPresent(px ->
-                                        Optional.of(px / actionPerformer.getConstValue().getRemBaseValue()).ifPresent(rem ->
-                                                WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
-                                                        actionPerformer.getDocument().replaceString(
-                                                                start,
-                                                                end,
-                                                                Optional.of(check(px, actionPerformer.getConstValue().getRemBaseValue())).filter(ifDivide -> ifDivide).map(ifDivide ->
-                                                                        (rem + "").replaceAll("0*$", "").replaceAll("\\.$", "") + REM_STYLE_TAG + showComment(px, actionPerformer.getConstValue().getRemBaseValue())
-                                                                ).orElseGet(() ->
-                                                                        String.format(getAccuracy(actionPerformer.getConstValue().getRemBaseValue() + ""), rem)
-                                                                                .replaceAll("0*$", "")
-                                                                                .replaceAll("\\.$", "") + REM_STYLE_TAG +
-                                                                                showComment(px, actionPerformer.getConstValue().getRemBaseValue())
-                                                                ))
-                                                )
-                                        )
-                                )
+                                formatText(selectText.substring(0, index), start, end, actionPerformer)
                         );
                     });
                     return index;
                 })
+        );
+    }
+
+    /**
+     * 格式化指定的style文本
+     *
+     * @param style           style文本
+     * @param start           起始index
+     * @param end             结束index
+     * @param actionPerformer 动作参数
+     */
+    private void formatText(String style, int start, int end, ActionPerformer actionPerformer) {
+        Optional.of(style).filter(FormatTools::isNumeric).ifPresent(text ->
+            Optional.of(NumberUtils.toDouble(text)).ifPresent(px ->
+                    Optional.of(px / actionPerformer.getConstValue().getRemBaseValue()).ifPresent(rem ->
+                            WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
+                                    actionPerformer.getDocument().replaceString(
+                                            start,
+                                            end,
+                                            Optional.of(check(px, actionPerformer.getConstValue().getRemBaseValue())).filter(ifDivide -> ifDivide).map(ifDivide ->
+                                                    (rem + "").replaceAll("0*$", "").replaceAll("\\.$", "") + REM_STYLE_TAG + showComment(px, actionPerformer.getConstValue().getRemBaseValue())
+                                            ).orElseGet(() ->
+                                                    String.format(getAccuracy(actionPerformer.getConstValue().getRemBaseValue() + ""), rem)
+                                                            .replaceAll("0*$", "")
+                                                            .replaceAll("\\.$", "") + REM_STYLE_TAG +
+                                                            showComment(px, actionPerformer.getConstValue().getRemBaseValue())
+                                            ))
+                            )
+                    )
+            )
         );
     }
 

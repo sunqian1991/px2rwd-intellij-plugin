@@ -25,4 +25,12 @@ public class MagicValue {
 
     public static final String STYLE_PATTERN_FORMAT = "^[\\w\\W]+\\:[\\w\\W]*\\d+(\\.{1}(\\d+))?px[\\w\\W]*$";
 
+    public static final String STYLE_SHEET_LANGUAGE_ID = "CSS";
+
+    public static final String BLANK_STRING = " ";
+
+    public static final String COLON_STRING = ":";
+
+    public static final String AUTO_COMPLETION_TAG = "px";
+
 }
