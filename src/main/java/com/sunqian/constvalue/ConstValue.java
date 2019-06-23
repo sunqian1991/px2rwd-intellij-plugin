@@ -27,8 +27,29 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
     @Setter
     private Boolean showCalculationProcess;
 
+    @Setter
+    private ShortCutType shortCutType;
+
+    @Setter
+    private String widthValue;
+
+    @Setter
+    private String heightValue;
+
     public Boolean getShowCalculationProcess() {
         return Optional.ofNullable(showCalculationProcess).orElse(false);
+    }
+
+    public ShortCutType getShortCutType() {
+        return Optional.ofNullable(shortCutType).orElse(ShortCutType.REM);
+    }
+
+    public Double getWidthValue() {
+        return NumberUtils.toDouble(Optional.ofNullable(widthValue).orElse("1920"));
+    }
+
+    public Double getHeightValue() {
+        return NumberUtils.toDouble(Optional.ofNullable(heightValue).orElse("1080"));
     }
 
     @Override
