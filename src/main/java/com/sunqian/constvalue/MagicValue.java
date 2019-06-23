@@ -33,4 +33,14 @@ public class MagicValue {
 
     public static final String AUTO_COMPLETION_TAG = "px";
 
+    public static final String PLUGIN_NAME = "PX2RWD";
+
+    public static final String TO_REM_TIP = " to rem";
+
+    public static final String TO_VW_TIP = " to vw";
+
+    public static final String TO_VH_TIP = " to vh";
+
+    public static final String [] TO_RWD_TIPS = new String []{TO_VW_TIP,TO_VH_TIP,TO_REM_TIP};
+
 }
