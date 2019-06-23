@@ -59,9 +59,18 @@
         />
         <completion.contributor language="CSS" implementationClass="com.sunqian.completion.PX2RWDCompletion"/>
         <intentionAction>
-            <className>com.sunqian.intention.PX2RWDIntention</className>
+            <className>com.sunqian.intention.PX2REMIntention</className>
             <category>CSS</category>
         </intentionAction>
+        <intentionAction>
+            <className>com.sunqian.intention.PX2VWIntention</className>
+            <category>CSS</category>
+        </intentionAction>
+        <intentionAction>
+            <className>com.sunqian.intention.PX2VHIntention</className>
+            <category>CSS</category>
+        </intentionAction>
+        <projectConfigurable instance="com.sunqian.settings.ProjectSettingConfig" displayName="PX2RWD" id="pjSettings" />
     </extensions>
 
     <actions>
