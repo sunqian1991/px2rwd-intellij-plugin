@@ -83,9 +83,6 @@
                 description="PX2RWDWithFile">
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt d"/>
         </action>
-        <action id="SetPX2RWDID" class="com.sunqian.action.SetPX2RWD" text="PX2REM" description="SetPX2RWD">
-            <add-to-group group-id="FileSettingsGroup" anchor="last" />
-        </action>
     </actions>
 
 </idea-plugin>
