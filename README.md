@@ -80,23 +80,23 @@ email:sunqian1991@gmail.com
 
 
 #### 使用说明
-目前提供了三种方式来转换：快捷键、代码意图提示(Alt + Enter)、代码自动完成提示
- 
+目前提供了三种方式来转换：快捷键、代码意图提示(<kbd>Alt</kbd> + <kbd>Enter</kbd>)、代码自动完成提示
+
 1. 快捷键
- 
+
 默认的快捷键是<kbd>Alt</kbd> + <kbd>d</kbd>，在插件配置页面中可以看到快捷键部分有3种转换类型的选项，分别是rem,vw,vh，选择其中的一个来使用快捷键转换，需要注意的是，需要在选项下方的值配置中设置对应的基值。
 只能选择一种转换类型来使用快捷键转换单位。同时也可以重新设置快捷键。需要注意的是，跟之前的版本相比，默认的快捷键修改了，修改的原因主要是原来的<kbd>Shift</kbd> + <kbd>d</kbd>会与大小写冲突。
- 
+
 2. code intention
- 
+
 选择使用代码意图提示的类型后即可使用已选择的类型来在css文件中通过<kbd>Alt</kbd> + <kbd>Shift</kbd>来调用code intention来快捷转换单位。未勾选的选项不会出现在文件的code intention列表中。
- 
+
 3. code completion
- 
+
 选择使用代码自动提示的类型后即可使用已选择的类型来在css文件中快捷转换单位，当输入'px'后，code completion列表中会出现在配置页面中选择的类型名称，选择其中一个类型后即可实现自动完成转换功能。
- 
-如果觉得这个插件还不错，希望可以在github上给我点个赞，非常感激。
- 
+
+如果觉得这个插件还不错，希望给我加个星，非常感激。
+
 使用说明：
 1. File-Settings-Px to Rwd进行必要的参数配置
 2. 选择一个需要转换的样式或者将光标移动到一个包含需要转换样式的行中，使用快捷键<kbd>Alt</kbd> + <kbd>d</kbd>来转换，也可以使用<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd>来转换整个文件中的可转换样式
@@ -106,30 +106,30 @@ email:sunqian1991@gmail.com
 *********************************************
 
 there are three ways to convert: short-cut key, code intention, code completion. you can find the settings related to these converting ways in settings page with the path 'File - Settings - Px to Rwd'
- 
+
 1. short-cut key
- 
+
 select a converting type from three options of rem, vw, vh in setting page and give a necessary value set below the radio group, then use the default short-cut key of <kbd>Alt</kbd> + <kbd>d</kbd> to convert a line or a selected text. you can also use the short-cut key of <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd> to convert in a whole file.
 you can only choose one converting type of short-cut key from rem,vw,vg to convert.
 btw, you can change the short-cut key in your ide by setting the keymap option.
- 
+
 2. code intention
- 
+
 you can find three code intention types in settings page and you can select if a code intention type works by check the checkbox.
 by check a code intention in a line of a css file, which will display by typing Alt + Shift, you can convert the line where the caret displays.
 the unselected code intention types in settings page will not show in the list of code intention in a css file
- 
+
 3. code completion
- 
+
 you can also find three code completion types in the settings page and you can select if a code completion type works by check the checkbox.
 by typing 'px' in a css file, you can find some code completion types you set in settings page. choose a type then it will give a result of converting.
 the unselected code completion types in settings page will not show in the list of code completion in a css file
- 
+
 Instructions:
 1. find menu at 'File - Settings - Px to Rwd', and give some settings.
 2. select a text or move cursor at a line which contains a 'px' value.
-3. use default shortcut key Alt + d to convert px to rem/vw/vh with a line; btw, you can change the shortcut at 'File - Settings - keymap - Plug-ins - px2rwd'.
-4. use default shortcut key Ctrl + Shift d to convert px to rem/vw/vh with a file.
+3. use default shortcut key <kbd>Alt</kbd> + <kbd>d</kbd> to convert px to rem/vw/vh with a line; btw, you can change the shortcut at 'File - Settings - keymap - Plug-ins - px2rwd'.
+4. use default shortcut key <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd> to convert px to rem/vw/vh in a whole file.
 5. use a code intention to convert px to rem/vw/vh in a css file
 5. use a code completion to convert px to rem/vw/vh in a css file
 
