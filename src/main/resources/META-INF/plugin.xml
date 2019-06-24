@@ -2,7 +2,7 @@
     <id>com.sunqian.px2rwd</id>
     <name>px2rwd</name>
     <version>2.1.0</version>
-    <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/WebStorm-PX2REM">sunqian</vendor>
+    <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/px2rwd-intellij-plugin">sunqian</vendor>
     <description><![CDATA[
     <p>this is a tool of converting px to <span style="color:#117ebf;font-weight: bold;">rem/vw/vh</span> in a css/less file by a few settings.</p>
     <br />
@@ -34,7 +34,7 @@
     <p>5. use a code intention to convert px to rem/vw/vh in a css file</p>
     <p>5. use a code completion to convert px to rem/vw/vh in a css file</p>
     <br />
-    <p>if this plugin is not bad, you can give me a star in <a style="text-decoration:none;" href="https://github.com/sunqian1991/WebStorm-PX2REM">github</a> and I will be very grateful for your support.</p>
+    <p>if this plugin is not bad, you can give me a star in <a style="text-decoration:none;" href="https://github.com/sunqian1991/px2rwd-intellij-plugin">github</a> and I will be very grateful for your support.</p>
     <br />
     <p>这是一个转换css文件中的px单位为rem/vw/vh等单位的插件，主要适用于idea和webstorm.</p>
     <br />
@@ -53,7 +53,7 @@
     <br />
     <p>选择使用代码自动提示的类型后即可使用已选择的类型来在css文件中快捷转换单位，当输入'px'后，code completion列表中会出现在配置页面中选择的类型名称，选择其中一个类型后即可实现自动完成转换功能。</p>
     <br />
-    <p style="color:#e28b3f;font-weight: bold;">如果觉得这个插件还不错，希望可以在<a style="text-decoration:none;" href="https://github.com/sunqian1991/WebStorm-PX2REM">github</a>上给我点个赞，非常感激。</p>
+    <p style="color:#e28b3f;font-weight: bold;">如果觉得这个插件还不错，希望可以在<a style="text-decoration:none;" href="https://github.com/sunqian1991/px2rwd-intellij-plugin">github</a>上给我点个赞，非常感激。</p>
     <br />
     <p>使用说明：</p>
     <p>1. File-Settings-Px to Rwd进行必要的参数配置</p>
