@@ -149,7 +149,7 @@ public class ProjectSettingsPage {
         final Spacer spacer3 = new Spacer();
         panel5.add(spacer3, cc.xy(5, 1, CellConstraints.FILL, CellConstraints.DEFAULT));
         final JLabel label5 = new JLabel();
-        label5.setText("settings");
+        label5.setText("values");
         panel3.add(label5, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JSeparator separator2 = new JSeparator();
         panel3.add(separator2, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));

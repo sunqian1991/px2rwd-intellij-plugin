@@ -1,7 +1,7 @@
 package com.sunqian.utils;
 
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.util.Arrays;
 import java.util.Optional;

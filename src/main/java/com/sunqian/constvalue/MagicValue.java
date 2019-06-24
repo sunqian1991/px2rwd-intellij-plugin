@@ -11,7 +11,7 @@ import java.util.Map;
  * @author sunqian
  * @date 2019/6/6
  */
-@SuppressWarnings({"unused"})
+@SuppressWarnings("ALL")
 public class MagicValue {
 
     public static final String PX_STYLE_TAG = "px";
@@ -40,7 +40,7 @@ public class MagicValue {
 
     public static final String AUTO_COMPLETION_TAG = "px";
 
-    public static final String PLUGIN_NAME = "PX2RWD";
+    public static final String PLUGIN_NAME = "Px to Rwd";
 
     public static final String TO_REM_TIP = " to rem";
 
