@@ -23,7 +23,7 @@ V2.1.0
 
 #### 更新日志
 
-v2.1.0:添加了code intention和code completion；修改了配置页面的位置；修改了快捷键为<kbd>Alt</kbd> + <kbd>d</kbd>；
+v2.1.0:添加了code intention和code completion；修改了配置页面的位置；修改了快捷键为<kbd>Alt</kbd> + <kbd>d</kbd>；添加了px转vw和vh插件功能
 
 v2.0.2:在注释中添加了计算的过程；修改了保留小数位数的设置，在可以被整除的情况下，不改变精度
 
