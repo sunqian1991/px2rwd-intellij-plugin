@@ -47,13 +47,13 @@ v1.0.0:初始编写，webstorm插件，主要是把css中的px转换为rem，其
 
 *********************************************
 
-v2.1.0: change the default short-cut key from shift + d to alt + d; add px to vw and px to vh; change the plugin-settings location to 'File - Settings - Px to Rwd'; add a code completion; add a code intention
+v2.1.0: change the default short-cut key from <kbd>Shift</kbd> + <kbd>d</kbd> to <kbd>Alt</kbd> + <kbd>d</kbd>; add px to vw and px to vh; change the plugin-settings location to 'File - Settings - Px to Rwd'; add a code completion; add a code intention
 
 v2.0.2: give a option of showing the calculation process in comment block; change the accuracy set
 
 v2.0.1: change the accuracy set, which can be matched with the font size of root element
 
-v2.0.0: give a short-cut key of ctrl + shift + d to convert the px to rem in a whole css file
+v2.0.0: give a short-cut key of <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>d</kbd> to convert the px to rem in a whole css file
 
 v1.1.5: add some comments
 
@@ -84,12 +84,12 @@ email:sunqian1991@gmail.com
  
 1. 快捷键
  
-默认的快捷键是Alt + d，在插件配置页面中可以看到快捷键部分有3种转换类型的选项，分别是rem,vw,vh，选择其中的一个来使用快捷键转换，需要注意的是，需要在选项下方的值配置中设置对应的基值。
-只能选择一种转换类型来使用快捷键转换单位。同时也可以重新设置快捷键。需要注意的是，跟之前的版本相比，默认的快捷键修改了，修改的原因主要是原来的'Shift' + 'd'会与大小写冲突。
+默认的快捷键是<kbd>Alt</kbd> + <kbd>d</kbd>，在插件配置页面中可以看到快捷键部分有3种转换类型的选项，分别是rem,vw,vh，选择其中的一个来使用快捷键转换，需要注意的是，需要在选项下方的值配置中设置对应的基值。
+只能选择一种转换类型来使用快捷键转换单位。同时也可以重新设置快捷键。需要注意的是，跟之前的版本相比，默认的快捷键修改了，修改的原因主要是原来的<kbd>Shift</kbd> + <kbd>d</kbd>会与大小写冲突。
  
 2. code intention
  
-选择使用代码意图提示的类型后即可使用已选择的类型来在css文件中通过Alt + Shift来调用code intention来快捷转换单位。未勾选的选项不会出现在文件的code intention列表中。
+选择使用代码意图提示的类型后即可使用已选择的类型来在css文件中通过<kbd>Alt</kbd> + <kbd>Shift</kbd>来调用code intention来快捷转换单位。未勾选的选项不会出现在文件的code intention列表中。
  
 3. code completion
  
@@ -99,8 +99,8 @@ email:sunqian1991@gmail.com
  
 使用说明：
 1. File-Settings-Px to Rwd进行必要的参数配置
-2. 选择一个需要转换的样式或者将光标移动到一个包含需要转换样式的行中，使用快捷键Alt + d来转换，也可以使用Ctrl + Alt + d来转换整个文件中的可转换样式
-3. 通过code intentionAlt + Enter来转换某一行中涉及到的样式
+2. 选择一个需要转换的样式或者将光标移动到一个包含需要转换样式的行中，使用快捷键<kbd>Alt</kbd> + <kbd>d</kbd>来转换，也可以使用<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd>来转换整个文件中的可转换样式
+3. 通过code intention<kbd>Alt</kbd> + <kbd>Enter</kbd>来转换某一行中涉及到的样式
 4. 通过在输入'px'字符后显示的自动完成提示列表中选择相应的选项来转换相应的样式
 
 *********************************************
@@ -109,7 +109,7 @@ there are three ways to convert: short-cut key, code intention, code completion.
  
 1. short-cut key
  
-select a converting type from three options of rem, vw, vh in setting page and give a necessary value set below the radio group, then use the default short-cut ket of Alt + d to convert a line or a selected text. you can also use the short-cut key of span style="color:#117ebf;font-weight: bold;">Ctrl + Alt + d to convert in a whole file.
+select a converting type from three options of rem, vw, vh in setting page and give a necessary value set below the radio group, then use the default short-cut key of <kbd>Alt</kbd> + <kbd>d</kbd> to convert a line or a selected text. you can also use the short-cut key of <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd> to convert in a whole file.
 you can only choose one converting type of short-cut key from rem,vw,vg to convert.
 btw, you can change the short-cut key in your ide by setting the keymap option.
  

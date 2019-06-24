@@ -10,7 +10,7 @@
     <br />
     <p>1. short-cut key</p>
     <br />
-    <p>select a converting type from three options of rem, vw, vh in setting page and give a necessary value set below the radio group, then use the default short-cut ket of <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span> to convert a line or a selected text. you can also use the short-cut key of span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span> to convert in a whole file.</p>
+    <p>select a converting type from three options of rem, vw, vh in setting page and give a necessary value set below the radio group, then use the default short-cut key of <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span> to convert a line or a selected text. you can also use the short-cut key of <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span> to convert in a whole file.</p>
     <p>you can only choose one converting type of short-cut key from rem,vw,vg to convert.</p>
     <p>btw, you can change the short-cut key in your ide by setting the keymap option.</p>
     <br />
@@ -30,7 +30,7 @@
     <p>1. find menu at 'File - Settings - Px to Rwd', and give some settings.</p>
     <p>2. select a text or move cursor at a line which contains a 'px' value.</p>
     <p>3. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span> to convert px to rem/vw/vh with a line; btw, you can change the shortcut at 'File - Settings - keymap - Plug-ins - px2rwd'.</p>
-    <p>4. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> <kbd>d</kbd></span> to convert px to rem/vw/vh with a file.</p>
+    <p>4. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>d</kbd></span> to convert px to rem/vw/vh with a file.</p>
     <p>5. use a code intention to convert px to rem/vw/vh in a css file</p>
     <p>5. use a code completion to convert px to rem/vw/vh in a css file</p>
     <br />
