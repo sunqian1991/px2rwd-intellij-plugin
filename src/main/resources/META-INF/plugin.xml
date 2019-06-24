@@ -1,5 +1,5 @@
 <idea-plugin url="https://plugins.jetbrains.com/plugin/11187-px2remforwebstorm">
-    <id>com.sunqian.px2rwd</id>
+    <id>com.sunq.action.WebStormPX2REMTools</id>
     <name>px2rwd</name>
     <version>2.1.0</version>
     <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/px2rwd-intellij-plugin">sunqian</vendor>
