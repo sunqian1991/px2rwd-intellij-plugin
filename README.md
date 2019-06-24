@@ -109,7 +109,7 @@ there are three ways to convert: short-cut key, code intention, code completion.
  
 1. short-cut key
  
-select a converting type from three options of rem, vw, vh in setting page and give a necessary value set below the radio group, then use the default short-cut key of <kbd>Alt</kbd> + <kbd>d</kbd> to convert a line or a selected text. you can also use the short-cut key of <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd> to convert in a whole file.
+select a converting type from three options of rem, vw, vh in setting page and give a necessary value set below the radio group, then use the default short-cut key of <kbd>Alt</kbd> + <kbd>d</kbd> to convert a line or a selected text. you can also use the short-cut key of <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd> to convert in a whole file.
 you can only choose one converting type of short-cut key from rem,vw,vg to convert.
 btw, you can change the short-cut key in your ide by setting the keymap option.
  

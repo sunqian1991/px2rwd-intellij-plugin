@@ -17,7 +17,7 @@
     <p>2. code intention</p>
     <br />
     <p>you can find three code intention types in settings page and you can select if a code intention type works by check the checkbox.</p>
-    <p>by check a code intention in a line of a css file, which will display by typing <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>Shift</kbd></span>, you can convert the line where the caret displays.</p>
+    <p>by check a code intention in a line of a css file, which will display by typing <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>Enter</kbd></span>, you can convert the line where the caret displays.</p>
     <p>the unselected code intention types in settings page will not show in the list of code intention in a css file</p>
     <br />
     <p>3. code completion</p>
@@ -30,7 +30,7 @@
     <p>1. find menu at 'File - Settings - Px to Rwd', and give some settings.</p>
     <p>2. select a text or move cursor at a line which contains a 'px' value.</p>
     <p>3. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span> to convert px to rem/vw/vh with a line; btw, you can change the shortcut at 'File - Settings - keymap - Plug-ins - px2rwd'.</p>
-    <p>4. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>d</kbd></span> to convert px to rem/vw/vh with a file.</p>
+    <p>4. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span> to convert px to rem/vw/vh in a whole file.</p>
     <p>5. use a code intention to convert px to rem/vw/vh in a css file</p>
     <p>5. use a code completion to convert px to rem/vw/vh in a css file</p>
     <br />
@@ -47,7 +47,7 @@
     <br />
     <p>2. code intention</p>
     <br />
-    <p>选择使用代码意图提示的类型后即可使用已选择的类型来在css文件中通过<span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>Shift</kbd></span>来调用code intention来快捷转换单位。未勾选的选项不会出现在文件的code intention列表中。</p>
+    <p>选择使用代码意图提示的类型后即可使用已选择的类型来在css文件中通过<span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>Enter</kbd></span>来调用code intention来快捷转换单位。未勾选的选项不会出现在文件的code intention列表中。</p>
     <br />
     <p>3. code completion</p>
     <br />
