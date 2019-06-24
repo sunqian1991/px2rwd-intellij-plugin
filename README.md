@@ -1,6 +1,5 @@
 ## PX2RWD-Intellij-Plugin----px转rem/vw/vh插件
 
-[![codebeat badge](https://codebeat.co/badges/290c72c6-f4e8-4f45-81e0-b98c612805b6)](https://codebeat.co/projects/github-com-sunqian1991-webstorm-px2rem-master)
 [![](https://img.shields.io/badge/license-MIT-000000.svg)](https://github.com/sunqian1991/px2rwd-intellij-plugin/blob/master/LICENSE)
 [![](https://img.shields.io/jetbrains/plugin/v/11187.svg)](https://plugins.jetbrains.com/plugin/11187-px2rem)
 [![](https://img.shields.io/jetbrains/plugin/d/11187.svg)](https://plugins.jetbrains.com/plugin/11187-px2rem)
