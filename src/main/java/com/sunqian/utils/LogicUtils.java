@@ -31,7 +31,7 @@ public class LogicUtils {
 
     @SafeVarargs
     public final <T> boolean or(ExceptionPredicate<T> predicate, T... t) {
-        return Arrays.stream(t).anyMatch(predicate::test);
+        return Arrays.stream(t).anyMatch(predicate);
     }
 
     public <T> void conOrElse(T t, ExceptionPredicate<T> predicate, ExceptionConsumer<T> consumerTrue, ExceptionConsumer<T> consumerFalse) {

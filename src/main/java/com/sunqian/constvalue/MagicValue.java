@@ -1,5 +1,10 @@
 package com.sunqian.constvalue;
 
+import com.sunqian.utils.LogicUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 魔法值库
  *
@@ -14,6 +19,8 @@ public class MagicValue {
     public static final String REM_STYLE_TAG = "rem";
 
     public static final String VW_STYLE_TAG = "vw";
+
+    public static final String VH_STYLE_TAG = "vh";
 
     public static final String NUMBER_PATTERN_FORMULA = "-?[0-9]+(\\.[0-9]+)?";
 
@@ -41,6 +48,12 @@ public class MagicValue {
 
     public static final String TO_VH_TIP = " to vh";
 
-    public static final String [] TO_RWD_TIPS = new String []{TO_VW_TIP,TO_VH_TIP,TO_REM_TIP};
+    public static final String[] TO_RWD_TIPS = new String[]{TO_VW_TIP, TO_VH_TIP, TO_REM_TIP};
+
+    public static final Map STYLE_TAG_TYPE = LogicUtils.getLogic().generateObject(new HashMap<>(), map ->
+            map.put(ShortCutType.REM, REM_STYLE_TAG), map ->
+            map.put(ShortCutType.VW, VW_STYLE_TAG), map ->
+            map.put(ShortCutType.VH, VH_STYLE_TAG)
+    );
 
 }

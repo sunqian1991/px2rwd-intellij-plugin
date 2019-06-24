@@ -6,10 +6,13 @@ import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.xmlb.XmlSerializerUtil;
-import lombok.Setter;
+import com.sunqian.utils.LogicUtils;
+import lombok.Data;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -19,22 +22,30 @@ import java.util.Optional;
  * @date 2018/8/8 12:19
  */
 @State(name = "px2remForWebStorm", storages = {@Storage("px2remforwebstorm.xml")})
+@Data
 public class ConstValue implements PersistentStateComponent<ConstValue> {
 
-    @Setter
     private String remBaseValue;
 
-    @Setter
     private Boolean showCalculationProcess;
 
-    @Setter
     private ShortCutType shortCutType;
 
-    @Setter
     private String widthValue;
 
-    @Setter
     private String heightValue;
+
+    private Boolean remIntention;
+
+    private Boolean vwIntention;
+
+    private Boolean vhIntention;
+
+    private Boolean remCompletion;
+
+    private Boolean vwCompletion;
+
+    private Boolean vhCompletion;
 
     public Boolean getShowCalculationProcess() {
         return Optional.ofNullable(showCalculationProcess).orElse(false);
@@ -50,6 +61,37 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
 
     public Double getHeightValue() {
         return NumberUtils.toDouble(Optional.ofNullable(heightValue).orElse("1080"));
+    }
+
+    public Boolean getRemIntention() {
+        return Optional.ofNullable(remIntention).orElse(true);
+    }
+
+    public Boolean getVwIntention() {
+        return Optional.ofNullable(vwIntention).orElse(false);
+    }
+
+    public Boolean getVhIntention() {
+        return Optional.ofNullable(vhIntention).orElse(false);
+    }
+
+    public Boolean getRemCompletion() {
+        return Optional.ofNullable(remCompletion).orElse(true);
+    }
+
+    public Boolean getVwCompletion() {
+        return Optional.ofNullable(vwCompletion).orElse(false);
+    }
+
+    public Boolean getVhCompletion() {
+        return Optional.ofNullable(vhCompletion).orElse(false);
+    }
+
+    public Map<ShortCutType, Double> baseValueType() {
+        return LogicUtils.getLogic().generateObject(new HashMap<>(), map ->
+                map.put(ShortCutType.REM, this.getRemBaseValue()), map ->
+                map.put(ShortCutType.VW, this.getWidthValue() / 100), map ->
+                map.put(ShortCutType.VH, this.getHeightValue() / 100));
     }
 
     @Override

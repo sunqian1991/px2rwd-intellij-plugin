@@ -29,8 +29,8 @@ public class PX2RWDWithLine extends AnAction {
         Optional.ofNullable(ActionPerformer.getActionPerformer(anActionEvent.getRequiredData(CommonDataKeys.PROJECT), anActionEvent.getRequiredData(CommonDataKeys.EDITOR))).ifPresent(ap -> {
             Optional.of(FormatTools.getFormatTools(ap.getConstValue())).ifPresent(formatTools -> {
                 LogicUtils.getLogic().generateObject(new HashMap<String, Consumer<ActionPerformer>>(), map -> {
-                    map.put("0", actionPerformer -> formatTools.formatLineCode(actionPerformer));
-                    map.put("1", actionPerformer -> formatTools.formatSelectCode(actionPerformer));
+                    map.put("0", actionPerformer -> formatTools.formatLineCode(actionPerformer, actionPerformer.getConstValue().getShortCutType()));
+                    map.put("1", actionPerformer -> formatTools.formatSelectCode(actionPerformer, actionPerformer.getConstValue().getShortCutType()));
                 }).get(Optional.ofNullable(ap.getSelectionModel().getSelectedText()).filter(text -> !Objects.equals(text, "")).map(text -> "1").orElse("0")).accept(ap);
             });
         });

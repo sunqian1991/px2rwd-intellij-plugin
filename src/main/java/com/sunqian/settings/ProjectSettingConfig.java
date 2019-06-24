@@ -78,6 +78,12 @@ public class ProjectSettingConfig implements SearchableConfigurable {
         mainGui.getRemBaseValue().setText(constValue.getRemBaseValue() + "");
         mainGui.getVwValue().setText(constValue.getWidthValue().toString());
         mainGui.getVhValue().setText(constValue.getHeightValue().toString());
+        mainGui.getRemIntention().setSelected(constValue.getRemIntention());
+        mainGui.getVwIntention().setSelected(constValue.getVwIntention());
+        mainGui.getVhIntention().setSelected(constValue.getVhIntention());
+        mainGui.getRemCompletion().setSelected(constValue.getRemCompletion());
+        mainGui.getVwCompletion().setSelected(constValue.getVwCompletion());
+        mainGui.getVhCompletion().setSelected(constValue.getVhCompletion());
     }
 
     @Override
@@ -87,6 +93,12 @@ public class ProjectSettingConfig implements SearchableConfigurable {
         LogicUtils.getLogic().conOrEnd(mainGui.getVwValue().getText(), text -> Objects.nonNull(text) && NumberUtils.isNumber(text), text -> constValue.setWidthValue(mainGui.getVwValue().getText()));
         LogicUtils.getLogic().conOrEnd(mainGui.getVhValue().getText(), text -> Objects.nonNull(text) && NumberUtils.isNumber(text), text -> constValue.setHeightValue(mainGui.getVhValue().getText()));
         constValue.setShortCutType(getShortCutType());
+        constValue.setRemIntention(mainGui.getRemIntention().isSelected());
+        constValue.setVwIntention(mainGui.getVwIntention().isSelected());
+        constValue.setVhIntention(mainGui.getVhIntention().isSelected());
+        constValue.setRemCompletion(mainGui.getRemCompletion().isSelected());
+        constValue.setVwCompletion(mainGui.getVwCompletion().isSelected());
+        constValue.setVhCompletion(mainGui.getVhCompletion().isSelected());
     }
 
     private ShortCutType getShortCutType() {
@@ -111,6 +123,18 @@ public class ProjectSettingConfig implements SearchableConfigurable {
                 constValue.getShortCutType(), getShortCutType()
         }, new Boolean[]{
                 constValue.getShowCalculationProcess(), mainGui.getShowCalculationProcessInCheckBox().isSelected()
+        }, new Boolean[]{
+                constValue.getRemIntention(), mainGui.getRemIntention().isSelected()
+        }, new Boolean[]{
+                constValue.getVwIntention(), mainGui.getVwIntention().isSelected()
+        }, new Boolean[]{
+                constValue.getVhIntention(), mainGui.getVhIntention().isSelected()
+        }, new Boolean[]{
+                constValue.getRemCompletion(), mainGui.getRemCompletion().isSelected()
+        }, new Boolean[]{
+                constValue.getVwCompletion(), mainGui.getVwCompletion().isSelected()
+        }, new Boolean[]{
+                constValue.getVhCompletion(), mainGui.getVhCompletion().isSelected()
         });
     }
 }

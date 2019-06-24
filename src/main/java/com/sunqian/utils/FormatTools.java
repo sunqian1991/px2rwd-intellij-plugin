@@ -3,6 +3,7 @@ package com.sunqian.utils;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.util.TextRange;
 import com.sunqian.constvalue.ConstValue;
+import com.sunqian.constvalue.ShortCutType;
 import com.sunqian.model.ActionPerformer;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,21 +45,26 @@ public class FormatTools {
         });
     }
 
-    private String getFormatText(String ele) {
+    private String getFormatText(String ele, ShortCutType shortCutType) {
         return Optional.ofNullable(ele).filter(text -> text.contains(PX_STYLE_TAG) && !Objects.equals(NULL_STRING, text)).map(text ->
-                Optional.of(NumberUtils.toDouble(text.substring(0, ele.indexOf(PX_STYLE_TAG)).trim())).map(px ->
-                        Optional.of(px / this.constValue.getRemBaseValue()).map(rem ->
-                                Optional.of(check(px, this.constValue.getRemBaseValue())).filter(ifDivide -> ifDivide).map(ifDivide ->
-                                        (rem.toString()).replaceAll("0*$", "").replaceAll("\\.$", "") + REM_STYLE_TAG + showComment(px, this.constValue.getRemBaseValue())
-                                ).orElseGet(() ->
-                                        String.format(getAccuracy(constValue.getRemBaseValue() + ""), rem).replaceAll("0*$", "").replaceAll("\\.$", "").trim() + REM_STYLE_TAG + showComment(px, this.constValue.getRemBaseValue())
-                                )
-                        )
+                Optional.of(NumberUtils.toDouble(text.substring(0, ele.indexOf(PX_STYLE_TAG)).trim())).map(px -> valueFormat(px, shortCutType)
                 ).get()
-        ).get().orElse(ele);
+        ).orElse(ele);
     }
 
-    private String getFormatLine(String content) {
+    private String valueFormat(Double px, ShortCutType shortCutType) {
+        return Optional.of(this.constValue.baseValueType().get(shortCutType)).map(value ->
+                Optional.of(px / value).map(rem ->
+                        Optional.of(check(px, value)).filter(ifDivide -> ifDivide).map(ifDivide ->
+                                (rem.toString()).replaceAll("0*$", "").replaceAll("\\.$", "") + STYLE_TAG_TYPE.get(shortCutType) + showComment(px, value)
+                        ).orElseGet(() ->
+                                String.format(getAccuracy(value + ""), rem).replaceAll("0*$", "").replaceAll("\\.$", "").trim() + STYLE_TAG_TYPE.get(shortCutType) + showComment(px, value)
+                        )
+                ).orElse(px.toString())
+        ).orElse(px.toString());
+    }
+
+    private String getFormatLine(String content, ShortCutType shortCutType) {
         int index;
         while ((index = StringUtils.indexOf(content.toLowerCase(), PX_STYLE_TAG)) > -1) {
             int startIndex = index;
@@ -67,7 +73,7 @@ public class FormatTools {
             }
             if (startIndex != index) {
                 String value = content.substring(startIndex, index) + PX_STYLE_TAG;
-                content = content.substring(0, startIndex) + getFormatText(value) + content.substring(index + 2);
+                content = content.substring(0, startIndex) + getFormatText(value, shortCutType) + content.substring(index + 2);
             } else {
                 break;
             }
@@ -121,8 +127,8 @@ public class FormatTools {
      *
      * @param actionPerformer 获取的动作参数
      */
-    public void formatLineCode(ActionPerformer actionPerformer) {
-        formatLineCode(actionPerformer, actionPerformer.getDocument().getLineNumber(actionPerformer.getCaretModel().getOffset()));
+    public void formatLineCode(ActionPerformer actionPerformer, ShortCutType shortCutType) {
+        formatLineCode(actionPerformer, actionPerformer.getDocument().getLineNumber(actionPerformer.getCaretModel().getOffset()), shortCutType);
     }
 
     /**
@@ -131,7 +137,7 @@ public class FormatTools {
      * @param actionPerformer 获取的动作参数
      * @param lineNum         行号
      */
-    public void formatLineCode(ActionPerformer actionPerformer, int lineNum) {
+    public void formatLineCode(ActionPerformer actionPerformer, int lineNum, ShortCutType shortCutType) {
         // 行起始offset
         Optional.of(actionPerformer.getDocument().getLineStartOffset(lineNum)).ifPresent(lineStartOffset -> {
             // 行结束offset
@@ -143,7 +149,7 @@ public class FormatTools {
                                         actionPerformer.getDocument().replaceString(
                                                 lineStartOffset,
                                                 lineEndOffset,
-                                                getFormatLine(lineContent))
+                                                getFormatLine(lineContent, shortCutType))
                                 );
                                 return lineContent;
                             })
@@ -156,12 +162,12 @@ public class FormatTools {
      *
      * @param actionPerformer 获取的动作参数
      */
-    public void formatNearCode(ActionPerformer actionPerformer) {
+    public void formatNearCode(ActionPerformer actionPerformer, ShortCutType shortCutType) {
         Optional.of(actionPerformer.getDocument()).ifPresent(document ->
                 Optional.of(actionPerformer.getCaretModel()).ifPresent(caretModel ->
                         Optional.of(document.getText(new TextRange(document.getLineStartOffset(document.getLineNumber(caretModel.getOffset())), actionPerformer.getCaretModel().getOffset()))).ifPresent(lineContent ->
                                 Optional.of(lineContent.substring(getNearCode(lineContent) + 1, lineContent.length() - 2).trim()).ifPresent(content ->
-                                        formatText(content, caretModel.getOffset() - content.length() - 2, caretModel.getOffset(), actionPerformer)
+                                        formatText(content, caretModel.getOffset() - content.length() - 2, caretModel.getOffset(), actionPerformer, shortCutType)
                                 )
                         )
                 )
@@ -183,7 +189,7 @@ public class FormatTools {
      *
      * @param actionPerformer 获取的动作参数
      */
-    public void formatSelectCode(ActionPerformer actionPerformer) {
+    public void formatSelectCode(ActionPerformer actionPerformer, ShortCutType shortCutType) {
         // 光标选择的文字
         Optional.ofNullable(actionPerformer.getSelectionModel().getSelectedText()).ifPresent(selectText ->
                 Optional.of(selectText.indexOf(PX_STYLE_TAG)).filter(index -> index > -1).map(index -> {
@@ -191,7 +197,7 @@ public class FormatTools {
                     Optional.of(actionPerformer.getSelectionModel().getSelectionStart()).ifPresent(start -> {
                         // 选择区域结束
                         Optional.of(actionPerformer.getSelectionModel().getSelectionEnd()).ifPresent(end ->
-                                formatText(selectText.substring(0, index), start, end, actionPerformer)
+                                formatText(selectText.substring(0, index), start, end, actionPerformer, shortCutType)
                         );
                     });
                     return index;
@@ -207,24 +213,13 @@ public class FormatTools {
      * @param end             结束index
      * @param actionPerformer 动作参数
      */
-    private void formatText(String style, int start, int end, ActionPerformer actionPerformer) {
+    private void formatText(String style, int start, int end, ActionPerformer actionPerformer, ShortCutType shortCutType) {
         Optional.of(style).filter(FormatTools::isNumeric).ifPresent(text ->
-                Optional.of(NumberUtils.toDouble(text)).ifPresent(px ->
-                        Optional.of(px / actionPerformer.getConstValue().getRemBaseValue()).ifPresent(rem ->
-                                WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
-                                        actionPerformer.getDocument().replaceString(
-                                                start,
-                                                end,
-                                                Optional.of(check(px, actionPerformer.getConstValue().getRemBaseValue())).filter(ifDivide -> ifDivide).map(ifDivide ->
-                                                        (rem + "").replaceAll("0*$", "").replaceAll("\\.$", "") + REM_STYLE_TAG + showComment(px, actionPerformer.getConstValue().getRemBaseValue())
-                                                ).orElseGet(() ->
-                                                        String.format(getAccuracy(actionPerformer.getConstValue().getRemBaseValue() + ""), rem)
-                                                                .replaceAll("0*$", "")
-                                                                .replaceAll("\\.$", "") + REM_STYLE_TAG +
-                                                                showComment(px, actionPerformer.getConstValue().getRemBaseValue())
-                                                ))
-                                )
-                        )
+                WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
+                        actionPerformer.getDocument().replaceString(
+                                start,
+                                end,
+                                getFormatText(style + PX_STYLE_TAG, shortCutType))
                 )
         );
     }

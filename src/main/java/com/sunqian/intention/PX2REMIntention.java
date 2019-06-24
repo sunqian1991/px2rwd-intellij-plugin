@@ -6,6 +6,7 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.IncorrectOperationException;
+import com.sunqian.constvalue.ShortCutType;
 import com.sunqian.model.ActionPerformer;
 import com.sunqian.utils.FormatTools;
 import org.jetbrains.annotations.Nls;
@@ -24,14 +25,14 @@ public class PX2REMIntention extends PsiElementBaseIntentionAction implements In
     public void invoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) throws IncorrectOperationException {
         Optional.ofNullable(ActionPerformer.getActionPerformer(project, editor)).ifPresent(ap ->
                 Optional.of(FormatTools.getFormatTools(ap.getConstValue())).ifPresent(formatTools ->
-                        formatTools.formatLineCode(ap)
+                        formatTools.formatLineCode(ap, ShortCutType.REM)
                 )
         );
     }
 
     @Override
     public boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
-        return IntentionUtils.isAvailable(project, editor, element);
+        return ActionPerformer.getActionPerformer(project, editor).getConstValue().getRemIntention() && IntentionUtils.isAvailable(editor, element);
     }
 
     @Nls(capitalization = Nls.Capitalization.Sentence)

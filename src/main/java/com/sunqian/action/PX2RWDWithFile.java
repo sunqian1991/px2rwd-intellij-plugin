@@ -23,7 +23,7 @@ public class PX2RWDWithFile extends AnAction {
         Optional.of(ActionPerformer.getActionPerformer(anActionEvent.getRequiredData(CommonDataKeys.PROJECT), anActionEvent.getRequiredData(CommonDataKeys.EDITOR))).ifPresent(actionPerformer ->
                 Optional.of(FormatTools.getFormatTools(actionPerformer.getConstValue())).ifPresent(formatTools ->
                         IntStream.range(0, actionPerformer.getDocument().getLineCount()).forEach(lineNum ->
-                                formatTools.formatLineCode(actionPerformer, lineNum)
+                                formatTools.formatLineCode(actionPerformer, lineNum, actionPerformer.getConstValue().getShortCutType())
                         )
                 )
         );
