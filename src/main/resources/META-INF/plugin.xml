@@ -63,7 +63,7 @@
   ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="131.0" />
+    <idea-version since-build="135.0" />
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.css</depends>
 

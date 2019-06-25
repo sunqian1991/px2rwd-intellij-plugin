@@ -26,6 +26,12 @@ intellij {
     plugins = ['CSS']
     intellij.updateSinceUntilBuild false
 }
+
+publishPlugin {
+    username "sunqian1991@gmail.com"
+    password "*********************"
+}
+
 patchPluginXml {
     changeNotes """
       <ul>
