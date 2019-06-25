@@ -106,6 +106,7 @@ email:sunqian1991@gmail.com
 2. 选择一个需要转换的样式或者将光标移动到一个包含需要转换样式的行中，使用快捷键<kbd>Alt</kbd> + <kbd>d</kbd>来转换，也可以使用<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd>来转换整个文件中的可转换样式
 3. 通过code intention<kbd>Alt</kbd> + <kbd>Enter</kbd>来转换某一行中涉及到的样式
 4. 通过在输入'px'字符后显示的自动完成提示列表中选择相应的选项来转换相应的样式
+5. 通过快捷键<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd>来回退一行内的转换
 
 *********************************************
 
@@ -135,7 +136,8 @@ Instructions:
 3. use default shortcut key <kbd>Alt</kbd> + <kbd>d</kbd> to convert px to rem/vw/vh with a line; btw, you can change the shortcut at 'File - Settings - keymap - Plug-ins - px2rwd'.
 4. use default shortcut key <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd> to convert px to rem/vw/vh in a whole file.
 5. use a code intention to convert px to rem/vw/vh in a css file
-5. use a code completion to convert px to rem/vw/vh in a css file
+6. use a code completion to convert px to rem/vw/vh in a css file
+7. use the short-cut key <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd> to rollback the converting within one line
 
 
 #### 注意事项
