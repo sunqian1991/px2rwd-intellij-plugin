@@ -102,7 +102,7 @@
             <className>com.sunqian.intention.PX2VHIntention</className>
             <category>CSS</category>
         </intentionAction>
-        <projectConfigurable instance="com.sunqian.settings.ProjectSettingConfig" displayName="Px to Rwd" id="pjSettings" />
+        <applicationConfigurable instance="com.sunqian.settings.ProjectSettingConfig" displayName="Px to Rwd" id="pjSettings" />
     </extensions>
 
     <actions>

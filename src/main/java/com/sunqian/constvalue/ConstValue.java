@@ -25,27 +25,27 @@ import java.util.Optional;
 @Data
 public class ConstValue implements PersistentStateComponent<ConstValue> {
 
-    private String remBaseValue;
+    public String remBaseValue;
 
-    private Boolean showCalculationProcess;
+    public Boolean showCalculationProcess;
 
-    private ShortCutType shortCutType;
+    public ShortCutType shortCutType;
 
-    private String widthValue;
+    public String widthValue;
 
-    private String heightValue;
+    public String heightValue;
 
-    private Boolean remIntention;
+    public Boolean remIntention;
 
-    private Boolean vwIntention;
+    public Boolean vwIntention;
 
-    private Boolean vhIntention;
+    public Boolean vhIntention;
 
-    private Boolean remCompletion;
+    public Boolean remCompletion;
 
-    private Boolean vwCompletion;
+    public Boolean vwCompletion;
 
-    private Boolean vhCompletion;
+    public Boolean vhCompletion;
 
     public Boolean getShowCalculationProcess() {
         return Optional.ofNullable(showCalculationProcess).orElse(false);
@@ -109,7 +109,7 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
     }
 
     @Nullable
-    public static ConstValue getInstance(Project project) {
-        return ServiceManager.getService(project, ConstValue.class);
+    public static ConstValue getInstance() {
+        return ServiceManager.getService(ConstValue.class);
     }
 }

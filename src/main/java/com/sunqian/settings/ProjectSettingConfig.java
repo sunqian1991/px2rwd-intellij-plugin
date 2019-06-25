@@ -1,7 +1,6 @@
 package com.sunqian.settings;
 
 import com.intellij.openapi.options.SearchableConfigurable;
-import com.intellij.openapi.project.Project;
 import com.sunqian.constvalue.ConstValue;
 import com.sunqian.constvalue.ShortCutType;
 import com.sunqian.utils.LogicUtils;
@@ -26,12 +25,10 @@ public class ProjectSettingConfig implements SearchableConfigurable {
 
     ProjectSettingsPage mainGui;
 
-    private Project project;
     private ConstValue constValue;
 
-    public ProjectSettingConfig(@NotNull Project project) {
-        this.project = project;
-        constValue = ConstValue.getInstance(project);
+    public ProjectSettingConfig() {
+        constValue = ConstValue.getInstance();
     }
 
     @NotNull

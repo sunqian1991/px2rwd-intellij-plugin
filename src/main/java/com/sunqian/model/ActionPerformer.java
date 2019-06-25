@@ -53,7 +53,7 @@ public class ActionPerformer {
     }
 
     public ConstValue getConstValue() {
-        return ConstValue.getInstance(this.project);
+        return ConstValue.getInstance();
     }
 
     public SelectionModel getSelectionModel() {
