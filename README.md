@@ -19,7 +19,7 @@ this is a tool of converting px to rem/vw/vh in a css/less file by a few setting
 
 #### 当前版本
 
-V2.1.0
+V2.1.1
 
 #### 更新日志
 
