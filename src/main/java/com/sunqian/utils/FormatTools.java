@@ -47,16 +47,12 @@ public class FormatTools {
     }
 
     private String getFormatText(String ele, ShortCutType shortCutType) {
-        System.out.println(ele);
         return Optional.ofNullable(ele).filter(text -> text.contains(PX_STYLE_TAG) && !Objects.equals(NULL_STRING, text)).map(text ->
-                Optional.of(NumberUtils.toDouble(text.substring(0, ele.indexOf(PX_STYLE_TAG)).trim())).map(px -> valueFormat(px, shortCutType)
-                ).get()
+                Optional.of(NumberUtils.toDouble(text.substring(0, text.indexOf(PX_STYLE_TAG)).trim())).map(px -> valueFormat(px, shortCutType)).get()
         ).orElse(ele);
     }
 
     private String valueFormat(Double px, ShortCutType shortCutType) {
-        System.out.println(Double.toString(this.constValue.baseValueType().get(shortCutType)));
-        System.out.println(Double.toString(px));
         return Optional.of(this.constValue.baseValueType().get(shortCutType)).map(value ->
                 Optional.of(px / value).map(rem ->
                         Optional.of(check(Double.toString(px), Double.toString(value))).filter(ifDivide -> ifDivide).map(ifDivide ->
@@ -117,18 +113,18 @@ public class FormatTools {
      */
     public void rollbackStyle(ActionPerformer actionPerformer, int lineNum) {
         Optional.of(actionPerformer.getDocument().getLineStartOffset(lineNum)).ifPresent(lineStartOffset ->
-            Optional.of(actionPerformer.getDocument().getLineEndOffset(lineNum)).ifPresent(lineEndOffset ->
-                    Optional.of(actionPerformer.getDocument().getText(new TextRange(lineStartOffset, lineEndOffset)))
-                            .map(lineContent -> {
-                                WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
-                                        actionPerformer.getDocument().replaceString(
-                                                lineStartOffset,
-                                                lineEndOffset,
-                                                getFormatLine(getFormatLine(getFormatLine(lineContent, ShortCutType.REM, REM_STYLE_TAG, this::valueRollback), ShortCutType.VW, VW_STYLE_TAG, this::valueRollback), ShortCutType.VH, VH_STYLE_TAG, this::valueRollback))
-                                );
-                                return lineContent;
-                            })
-            )
+                Optional.of(actionPerformer.getDocument().getLineEndOffset(lineNum)).ifPresent(lineEndOffset ->
+                        Optional.of(actionPerformer.getDocument().getText(new TextRange(lineStartOffset, lineEndOffset)))
+                                .map(lineContent -> {
+                                    WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
+                                            actionPerformer.getDocument().replaceString(
+                                                    lineStartOffset,
+                                                    lineEndOffset,
+                                                    getFormatLine(getFormatLine(getFormatLine(lineContent, ShortCutType.REM, REM_STYLE_TAG, this::valueRollback), ShortCutType.VW, VW_STYLE_TAG, this::valueRollback), ShortCutType.VH, VH_STYLE_TAG, this::valueRollback))
+                                    );
+                                    return lineContent;
+                                })
+                )
         );
     }
 
@@ -149,12 +145,7 @@ public class FormatTools {
      * @param count  除数
      * @return 是否可以被除尽
      */
-    private boolean check(double amount, double count) {
-        return Optional.of(amount % count).filter(times -> times == 0).map(times -> true).orElseGet(() ->
-                amount % LogicUtils.getLogic().funWithWhile(LogicUtils.getLogic().funWithWhile(count, m -> m % 2 == 0, m -> m / 2), n -> n % 5 == 0, n -> n / 5) == 0
-        );
-    }
-
+    @SuppressWarnings("BigDecimalMethodWithoutRoundingCalled")
     private boolean check(String amount, String count) {
         return Optional.of(new BigDecimal(amount.replaceAll("\\.", "")).divideAndRemainder(new BigDecimal(count.replaceAll("\\.", "")))[1]).filter(times -> Objects.equals(times, new BigDecimal("0"))).map(times -> true).orElseGet(() ->
                 Objects.equals(new BigDecimal(amount.replaceAll("\\.", "")).divideAndRemainder(LogicUtils.getLogic().funWithWhile(LogicUtils.getLogic().funWithWhile(new BigDecimal(count.replaceAll("\\.", "")), m -> Objects.equals(m.divideAndRemainder(new BigDecimal("2"))[1], new BigDecimal("0")), m -> m.divide(new BigDecimal("2"))), n -> Objects.equals(n.divideAndRemainder(new BigDecimal("5"))[1], new BigDecimal("0")), n -> n.divide(new BigDecimal("5"))))[1], new BigDecimal("0"))
@@ -218,17 +209,20 @@ public class FormatTools {
      *
      * @param actionPerformer 获取的动作参数
      */
-    public void formatNearCode(ActionPerformer actionPerformer, ShortCutType shortCutType) {
+    public void formatNearCode(ActionPerformer actionPerformer, ShortCutType shortCutType, ShortCutType unit) {
         Optional.of(actionPerformer.getDocument()).ifPresent(document ->
                 Optional.of(actionPerformer.getCaretModel()).ifPresent(caretModel ->
                         Optional.of(document.getText(new TextRange(document.getLineStartOffset(document.getLineNumber(caretModel.getOffset())), actionPerformer.getCaretModel().getOffset()))).ifPresent(lineContent ->
-                                Optional.of(lineContent.substring(getNearCode(lineContent) + 1, lineContent.length() - STYLE_TAG_TYPE.get(shortCutType).toString().length()).trim()).ifPresent(content -> {
-                                    System.out.println(content);
-                                    formatText(content, caretModel.getOffset() - content.length() - STYLE_TAG_TYPE.get(shortCutType).toString().length(), caretModel.getOffset(), actionPerformer, shortCutType);
-                                })
+                                Optional.of(lineContent.substring(getNearCode(lineContent) + 1, lineContent.length() - STYLE_TAG_TYPE.get(unit).toString().length()).trim()).ifPresent(content ->
+                                    formatText(content, caretModel.getOffset() - content.length() - STYLE_TAG_TYPE.get(unit).toString().length(), caretModel.getOffset(), actionPerformer, shortCutType)
+                                )
                         )
                 )
         );
+    }
+
+    public void formatNearCode(ActionPerformer actionPerformer, ShortCutType shortCutType) {
+        formatNearCode(actionPerformer, shortCutType, ShortCutType.PX);
     }
 
     /**

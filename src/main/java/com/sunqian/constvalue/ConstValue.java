@@ -56,11 +56,11 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
     }
 
     public Double getWidthValue() {
-        return NumberUtils.toDouble(Optional.ofNullable(widthValue).orElse("1920"));
+        return LogicUtils.getLogic().funOrElse(NumberUtils.toDouble(Optional.ofNullable(widthValue).orElse("1920")), value -> value < 0, value -> 1920d, value -> value);
     }
 
     public Double getHeightValue() {
-        return NumberUtils.toDouble(Optional.ofNullable(heightValue).orElse("1080"));
+        return LogicUtils.getLogic().funOrElse(NumberUtils.toDouble(Optional.ofNullable(heightValue).orElse("1080")), value -> value < 0, value -> 1080d, value -> value);
     }
 
     public Boolean getRemIntention() {
@@ -105,7 +105,7 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
     }
 
     public double getRemBaseValue() {
-        return NumberUtils.toDouble(Optional.ofNullable(this.remBaseValue).orElse("100.0"));
+        return LogicUtils.getLogic().funOrElse(NumberUtils.toDouble(Optional.ofNullable(this.remBaseValue).orElse("100.0")), value -> value < 0, value -> 100d, value -> value);
     }
 
     @Nullable

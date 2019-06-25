@@ -22,7 +22,7 @@ public class MagicValue {
 
     public static final String VH_STYLE_TAG = "vh";
 
-    public static final String NUMBER_PATTERN_FORMULA = "-?[0-9]+(\\.[0-9]+)?";
+    public static final String NUMBER_PATTERN_FORMULA = "-?[0-9]*(\\.[0-9]+)?";
 
     public static final String NULL_STRING = "";
 

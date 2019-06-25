@@ -94,10 +94,10 @@ public class ProjectSettingConfig implements SearchableConfigurable {
 
     @Override
     public void apply() {
-        LogicUtils.getLogic().conOrEnd(mainGui.getRemBaseValue().getText(), text -> Objects.nonNull(text) && NumberUtils.isCreatable(mainGui.getRemBaseValue().getText()), text -> constValue.setRemBaseValue(mainGui.getRemBaseValue().getText()));
+        LogicUtils.getLogic().conOrEnd(mainGui.getRemBaseValue().getText(), text -> Objects.nonNull(text) && NumberUtils.isCreatable(text) && NumberUtils.toDouble(text) > 0, text -> constValue.setRemBaseValue(mainGui.getRemBaseValue().getText()));
         constValue.setShowCalculationProcess(mainGui.getShowCalculationProcessInCheckBox().isSelected());
-        LogicUtils.getLogic().conOrEnd(mainGui.getVwValue().getText(), text -> Objects.nonNull(text) && NumberUtils.isCreatable(text), text -> constValue.setWidthValue(mainGui.getVwValue().getText()));
-        LogicUtils.getLogic().conOrEnd(mainGui.getVhValue().getText(), text -> Objects.nonNull(text) && NumberUtils.isCreatable(text), text -> constValue.setHeightValue(mainGui.getVhValue().getText()));
+        LogicUtils.getLogic().conOrEnd(mainGui.getVwValue().getText(), text -> Objects.nonNull(text) && NumberUtils.isCreatable(text) && NumberUtils.toDouble(text) > 0, text -> constValue.setWidthValue(mainGui.getVwValue().getText()));
+        LogicUtils.getLogic().conOrEnd(mainGui.getVhValue().getText(), text -> Objects.nonNull(text) && NumberUtils.isCreatable(text) && NumberUtils.toDouble(text) > 0, text -> constValue.setHeightValue(mainGui.getVhValue().getText()));
         constValue.setShortCutType(getShortCutType());
         constValue.setRemIntention(mainGui.getRemIntention().isSelected());
         constValue.setVwIntention(mainGui.getVwIntention().isSelected());
