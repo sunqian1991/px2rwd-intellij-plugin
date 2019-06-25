@@ -53,6 +53,12 @@ public class ProjectSettingConfig implements SearchableConfigurable {
         return mainGui.getRootPanel();
     }
 
+    @Nullable
+    @Override
+    public String getHelpTopic() {
+        return null;
+    }
+
     @Override
     public boolean isModified() {
         return ifEdited();

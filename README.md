@@ -23,6 +23,8 @@ V2.1.0
 
 #### 更新日志
 
+v2.1.1:添加了版本兼容性处理
+
 v2.1.0:添加了code intention和code completion；修改了配置页面的位置；修改了快捷键为<kbd>Alt</kbd> + <kbd>d</kbd>；添加了px转vw和vh插件功能
 
 v2.0.2:在注释中添加了计算的过程；修改了保留小数位数的设置，在可以被整除的情况下，不改变精度
@@ -46,6 +48,8 @@ v1.1.0:在原有的基础上添加了自动转换当前光标所在行中可以�
 v1.0.0:初始编写，webstorm插件，主要是把css中的px转换为rem，其中可以在webstorm中设置转化的比值(window-SetPX2REM),选中后通过快捷键shift+f来转化，如比值为100，选中"100px"后，点击shift+d，自动转化为1.00rem
 
 *********************************************
+
+v2.1.1: deal with the compatibility problem.
 
 v2.1.0: change the default short-cut key from <kbd>Shift</kbd> + <kbd>d</kbd> to <kbd>Alt</kbd> + <kbd>d</kbd>; add px to vw and px to vh; change the plugin-settings location to 'File - Settings - Px to Rwd'; add a code completion; add a code intention
 
