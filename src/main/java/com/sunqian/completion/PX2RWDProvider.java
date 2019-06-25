@@ -37,9 +37,9 @@ public class PX2RWDProvider extends CompletionProvider<CompletionParameters> {
                     LookupElementBuilder.create(myItems[i])
                             .withCaseSensitivity(false).withTailText(tips.get(i))
                             .withInsertHandler(LogicUtils.getLogic().generateObject(new HashMap<String, InsertHandler<LookupElement>>(), map ->
-                                    map.put(TO_REM_TIP, REM_HANDLER), map ->
-                                    map.put(TO_VW_TIP, VW_HANDLER), map ->
-                                    map.put(TO_VH_TIP, VH_HANDLER)).get(tips.get(i)))).collect(Collectors.toList()));
+                                    map.put(TO_REM_TIP, PX_REM_HANDLER), map ->
+                                    map.put(TO_VW_TIP, PX_VW_HANDLER), map ->
+                                    map.put(TO_VH_TIP, PX_VH_HANDLER)).get(tips.get(i)))).collect(Collectors.toList()));
             result.addAllElements(Arrays.stream(RWD_TIPS).map(tip ->
                     LookupElementBuilder.create(tip)
                             .withCaseSensitivity(false).withTailText(PREFIX_TAIL_TIPS + tip)
@@ -73,5 +73,20 @@ public class PX2RWDProvider extends CompletionProvider<CompletionParameters> {
     private static final InsertHandler<LookupElement> VH_HANDLER = (context, item) ->
             Optional.of(ActionPerformer.getActionPerformer(context.getProject(), context.getEditor())).ifPresent(actionPerformer ->
                     FormatTools.getFormatTools(actionPerformer.getConstValue()).formatNearCode(actionPerformer, ShortCutType.VH)
+            );
+
+    private static final InsertHandler<LookupElement> PX_REM_HANDLER = (context, item) ->
+            Optional.of(ActionPerformer.getActionPerformer(context.getProject(), context.getEditor())).ifPresent(actionPerformer ->
+                    FormatTools.getFormatTools(actionPerformer.getConstValue()).formatNearCode(actionPerformer, ShortCutType.PX)
+            );
+
+    private static final InsertHandler<LookupElement> PX_VW_HANDLER = (context, item) ->
+            Optional.of(ActionPerformer.getActionPerformer(context.getProject(), context.getEditor())).ifPresent(actionPerformer ->
+                    FormatTools.getFormatTools(actionPerformer.getConstValue()).formatNearCode(actionPerformer, ShortCutType.PX)
+            );
+
+    private static final InsertHandler<LookupElement> PX_VH_HANDLER = (context, item) ->
+            Optional.of(ActionPerformer.getActionPerformer(context.getProject(), context.getEditor())).ifPresent(actionPerformer ->
+                    FormatTools.getFormatTools(actionPerformer.getConstValue()).formatNearCode(actionPerformer, ShortCutType.PX)
             );
 }

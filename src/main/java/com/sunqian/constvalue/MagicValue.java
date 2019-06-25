@@ -22,7 +22,7 @@ public class MagicValue {
 
     public static final String VH_STYLE_TAG = "vh";
 
-    public static final String NUMBER_PATTERN_FORMULA = "-?[0-9]*(\\.[0-9]+)?";
+    public static final String NUMBER_PATTERN_FORMULA = "-?[0-9]+(\\.[0-9]+)?";
 
     public static final String NULL_STRING = "";
 
@@ -67,7 +67,8 @@ public class MagicValue {
     public static final Map STYLE_TAG_TYPE = LogicUtils.getLogic().generateObject(new HashMap<>(), map ->
             map.put(ShortCutType.REM, REM_STYLE_TAG), map ->
             map.put(ShortCutType.VW, VW_STYLE_TAG), map ->
-            map.put(ShortCutType.VH, VH_STYLE_TAG)
+            map.put(ShortCutType.VH, VH_STYLE_TAG), map ->
+            map.put(ShortCutType.PX, PX_STYLE_TAG)
     );
 
 }

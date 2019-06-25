@@ -47,6 +47,7 @@ public class FormatTools {
     }
 
     private String getFormatText(String ele, ShortCutType shortCutType) {
+        System.out.println(ele);
         return Optional.ofNullable(ele).filter(text -> text.contains(PX_STYLE_TAG) && !Objects.equals(NULL_STRING, text)).map(text ->
                 Optional.of(NumberUtils.toDouble(text.substring(0, ele.indexOf(PX_STYLE_TAG)).trim())).map(px -> valueFormat(px, shortCutType)
                 ).get()
@@ -54,6 +55,8 @@ public class FormatTools {
     }
 
     private String valueFormat(Double px, ShortCutType shortCutType) {
+        System.out.println(Double.toString(this.constValue.baseValueType().get(shortCutType)));
+        System.out.println(Double.toString(px));
         return Optional.of(this.constValue.baseValueType().get(shortCutType)).map(value ->
                 Optional.of(px / value).map(rem ->
                         Optional.of(check(Double.toString(px), Double.toString(value))).filter(ifDivide -> ifDivide).map(ifDivide ->
@@ -219,9 +222,10 @@ public class FormatTools {
         Optional.of(actionPerformer.getDocument()).ifPresent(document ->
                 Optional.of(actionPerformer.getCaretModel()).ifPresent(caretModel ->
                         Optional.of(document.getText(new TextRange(document.getLineStartOffset(document.getLineNumber(caretModel.getOffset())), actionPerformer.getCaretModel().getOffset()))).ifPresent(lineContent ->
-                                Optional.of(lineContent.substring(getNearCode(lineContent) + 1, lineContent.length() - STYLE_TAG_TYPE.get(shortCutType).toString().length()).trim()).ifPresent(content ->
-                                        formatText(content, caretModel.getOffset() - content.length() - STYLE_TAG_TYPE.get(shortCutType).toString().length(), caretModel.getOffset(), actionPerformer, shortCutType)
-                                )
+                                Optional.of(lineContent.substring(getNearCode(lineContent) + 1, lineContent.length() - STYLE_TAG_TYPE.get(shortCutType).toString().length()).trim()).ifPresent(content -> {
+                                    System.out.println(content);
+                                    formatText(content, caretModel.getOffset() - content.length() - STYLE_TAG_TYPE.get(shortCutType).toString().length(), caretModel.getOffset(), actionPerformer, shortCutType);
+                                })
                         )
                 )
         );
