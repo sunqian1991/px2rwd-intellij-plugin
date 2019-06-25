@@ -34,6 +34,16 @@ public class MagicValue {
 
     public static final String STYLE_SHEET_LANGUAGE_ID = "CSS";
 
+    public static final String LESS_LANGUAGE_ID = "LESS";
+
+    public static final String SASS_LANGUAGE_ID = "SASS";
+
+    public static final String HTML_LANGUAGE_ID = "HTML";
+
+    public static final String SCSS_LANGUAGE_ID = "SCSS";
+
+    public static final String STYLUS_LANGUAGE_ID = "Stylus";
+
     public static final String BLANK_STRING = " ";
 
     public static final String COLON_STRING = ":";
