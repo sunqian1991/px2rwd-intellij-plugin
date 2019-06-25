@@ -32,7 +32,8 @@
     <p>3. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span> to convert px to rem/vw/vh with a line; btw, you can change the shortcut at 'File - Settings - keymap - Plug-ins - px2rwd'.</p>
     <p>4. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span> to convert px to rem/vw/vh in a whole file.</p>
     <p>5. use a code intention to convert px to rem/vw/vh in a css file</p>
-    <p>5. use a code completion to convert px to rem/vw/vh in a css file</p>
+    <p>6. use a code completion to convert px to rem/vw/vh in a css file</p>
+    <p>7. use the short-cut key <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span> to rollback the converting within one line</p>
     <br />
     <p><span style="color:red;font-weight: bold;">this plugin only support css, less file type and you should not use it in other file types, because this will bring some unexpected errors.</span></p>
     <br />
@@ -66,6 +67,7 @@
     <p>2. 选择一个需要转换的样式或者将光标移动到一个包含需要转换样式的行中，使用快捷键<span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span>来转换，也可以使用<span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span>来转换整个文件中的可转换样式</p>
     <p>3. 通过code intention<span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>Enter</kbd></span>来转换某一行中涉及到的样式</p>
     <p>4. 通过在输入'px'字符后显示的自动完成提示列表中选择相应的选项来转换相应的样式</p>
+    <p>5. 通过快捷键<span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span>来回退一行内的转换</p>
     <br />
     <p>更多请前往<a style="text-decoration:none;" href="https://github.com/sunqian1991/px2rwd-intellij-plugin">github</a>查看</p>
   ]]></description>
@@ -112,6 +114,9 @@
         <action id="PX2RWDWithFileID" class="com.sunqian.action.PX2RWDWithFile" text="PX2RWDWithFile"
                 description="PX2RWDWithFile">
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt d"/>
+        </action>
+        <action class="com.sunqian.action.ConvertRollback" id="convertRollback" text="ConvertRollback" description="ConvertRollback">
+            <keyboard-shortcut first-keystroke="ctrl shift alt d" keymap="$default" />
         </action>
     </actions>
 

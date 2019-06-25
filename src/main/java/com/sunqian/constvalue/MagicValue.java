@@ -22,7 +22,7 @@ public class MagicValue {
 
     public static final String VH_STYLE_TAG = "vh";
 
-    public static final String NUMBER_PATTERN_FORMULA = "-?[0-9]+(\\.[0-9]+)?";
+    public static final String NUMBER_PATTERN_FORMULA = "-?[0-9]*(\\.[0-9]+)?";
 
     public static final String NULL_STRING = "";
 
@@ -59,6 +59,10 @@ public class MagicValue {
     public static final String TO_VH_TIP = " to vh";
 
     public static final String[] TO_RWD_TIPS = new String[]{TO_VW_TIP, TO_VH_TIP, TO_REM_TIP};
+
+    public static final String[] RWD_TIPS = new String[]{REM_STYLE_TAG, VW_STYLE_TAG, VH_STYLE_TAG};
+
+    public static final String PREFIX_TAIL_TIPS = " px to ";
 
     public static final Map STYLE_TAG_TYPE = LogicUtils.getLogic().generateObject(new HashMap<>(), map ->
             map.put(ShortCutType.REM, REM_STYLE_TAG), map ->

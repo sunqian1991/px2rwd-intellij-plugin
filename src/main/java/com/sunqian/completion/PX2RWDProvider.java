@@ -40,6 +40,13 @@ public class PX2RWDProvider extends CompletionProvider<CompletionParameters> {
                                     map.put(TO_REM_TIP, REM_HANDLER), map ->
                                     map.put(TO_VW_TIP, VW_HANDLER), map ->
                                     map.put(TO_VH_TIP, VH_HANDLER)).get(tips.get(i)))).collect(Collectors.toList()));
+            result.addAllElements(Arrays.stream(RWD_TIPS).map(tip ->
+                    LookupElementBuilder.create(tip)
+                            .withCaseSensitivity(false).withTailText(PREFIX_TAIL_TIPS + tip)
+                            .withInsertHandler(LogicUtils.getLogic().generateObject(new HashMap<String, InsertHandler<LookupElement>>(), map ->
+                                    map.put(REM_STYLE_TAG, REM_HANDLER), map ->
+                                    map.put(VW_STYLE_TAG, VW_HANDLER), map ->
+                                    map.put(VH_STYLE_TAG, VH_HANDLER)).get(tip))).collect(Collectors.toList()));
         });
     }
 
