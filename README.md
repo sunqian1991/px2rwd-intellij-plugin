@@ -168,4 +168,4 @@ Instructions:
 
 
 
-[opt_gif]:https://github.com/sunqian1991/px2rwd-intellij-plugin/raw/master/resources/images/px2rwd.gif
+[opt_gif]:https://github.com/sunqian1991/px2rwd-intellij-plugin/raw/master/src/main/resources/images/px2rwd.gif
