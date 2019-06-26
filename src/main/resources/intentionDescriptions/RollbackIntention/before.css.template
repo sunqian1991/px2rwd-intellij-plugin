@@ -1,0 +1,3 @@
+.class-name{
+    padding: <spot>1rem</spot> <spot>1.042vw</spot> <spot>2.778vh</spot>;
+}
