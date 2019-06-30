@@ -9,7 +9,7 @@
 
 这是一个转换css文件中的px单位为rem/vw/vh等自适应设计页面（Responsive Web Design）单位的插件，主要适用于idea和webstorm. 
 
-本项目参考了 https://github.com/yclnycl/ideapx2rem 中的代码，在他的基础上加入了一些新的功能。
+本项目参考了 https://github.com/yclnycl/ideapx2rem 项目，在他的基础上加入了一些新的功能。
 
 如果有任何插件或开发相关的问题，欢迎跟我联系。
 
