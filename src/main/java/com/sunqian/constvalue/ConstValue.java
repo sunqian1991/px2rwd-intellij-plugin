@@ -24,27 +24,65 @@ import java.util.Optional;
 @Data
 public class ConstValue implements PersistentStateComponent<ConstValue> {
 
+    /**
+     * rem比例设置
+     */
     public String remBaseValue;
 
+    /**
+     * 是否在注释显示转换过程
+     */
     public Boolean showCalculationProcess;
 
+    /**
+     * 转换类型
+     */
     public ShortCutType shortCutType;
 
+    /**
+     * vw值
+     */
     public String widthValue;
 
+    /**
+     * vh值
+     */
     public String heightValue;
 
+    /**
+     * 是否启用code intention
+     */
     public Boolean remIntention;
 
+    /**
+     * 是否启用code intention
+     */
     public Boolean vwIntention;
 
+    /**
+     * 是否启用code intention
+     */
     public Boolean vhIntention;
 
+    /**
+     * 是否启用code completion
+     */
     public Boolean remCompletion;
 
+    /**
+     * 是否启用code completion
+     */
     public Boolean vwCompletion;
 
+    /**
+     * 是否启用code completion
+     */
     public Boolean vhCompletion;
+
+    /**
+     * 仅在css文件类型中使用快捷键转换
+     */
+    public Boolean onlyCssFiles;
 
     public Boolean getShowCalculationProcess() {
         return Optional.ofNullable(showCalculationProcess).orElse(false);
@@ -84,6 +122,10 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
 
     public Boolean getVhCompletion() {
         return Optional.ofNullable(vhCompletion).orElse(false);
+    }
+
+    public Boolean getOnlyCssFiles() {
+        return Optional.ofNullable(onlyCssFiles).orElse(false);
     }
 
     public Map<ShortCutType, Double> baseValueType() {

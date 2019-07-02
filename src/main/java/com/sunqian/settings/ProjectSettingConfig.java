@@ -87,6 +87,7 @@ public class ProjectSettingConfig implements SearchableConfigurable {
         mainGui.getRemCompletion().setSelected(constValue.getRemCompletion());
         mainGui.getVwCompletion().setSelected(constValue.getVwCompletion());
         mainGui.getVhCompletion().setSelected(constValue.getVhCompletion());
+        mainGui.getOnlyCssFiles().setSelected(constValue.getOnlyCssFiles());
     }
 
     @Override
@@ -102,6 +103,7 @@ public class ProjectSettingConfig implements SearchableConfigurable {
         constValue.setRemCompletion(mainGui.getRemCompletion().isSelected());
         constValue.setVwCompletion(mainGui.getVwCompletion().isSelected());
         constValue.setVhCompletion(mainGui.getVhCompletion().isSelected());
+        constValue.setOnlyCssFiles(mainGui.getOnlyCssFiles().isSelected());
     }
 
     private ShortCutType getShortCutType() {
@@ -138,6 +140,8 @@ public class ProjectSettingConfig implements SearchableConfigurable {
                 constValue.getVwCompletion(), mainGui.getVwCompletion().isSelected()
         }, new Boolean[]{
                 constValue.getVhCompletion(), mainGui.getVhCompletion().isSelected()
+        }, new Boolean[]{
+                constValue.getOnlyCssFiles(), mainGui.getOnlyCssFiles().isSelected()
         });
     }
 }

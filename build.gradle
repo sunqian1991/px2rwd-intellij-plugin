@@ -35,7 +35,7 @@ publishPlugin {
 patchPluginXml {
     changeNotes """
       <ul>
-        <li>V2.1.2: add the rollback action(rem/vw/vh to px) into code intention.</li>
+        <li>V2.1.2: add the rollback action(rem/vw/vh to px) into code intention. add the option if limit the file type with css files when use short-cut key.</li>
         <li>V2.1.1: deal with the compatibility problem; add a rollback action.</li>
         <li>V2.1.0: change the default short-cut key from <kbd>shift</kbd> + <kbd>d</kbd> to <kbd>alt</kbd> + <kbd>d</kbd>; add px to vw and px to vh; change the plugin-settings location to 'File - Settings - Px to Rwd'; add a code completion; add a code intention</li>
         <li>V2.0.2: give a option of showing the calculation process in comment block; change the accuracy set</li>
