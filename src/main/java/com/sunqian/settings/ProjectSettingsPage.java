@@ -33,6 +33,7 @@ public class ProjectSettingsPage {
     private JCheckBox remCompletion;
     private JCheckBox vwCompletion;
     private JCheckBox vhCompletion;
+    private JCheckBox onlyCssFiles;
     private ButtonGroup buttonGroup;
 
     private ConstValue constValue;
@@ -57,6 +58,7 @@ public class ProjectSettingsPage {
         remCompletion.setSelected(constValue.getRemCompletion());
         vwCompletion.setSelected(constValue.getVwCompletion());
         vhCompletion.setSelected(constValue.getVhCompletion());
+        onlyCssFiles.setSelected(constValue.getOnlyCssFiles());
     }
 
     JPanel getRootPanel() {

@@ -7,7 +7,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.IncorrectOperationException;
-import com.sunqian.constvalue.ShortCutType;
 import com.sunqian.model.ActionPerformer;
 import com.sunqian.utils.FormatTools;
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 import static com.sunqian.constvalue.MagicValue.*;
 

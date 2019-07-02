@@ -106,7 +106,7 @@
             <className>com.sunqian.intention.RollbackIntention</className>
             <category>CSS</category>
         </intentionAction>
-        <applicationConfigurable instance="com.sunqian.settings.ProjectSettingConfig" displayName="Px to Rwd" id="pjSettings" />
+        <applicationConfigurable instance="com.sunqian.settings.ProjectSettingConfig" displayName="Px to Rwd" id="px2rwdSettings" groupId="root" />
     </extensions>
 
     <actions>
