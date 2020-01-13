@@ -10,8 +10,8 @@
     <br />
     <p>1. short-cut key</p>
     <br />
-    <p>select a converting type from three options of rem, vw, vh in setting page and give a necessary value set below the radio group, then use the default short-cut key of <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span> to convert a line or a selected text. you can also use the short-cut key of <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span> to convert in a whole file.</p>
-    <p>you can only choose one converting type of short-cut key from rem,vw,vg to convert.</p>
+    <p>select a converting type from three options of rem, em, vw, vh in setting page and give a necessary value set below the radio group, then use the default short-cut key of <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span> to convert a line or a selected text. you can also use the short-cut key of <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span> to convert in a whole file.</p>
+    <p>you can only choose one converting type of short-cut key from rem, em,vw,vg to convert.</p>
     <p>btw, you can change the short-cut key in your ide by setting the keymap option.</p>
     <br />
     <p>2. code intention</p>
@@ -29,10 +29,10 @@
     <p>Instructions:</p>
     <p>1. find menu at 'File - Settings - Px to Rwd', and give some settings.</p>
     <p>2. select a text or move cursor at a line which contains a 'px' value.</p>
-    <p>3. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span> to convert px to rem/vw/vh with a line; btw, you can change the shortcut at 'File - Settings - keymap - Plug-ins - px2rwd'.</p>
-    <p>4. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span> to convert px to rem/vw/vh in a whole file.</p>
-    <p>5. use a code intention to convert px to rem/vw/vh in a css file</p>
-    <p>6. use a code completion to convert px to rem/vw/vh in a css file</p>
+    <p>3. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span> to convert px to rem/em/vw/vh with a line; btw, you can change the shortcut at 'File - Settings - keymap - Plug-ins - px2rwd'.</p>
+    <p>4. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span> to convert px to rem/em/vw/vh in a whole file.</p>
+    <p>5. use a code intention to convert px to rem/em/vw/vh in a css file</p>
+    <p>6. use a code completion to convert px to rem/em/vw/vh in a css file</p>
     <p>7. use the short-cut key <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span> to rollback the converting within one line</p>
     <br />
     <p><span style="color:red;font-weight: bold;">this plugin only support css, less file type and you should not use it in other file types, because this will bring some unexpected errors.</span></p>
@@ -41,13 +41,13 @@
     <br />
     <p>if this plugin is not bad, you can give me a star in <a style="text-decoration:none;" href="https://github.com/sunqian1991/px2rwd-intellij-plugin">github</a> and I will be very grateful for your support.</p>
     <br />
-    <p>这是一个转换css文件中的px单位为rem/vw/vh等单位的插件，主要适用于idea和webstorm.</p>
+    <p>这是一个转换css文件中的px单位为rem/em/vw/vh等单位的插件，主要适用于idea和webstorm.</p>
     <br />
     <p>目前提供了三种方式来转换：快捷键、代码意图提示(<span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>Enter</kbd></span>)、代码自动完成提示</p>
     <br />
     <p>1. 快捷键</p>
     <br />
-    <p>默认的快捷键是<span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span>，在插件配置页面中可以看到快捷键部分有3种转换类型的选项，分别是rem,vw,vh，选择其中的一个来使用快捷键转换，需要注意的是，需要在选项下方的值配置中设置对应的基值。</p>
+    <p>默认的快捷键是<span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span>，在插件配置页面中可以看到快捷键部分有3种转换类型的选项，分别是rem,em,vw,vh，选择其中的一个来使用快捷键转换，需要注意的是，需要在选项下方的值配置中设置对应的基值。</p>
     <p>只能选择一种转换类型来使用快捷键转换单位。同时也可以重新设置快捷键。需要注意的是，跟之前的版本相比，默认的快捷键修改了，修改的原因主要是原来的'Shift' + 'd'会与大小写冲突。</p>
     <br />
     <p>2. code intention</p>
@@ -92,6 +92,10 @@
         <completion.contributor language="CSS" implementationClass="com.sunqian.completion.PX2RWDCompletion"/>
         <intentionAction>
             <className>com.sunqian.intention.PX2REMIntention</className>
+            <category>CSS</category>
+        </intentionAction>
+        <intentionAction>
+            <className>com.sunqian.intention.PX2EMIntention</className>
             <category>CSS</category>
         </intentionAction>
         <intentionAction>

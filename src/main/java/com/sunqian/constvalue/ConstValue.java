@@ -53,6 +53,7 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
      * 是否启用code intention
      */
     public Boolean remIntention;
+    public Boolean emIntention;
 
     /**
      * 是否启用code intention
@@ -68,6 +69,7 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
      * 是否启用code completion
      */
     public Boolean remCompletion;
+    public Boolean emCompletion;
 
     /**
      * 是否启用code completion
@@ -104,6 +106,10 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
         return Optional.ofNullable(remIntention).orElse(true);
     }
 
+    public Boolean getEmIntention() {
+        return Optional.ofNullable(emIntention).orElse(true);
+    }
+
     public Boolean getVwIntention() {
         return Optional.ofNullable(vwIntention).orElse(false);
     }
@@ -114,6 +120,9 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
 
     public Boolean getRemCompletion() {
         return Optional.ofNullable(remCompletion).orElse(true);
+    }
+    public Boolean getEmCompletion() {
+        return Optional.ofNullable(emCompletion).orElse(true);
     }
 
     public Boolean getVwCompletion() {
@@ -131,6 +140,7 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
     public Map<ShortCutType, Double> baseValueType() {
         return LogicUtils.getLogic().generateObject(new HashMap<>(), map ->
                 map.put(ShortCutType.REM, this.getRemBaseValue()), map ->
+                map.put(ShortCutType.EM, this.getRemBaseValue()), map ->
                 map.put(ShortCutType.VW, this.getWidthValue() / 100), map ->
                 map.put(ShortCutType.VH, this.getHeightValue() / 100));
     }
@@ -146,7 +156,14 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
     }
 
     public double getRemBaseValue() {
-        return LogicUtils.getLogic().funOrElse(NumberUtils.toDouble(Optional.ofNullable(this.remBaseValue).orElse("100.0")), value -> value < 0, value -> 100d, value -> value);
+        return LogicUtils.getLogic().
+                funOrElse(
+                        NumberUtils.toDouble(
+                                Optional.ofNullable(this.remBaseValue).orElse("100.0")),
+                        value -> value < 0,
+                        value -> 100d,
+                        value -> value
+                );
     }
 
     @Nullable
