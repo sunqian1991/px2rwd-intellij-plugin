@@ -85,7 +85,7 @@ public class ProjectSettingConfig implements SearchableConfigurable {
         mainGui.getRemIntention().setSelected(constValue.getRemIntention());
         mainGui.getEmIntention().setSelected(constValue.getEmIntention());
         mainGui.getVwIntention().setSelected(constValue.getVwIntention());
-        mainGui.getVhIntention().setSelected(constValue.getEmCompletion());
+        mainGui.getVhIntention().setSelected(constValue.getVhIntention());
         mainGui.getRemCompletion().setSelected(constValue.getRemCompletion());
         mainGui.getEmCompletion().setSelected(constValue.getEmCompletion());
         mainGui.getVwCompletion().setSelected(constValue.getVwCompletion());
