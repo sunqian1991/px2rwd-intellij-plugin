@@ -72,7 +72,7 @@ public class FormatTools {
      * @return 返回回退的结果
      */
     private String valueRollback(String result, ShortCutType shortCutType) {
-        return Optional.ofNullable(result).filter(text -> StringUtils.containsAny(result, REM_STYLE_TAG, VW_STYLE_TAG, VH_STYLE_TAG) && !Objects.equals(NULL_STRING, text)).map(text ->
+        return Optional.ofNullable(result).filter(text -> StringUtils.containsAny(result, REM_STYLE_TAG, EM_STYLE_TAG ,VW_STYLE_TAG, VH_STYLE_TAG) && !Objects.equals(NULL_STRING, text)).map(text ->
                 Optional.of(NumberUtils.toDouble(text.substring(0, text.indexOf(STYLE_TAG_TYPE.get(shortCutType).toString())).trim())).map(res ->
                         Optional.ofNullable(this.constValue.baseValueType().get(shortCutType)).map(value ->
                                 Optional.of(Math.round(res * value) + PX_STYLE_TAG).orElse(result)).orElse(result)
@@ -120,7 +120,28 @@ public class FormatTools {
                                             actionPerformer.getDocument().replaceString(
                                                     lineStartOffset,
                                                     lineEndOffset,
-                                                    getFormatLine(getFormatLine(getFormatLine(lineContent, ShortCutType.REM, REM_STYLE_TAG, this::valueRollback), ShortCutType.VW, VW_STYLE_TAG, this::valueRollback), ShortCutType.VH, VH_STYLE_TAG, this::valueRollback))
+                                                    getFormatLine(
+                                                            getFormatLine(
+                                                                    getFormatLine(
+                                                                            getFormatLine(
+                                                                                    lineContent,
+                                                                                    ShortCutType.REM,
+                                                                                    REM_STYLE_TAG,
+                                                                                    this::valueRollback
+                                                                            ),
+                                                                            ShortCutType.EM,
+                                                                            EM_STYLE_TAG,
+                                                                            this::valueRollback
+                                                                    ),
+                                                                    ShortCutType.VW,
+                                                                    VW_STYLE_TAG,
+                                                                    this::valueRollback
+                                                            ),
+                                                            ShortCutType.VH,
+                                                            VH_STYLE_TAG,
+                                                            this::valueRollback
+                                                    )
+                                            )
                                     );
                                     return lineContent;
                                 })

@@ -76,15 +76,18 @@ public class ProjectSettingConfig implements SearchableConfigurable {
     public void reset() {
         mainGui.getShowCalculationProcessInCheckBox().setSelected(constValue.getShowCalculationProcess());
         mainGui.getRemRadioButton().setSelected(constValue.getShortCutType() == ShortCutType.REM);
+        mainGui.getEmRadioButton().setSelected(constValue.getShortCutType() == ShortCutType.EM);
         mainGui.getVwRadioButton().setSelected(constValue.getShortCutType() == ShortCutType.VW);
         mainGui.getVhRadioButton().setSelected(constValue.getShortCutType() == ShortCutType.VH);
         mainGui.getRemBaseValue().setText(constValue.getRemBaseValue() + "");
         mainGui.getVwValue().setText(constValue.getWidthValue().toString());
         mainGui.getVhValue().setText(constValue.getHeightValue().toString());
         mainGui.getRemIntention().setSelected(constValue.getRemIntention());
+        mainGui.getEmIntention().setSelected(constValue.getEmIntention());
         mainGui.getVwIntention().setSelected(constValue.getVwIntention());
-        mainGui.getVhIntention().setSelected(constValue.getVhIntention());
+        mainGui.getVhIntention().setSelected(constValue.getEmCompletion());
         mainGui.getRemCompletion().setSelected(constValue.getRemCompletion());
+        mainGui.getEmCompletion().setSelected(constValue.getEmCompletion());
         mainGui.getVwCompletion().setSelected(constValue.getVwCompletion());
         mainGui.getVhCompletion().setSelected(constValue.getVhCompletion());
         mainGui.getOnlyCssFiles().setSelected(constValue.getOnlyCssFiles());
@@ -98,9 +101,11 @@ public class ProjectSettingConfig implements SearchableConfigurable {
         LogicUtils.getLogic().conOrEnd(mainGui.getVhValue().getText(), text -> Objects.nonNull(text) && NumberUtils.isCreatable(text) && NumberUtils.toDouble(text) > 0, text -> constValue.setHeightValue(mainGui.getVhValue().getText()));
         constValue.setShortCutType(getShortCutType());
         constValue.setRemIntention(mainGui.getRemIntention().isSelected());
+        constValue.setEmIntention(mainGui.getEmIntention().isSelected());
         constValue.setVwIntention(mainGui.getVwIntention().isSelected());
         constValue.setVhIntention(mainGui.getVhIntention().isSelected());
         constValue.setRemCompletion(mainGui.getRemCompletion().isSelected());
+        constValue.setEmCompletion(mainGui.getEmCompletion().isSelected());
         constValue.setVwCompletion(mainGui.getVwCompletion().isSelected());
         constValue.setVhCompletion(mainGui.getVhCompletion().isSelected());
         constValue.setOnlyCssFiles(mainGui.getOnlyCssFiles().isSelected());
@@ -109,9 +114,11 @@ public class ProjectSettingConfig implements SearchableConfigurable {
     private ShortCutType getShortCutType() {
         return Optional.ofNullable(LogicUtils.getLogic().generateObject(new HashMap<String, ShortCutType>(), map ->
                 map.put("rem", ShortCutType.REM), map ->
+                map.put("em", ShortCutType.EM), map ->
                 map.put("vw", ShortCutType.VW), map ->
                 map.put("vh", ShortCutType.VH)).get(StringUtils.join(
                 mainGui.getRemRadioButton().isSelected() ? "rem" : "",
+                mainGui.getEmRadioButton().isSelected() ? "em" : "",
                 mainGui.getVwRadioButton().isSelected() ? "vw" : "",
                 mainGui.getVhRadioButton().isSelected() ? "vh" : ""
         ))).orElse(ShortCutType.REM);
@@ -131,11 +138,15 @@ public class ProjectSettingConfig implements SearchableConfigurable {
         }, new Boolean[]{
                 constValue.getRemIntention(), mainGui.getRemIntention().isSelected()
         }, new Boolean[]{
+                constValue.getEmIntention(), mainGui.getEmIntention().isSelected()
+        }, new Boolean[]{
                 constValue.getVwIntention(), mainGui.getVwIntention().isSelected()
         }, new Boolean[]{
                 constValue.getVhIntention(), mainGui.getVhIntention().isSelected()
         }, new Boolean[]{
                 constValue.getRemCompletion(), mainGui.getRemCompletion().isSelected()
+        }, new Boolean[]{
+                constValue.getEmCompletion(), mainGui.getEmCompletion().isSelected()
         }, new Boolean[]{
                 constValue.getVwCompletion(), mainGui.getVwCompletion().isSelected()
         }, new Boolean[]{
