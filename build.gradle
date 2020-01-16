@@ -6,15 +6,12 @@ plugins {
 group 'com.sunqian'
 version '2.1.2'
 
+sourceCompatibility = 1.8
+
 repositories {
     mavenCentral()
 }
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
-compileJava.options.encoding = 'UTF-8'
-compileTestJava.options.encoding = 'UTF-8'
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compileOnly 'org.projectlombok:lombok:1.18.8'

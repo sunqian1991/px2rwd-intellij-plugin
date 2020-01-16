@@ -38,7 +38,6 @@ public class PX2RWDProvider extends CompletionProvider<CompletionParameters> {
                             .withCaseSensitivity(false).withTailText(tips.get(i))
                             .withInsertHandler(LogicUtils.getLogic().generateObject(new HashMap<String, InsertHandler<LookupElement>>(), map ->
                                     map.put(TO_REM_TIP, PX_REM_HANDLER), map ->
-                                    map.put(TO_EM_TIP, PX_EM_HANDLER), map ->
                                     map.put(TO_VW_TIP, PX_VW_HANDLER), map ->
                                     map.put(TO_VH_TIP, PX_VH_HANDLER)).get(tips.get(i)))).collect(Collectors.toList()));
             result.addAllElements(Arrays.stream(RWD_TIPS).map(tip ->
@@ -46,7 +45,6 @@ public class PX2RWDProvider extends CompletionProvider<CompletionParameters> {
                             .withCaseSensitivity(false).withTailText(PREFIX_TAIL_TIPS + tip)
                             .withInsertHandler(LogicUtils.getLogic().generateObject(new HashMap<String, InsertHandler<LookupElement>>(), map ->
                                     map.put(REM_STYLE_TAG, REM_HANDLER), map ->
-                                    map.put(EM_STYLE_TAG, EM_HANDLER), map ->
                                     map.put(VW_STYLE_TAG, VW_HANDLER), map ->
                                     map.put(VH_STYLE_TAG, VH_HANDLER)).get(tip))).collect(Collectors.toList()));
         });
@@ -54,7 +52,6 @@ public class PX2RWDProvider extends CompletionProvider<CompletionParameters> {
 
     private RwdTipsPredicate<String, ActionPerformer> filterCompletionItem = (item, actionPerformer) ->
             Objects.equals(item, TO_REM_TIP) && (actionPerformer.getConstValue().getRemCompletion()) ||
-            Objects.equals(item, TO_EM_TIP) && (actionPerformer.getConstValue().getEmCompletion()) ||
             Objects.equals(item, TO_VW_TIP) && (actionPerformer.getConstValue().getVwCompletion()) ||
             Objects.equals(item, TO_VH_TIP) && (actionPerformer.getConstValue().getVhCompletion());
 
@@ -66,10 +63,6 @@ public class PX2RWDProvider extends CompletionProvider<CompletionParameters> {
     private static final InsertHandler<LookupElement> REM_HANDLER = (context, item) ->
             Optional.of(ActionPerformer.getActionPerformer(context.getProject(), context.getEditor())).ifPresent(actionPerformer ->
                     FormatTools.getFormatTools(actionPerformer.getConstValue()).formatNearCode(actionPerformer, ShortCutType.REM, ShortCutType.REM)
-            );
-    private static final InsertHandler<LookupElement> EM_HANDLER = (context, item) ->
-            Optional.of(ActionPerformer.getActionPerformer(context.getProject(), context.getEditor())).ifPresent(actionPerformer ->
-                    FormatTools.getFormatTools(actionPerformer.getConstValue()).formatNearCode(actionPerformer, ShortCutType.EM, ShortCutType.EM)
             );
 
     private static final InsertHandler<LookupElement> VW_HANDLER = (context, item) ->
@@ -85,10 +78,6 @@ public class PX2RWDProvider extends CompletionProvider<CompletionParameters> {
     private static final InsertHandler<LookupElement> PX_REM_HANDLER = (context, item) ->
             Optional.of(ActionPerformer.getActionPerformer(context.getProject(), context.getEditor())).ifPresent(actionPerformer ->
                     FormatTools.getFormatTools(actionPerformer.getConstValue()).formatNearCode(actionPerformer, ShortCutType.REM)
-            );
-    private static final InsertHandler<LookupElement> PX_EM_HANDLER = (context, item) ->
-            Optional.of(ActionPerformer.getActionPerformer(context.getProject(), context.getEditor())).ifPresent(actionPerformer ->
-                    FormatTools.getFormatTools(actionPerformer.getConstValue()).formatNearCode(actionPerformer, ShortCutType.EM)
             );
 
     private static final InsertHandler<LookupElement> PX_VW_HANDLER = (context, item) ->

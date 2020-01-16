@@ -1,5 +1,5 @@
 package com.sunqian.constvalue;
 
 public enum ShortCutType {
-    REM,EM,VW,VH,PX
+    REM,VW,VH,PX
 }

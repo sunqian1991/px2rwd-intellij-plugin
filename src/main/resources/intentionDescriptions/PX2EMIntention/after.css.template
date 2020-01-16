@@ -1,5 +1,0 @@
-.class-name{
-    width: <spot>10em</spot>;
-    height: <spot>10em</spot>;
-    padding: <spot>1em</spot> <spot>2rem</spot> <spot>3em</spot> <spot>4em</spot>;
-}

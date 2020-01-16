@@ -23,16 +23,13 @@ public class ProjectSettingsPage {
     private JTextField remBaseValue;
     private JTextField vwValue;
     private JTextField vhValue;
-    private JRadioButton emRadioButton;
     private JRadioButton remRadioButton;
     private JRadioButton vwRadioButton;
     private JRadioButton vhRadioButton;
     private JPanel panel;
     private JCheckBox remIntention;
-    private JCheckBox emIntention;
     private JCheckBox vwIntention;
     private JCheckBox vhIntention;
-    private JCheckBox emCompletion;
     private JCheckBox remCompletion;
     private JCheckBox vwCompletion;
     private JCheckBox vhCompletion;
@@ -52,16 +49,13 @@ public class ProjectSettingsPage {
         vhValue.setText(constValue.getHeightValue().toString());
         LogicUtils.getLogic().generateObject(new HashMap<ShortCutType, Consumer<String>>(), map ->
                 map.put(ShortCutType.REM, type -> remRadioButton.setSelected(true)), map ->
-                map.put(ShortCutType.EM, type -> emRadioButton.setSelected(true)), map ->
                 map.put(ShortCutType.VW, type -> vwRadioButton.setSelected(true)), map ->
                 map.put(ShortCutType.VH, type -> vhRadioButton.setSelected(true))).get(constValue.getShortCutType()).accept(null);
         showCalculationProcessInCheckBox.setSelected(constValue.getShowCalculationProcess());
         remIntention.setSelected(constValue.getRemIntention());
-        emIntention.setSelected(constValue.getEmIntention());
         vwIntention.setSelected(constValue.getVwIntention());
         vhIntention.setSelected(constValue.getVhIntention());
         remCompletion.setSelected(constValue.getRemCompletion());
-        emCompletion.setSelected(constValue.getEmCompletion());
         vwCompletion.setSelected(constValue.getVwCompletion());
         vhCompletion.setSelected(constValue.getVhCompletion());
         onlyCssFiles.setSelected(constValue.getOnlyCssFiles());
@@ -205,7 +199,6 @@ public class ProjectSettingsPage {
         ButtonGroup buttonGroup;
         buttonGroup = new ButtonGroup();
         buttonGroup.add(remRadioButton);
-        buttonGroup.add(emRadioButton);
         buttonGroup.add(vwRadioButton);
         buttonGroup.add(vhRadioButton);
     }

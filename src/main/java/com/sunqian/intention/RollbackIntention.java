@@ -39,7 +39,7 @@ public class RollbackIntention extends PsiElementBaseIntentionAction implements 
         return Optional.of(element.getLanguage()).filter(language -> Objects.equals(language.getID(), STYLE_SHEET_LANGUAGE_ID)).map(language -> Optional.of(editor.getDocument().getLineNumber(editor.getCaretModel().getOffset())).map(lineNum ->
                 Optional.of(editor.getDocument().getText(
                         new TextRange(editor.getDocument().getLineStartOffset(lineNum), editor.getDocument().getLineEndOffset(lineNum))
-                )).map(text -> StringUtils.containsAny(text, REM_STYLE_TAG, EM_STYLE_TAG, VW_STYLE_TAG, VH_STYLE_TAG)).get()
+                )).map(text -> StringUtils.containsAny(text, REM_STYLE_TAG, VW_STYLE_TAG, VH_STYLE_TAG)).get()
         ).orElse(false)).orElse(false);
     }
 
@@ -47,13 +47,13 @@ public class RollbackIntention extends PsiElementBaseIntentionAction implements 
     @NotNull
     @Override
     public String getFamilyName() {
-        return "Rem/em/vw/vh to px";
+        return "Rem/vw/vh to px";
     }
 
     @NotNull
     @Override
     public String getText() {
-        return "Rem/em/vw/vh to px";
+        return "Rem/vw/vh to px";
     }
 
     @Override
