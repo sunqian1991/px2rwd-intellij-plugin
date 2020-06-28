@@ -4,7 +4,6 @@
 [![](https://img.shields.io/jetbrains/plugin/v/11187.svg)](https://plugins.jetbrains.com/plugin/11187-px2rem)
 [![](https://img.shields.io/jetbrains/plugin/d/11187.svg)](https://plugins.jetbrains.com/plugin/11187-px2rem)
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
-[![](https://tracking.gitads.io/?repo=px2rwd-intellij-plugin)](https://images.gitads.io/px2rwd-intellij-plugin)
 
 #### 项目介绍
 
@@ -163,6 +162,14 @@ Instructions:
 ```
 
 ![image][opt_gif]
+
+#### 广告
+
+[![](https://images.gitads.io/px2rwd-intellij-plugin)](https://tracking.gitads.io/?repo=px2rwd-intellij-plugin)
+
+[点击](https://tracking.gitads.io/?repo=px2rwd-intellij-plugin)查看详情
+
+[Click this](https://tracking.gitads.io/?repo=px2rwd-intellij-plugin) to view details
 
 #### 参与贡献
 
