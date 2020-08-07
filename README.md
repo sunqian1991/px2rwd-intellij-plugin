@@ -17,13 +17,6 @@
 
 this is a tool of converting px to rem/vw/vh in a css/less file by a few settings.
 
-#### 恰饭
-
-[![](https://images.gitads.io/px2rwd-intellij-plugin)](https://tracking.gitads.io/?repo=px2rwd-intellij-plugin)
-
-[点击](https://tracking.gitads.io/?repo=px2rwd-intellij-plugin)查看详情
-
-[Click this](https://tracking.gitads.io/?repo=px2rwd-intellij-plugin) to view details
 
 #### 当前版本
 
@@ -171,13 +164,6 @@ Instructions:
 
 ![image][opt_gif]
 
-#### 恰饭
-
-[![](https://images.gitads.io/px2rwd-intellij-plugin)](https://tracking.gitads.io/?repo=px2rwd-intellij-plugin)
-
-[点击](https://tracking.gitads.io/?repo=px2rwd-intellij-plugin)查看详情
-
-[Click this](https://tracking.gitads.io/?repo=px2rwd-intellij-plugin) to view details
 
 #### 参与贡献
 
