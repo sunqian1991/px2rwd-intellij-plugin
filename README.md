@@ -1,15 +1,19 @@
-## PX2RWD-Intellij-Plugin----px转rem/vw/vh插件
+## PX2REM-Intellij-Plugin----px转rem/vw/vh插件
 
 [![](https://img.shields.io/badge/license-MIT-000000.svg)](https://github.com/sunqian1991/px2rwd-intellij-plugin/blob/master/LICENSE)
 [![](https://img.shields.io/jetbrains/plugin/v/11187.svg)](https://plugins.jetbrains.com/plugin/11187-px2rem)
 [![](https://img.shields.io/jetbrains/plugin/d/11187.svg)](https://plugins.jetbrains.com/plugin/11187-px2rem)
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 
+#### 安装
+
+<iframe frameborder="none" width="245px" height="48px" src="https://plugins.jetbrains.com/embeddable/install/11187"></iframe>
+
 #### 项目介绍
 
 这是一个转换css文件中的px单位为rem/vw/vh等自适应设计页面（Responsive Web Design）单位的插件，主要适用于idea和webstorm. 
 
-本项目参考了 https://github.com/yclnycl/ideapx2rem 项目，在他的基础上加入了一些新的功能。
+本项目参考了 [ideapx2rem](https://github.com/yclnycl/ideapx2rem) 项目，在他的基础上加入了一些新的功能。
 
 如果有任何插件或开发相关的问题，欢迎跟我联系。
 
