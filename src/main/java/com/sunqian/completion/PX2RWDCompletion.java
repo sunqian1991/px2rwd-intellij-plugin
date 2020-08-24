@@ -14,7 +14,7 @@ import static com.sunqian.constvalue.MagicValue.TO_RWD_TIPS;
  * 代码自动完成
  *
  * @author sunqian
- * @date 2019/6/21
+ * date 2019/6/21
  */
 public class PX2RWDCompletion extends CompletionContributor {
     public PX2RWDCompletion() {

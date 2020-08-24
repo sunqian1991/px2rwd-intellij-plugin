@@ -22,7 +22,7 @@ import static com.sunqian.constvalue.MagicValue.*;
  * intention action类
  *
  * @author sunqian
- * @date 2019/6/21
+ * date 2019/6/21
  */
 public class RollbackIntention extends PsiElementBaseIntentionAction implements IntentionAction {
     @Override

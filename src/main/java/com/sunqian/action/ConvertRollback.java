@@ -19,7 +19,7 @@ import static com.sunqian.constvalue.MagicValue.STYLUS_LANGUAGE_ID;
  * 转换回退action
  *
  * @author sunqian
- * @date 2019/6/25
+ * date 2019/6/25
  */
 public class ConvertRollback extends AnAction {
 

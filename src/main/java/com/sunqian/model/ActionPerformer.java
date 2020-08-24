@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
  * 转换特定对象管理类
  *
  * @author sunqian
- * @date 2019/6/10
+ * date 2019/6/10
  */
 @Data
 @NoArgsConstructor

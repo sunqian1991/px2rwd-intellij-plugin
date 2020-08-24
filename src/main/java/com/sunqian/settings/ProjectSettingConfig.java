@@ -19,7 +19,6 @@ import java.util.Optional;
 
 import static com.sunqian.constvalue.MagicValue.PLUGIN_NAME;
 
-@SuppressWarnings("RedundantOperationOnEmptyContainer")
 @Data
 public class ProjectSettingConfig implements SearchableConfigurable {
 

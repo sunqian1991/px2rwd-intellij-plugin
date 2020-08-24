@@ -19,7 +19,7 @@ import static com.sunqian.constvalue.MagicValue.*;
  * PX转响应式布局样式单位----按文件处理
  *
  * @author sunqian
- * @date 2019/6/10
+ * date 2019/6/10
  */
 @SuppressWarnings("duplicate")
 public class PX2RWDWithFile extends AnAction {

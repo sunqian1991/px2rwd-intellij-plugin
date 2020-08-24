@@ -9,7 +9,7 @@ import java.util.Map;
  * 魔法值库
  *
  * @author sunqian
- * @date 2019/6/6
+ * date 2019/6/6
  */
 public class MagicValue {
 
@@ -59,7 +59,7 @@ public class MagicValue {
 
     public static final String PREFIX_TAIL_TIPS = " px to ";
 
-    public static final Map STYLE_TAG_TYPE = LogicUtils.getLogic().generateObject(new HashMap<>(), map ->
+    public static final Map<ShortCutType, String> STYLE_TAG_TYPE = LogicUtils.getLogic().generateObject(new HashMap<>(), map ->
             map.put(ShortCutType.REM, REM_STYLE_TAG), map ->
             map.put(ShortCutType.VW, VW_STYLE_TAG), map ->
             map.put(ShortCutType.VH, VH_STYLE_TAG), map ->

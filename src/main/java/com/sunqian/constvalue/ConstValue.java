@@ -18,7 +18,7 @@ import java.util.Optional;
  * 配置文件参数管理类
  *
  * @author sunqian
- * @date 2018/8/8 12:19
+ * date 2018/8/8 12:19
  */
 @State(name = "px2remForWebStorm", storages = {@Storage("px2remforwebstorm.xml")})
 @Data

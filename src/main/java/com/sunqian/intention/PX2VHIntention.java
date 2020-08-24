@@ -18,7 +18,7 @@ import java.util.Optional;
  * intention action类
  *
  * @author sunqian
- * @date 2019/6/21
+ * date 2019/6/21
  */
 public class PX2VHIntention extends PsiElementBaseIntentionAction implements IntentionAction {
     @Override

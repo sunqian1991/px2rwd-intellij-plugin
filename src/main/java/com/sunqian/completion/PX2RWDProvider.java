@@ -22,7 +22,6 @@ import static com.sunqian.constvalue.MagicValue.*;
 /**
  * 代码自动完成处理类
  */
-@SuppressWarnings("RedundantOperationOnEmptyContainer")
 public class PX2RWDProvider extends CompletionProvider<CompletionParameters> {
     private final String[] myItems;
 
@@ -50,7 +49,7 @@ public class PX2RWDProvider extends CompletionProvider<CompletionParameters> {
         });
     }
 
-    private RwdTipsPredicate<String, ActionPerformer> filterCompletionItem = (item, actionPerformer) ->
+    private final RwdTipsPredicate<String, ActionPerformer> filterCompletionItem = (item, actionPerformer) ->
             Objects.equals(item, TO_REM_TIP) && (actionPerformer.getConstValue().getRemCompletion()) ||
             Objects.equals(item, TO_VW_TIP) && (actionPerformer.getConstValue().getVwCompletion()) ||
             Objects.equals(item, TO_VH_TIP) && (actionPerformer.getConstValue().getVhCompletion());
