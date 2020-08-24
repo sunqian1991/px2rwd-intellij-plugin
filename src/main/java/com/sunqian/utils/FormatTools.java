@@ -22,7 +22,7 @@ import static com.sunqian.constvalue.MagicValue.*;
  * 转换工具类
  *
  * @author sunqian
- * @date 2018/12/8 15:39
+ * date 2018/12/8 15:39
  */
 @NoArgsConstructor
 public class FormatTools {
@@ -32,7 +32,7 @@ public class FormatTools {
 
     private ConstValue constValue;
 
-    private static Pattern NUMBER_PATTERN = Pattern.compile(NUMBER_PATTERN_FORMULA);
+    private static final Pattern NUMBER_PATTERN = Pattern.compile(NUMBER_PATTERN_FORMULA);
 
     private FormatTools(ConstValue constValue) {
         this.constValue = constValue;
@@ -48,7 +48,7 @@ public class FormatTools {
 
     private String getFormatText(String ele, ShortCutType shortCutType) {
         return Optional.ofNullable(ele).filter(text -> text.contains(PX_STYLE_TAG) && !Objects.equals(NULL_STRING, text)).map(text ->
-                Optional.of(NumberUtils.toDouble(text.substring(0, text.indexOf(PX_STYLE_TAG)).trim())).map(px -> valueFormat(px, shortCutType)).get()
+                valueFormat(NumberUtils.toDouble(text.substring(0, text.indexOf(PX_STYLE_TAG)).trim()), shortCutType)
         ).orElse(ele);
     }
 
@@ -72,12 +72,10 @@ public class FormatTools {
      * @return 返回回退的结果
      */
     private String valueRollback(String result, ShortCutType shortCutType) {
-        return Optional.ofNullable(result).filter(text -> StringUtils.containsAny(result, REM_STYLE_TAG, VW_STYLE_TAG, VH_STYLE_TAG) && !Objects.equals(NULL_STRING, text)).map(text ->
-                Optional.of(NumberUtils.toDouble(text.substring(0, text.indexOf(STYLE_TAG_TYPE.get(shortCutType).toString())).trim())).map(res ->
-                        Optional.ofNullable(this.constValue.baseValueType().get(shortCutType)).map(value ->
-                                Optional.of(Math.round(res * value) + PX_STYLE_TAG).orElse(result)).orElse(result)
-                ).get()
-        ).orElse(result);
+        return Optional.ofNullable(result).filter(text -> StringUtils.containsAny(result, REM_STYLE_TAG, VW_STYLE_TAG, VH_STYLE_TAG) && !Objects.equals(NULL_STRING, text)).flatMap(text -> Optional.of(NumberUtils.toDouble(text.substring(0, text.indexOf(STYLE_TAG_TYPE.get(shortCutType))).trim())).map(res ->
+                Optional.ofNullable(this.constValue.baseValueType().get(shortCutType)).map(value ->
+                        Optional.of(Math.round(res * value) + PX_STYLE_TAG).orElse(result)).orElse(result)
+        )).orElse(result);
     }
 
     private String getFormatLine(String content, ShortCutType shortCutType, String styleTag, FormatStyleValue<String> formatStyleValue) {
@@ -175,7 +173,7 @@ public class FormatTools {
      * @param actionPerformer 获取的动作参数
      */
     public void formatLineCode(ActionPerformer actionPerformer, ShortCutType shortCutType) {
-        formatLineCode(actionPerformer, actionPerformer.getDocument().getLineNumber(actionPerformer.getCaretModel().getOffset()), shortCutType);
+        actionPerformer.getCaretModel().runForEachCaret(caret -> formatLineCode(actionPerformer, caret.getLogicalPosition().line, shortCutType));
     }
 
     /**
@@ -212,11 +210,8 @@ public class FormatTools {
     public void formatNearCode(ActionPerformer actionPerformer, ShortCutType shortCutType, ShortCutType unit) {
         Optional.of(actionPerformer.getDocument()).ifPresent(document ->
                 Optional.of(actionPerformer.getCaretModel()).ifPresent(caretModel ->
-                        Optional.of(document.getText(new TextRange(document.getLineStartOffset(document.getLineNumber(caretModel.getOffset())), actionPerformer.getCaretModel().getOffset()))).ifPresent(lineContent ->
-                                Optional.of(lineContent.substring(getNearCode(lineContent) + 1, lineContent.length() - STYLE_TAG_TYPE.get(unit).toString().length()).trim()).ifPresent(content ->
-                                    formatText(content, caretModel.getOffset() - content.length() - STYLE_TAG_TYPE.get(unit).toString().length(), caretModel.getOffset(), actionPerformer, shortCutType)
-                                )
-                        )
+                        Optional.of(document.getText(new TextRange(document.getLineStartOffset(document.getLineNumber(caretModel.getOffset())), actionPerformer.getCaretModel().getOffset()))).flatMap(lineContent -> Optional.of(lineContent.substring(getNearCode(lineContent) + 1, lineContent.length() - STYLE_TAG_TYPE.get(unit).length()).trim())).ifPresent(content ->
+                                formatText(content, caretModel.getOffset() - content.length() - STYLE_TAG_TYPE.get(unit).length(), caretModel.getOffset(), actionPerformer, shortCutType))
                 )
         );
     }
@@ -242,18 +237,22 @@ public class FormatTools {
      */
     public void formatSelectCode(ActionPerformer actionPerformer, ShortCutType shortCutType) {
         // 光标选择的文字
-        Optional.ofNullable(actionPerformer.getSelectionModel().getSelectedText()).ifPresent(selectText ->
-                Optional.of(selectText.indexOf(PX_STYLE_TAG)).filter(index -> index > -1).map(index -> {
-                    // 选择区域开始
-                    Optional.of(actionPerformer.getSelectionModel().getSelectionStart()).ifPresent(start -> {
-                        // 选择区域结束
-                        Optional.of(actionPerformer.getSelectionModel().getSelectionEnd()).ifPresent(end ->
-                                formatText(selectText.substring(0, index), start, end, actionPerformer, shortCutType)
-                        );
-                    });
-                    return index;
-                })
-        );
+        Optional.ofNullable(actionPerformer.getSelectionModel().getSelectedText(true)).ifPresent(selectTexts -> {
+            String [] testArray = selectTexts.split("\n");
+            if (testArray.length == actionPerformer.getSelectionModel().getBlockSelectionStarts().length && testArray.length == actionPerformer.getSelectionModel().getBlockSelectionEnds().length) {
+                for (int i = 0; i < testArray.length; i++) {
+                    String selectText = testArray[i];
+                    if (selectText.contains(PX_STYLE_TAG)) {
+                        formatText(
+                                selectText.substring(0, selectText.indexOf(PX_STYLE_TAG)),
+                                actionPerformer.getSelectionModel().getBlockSelectionStarts()[i],
+                                actionPerformer.getSelectionModel().getBlockSelectionEnds()[i],
+                                actionPerformer,
+                                shortCutType);
+                    }
+                }
+            }
+        });
     }
 
     /**
