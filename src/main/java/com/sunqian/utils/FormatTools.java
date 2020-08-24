@@ -1,6 +1,8 @@
 package com.sunqian.utils;
 
 import com.intellij.openapi.command.WriteCommandAction;
+import com.intellij.openapi.editor.CaretModel;
+import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.util.TextRange;
 import com.sunqian.constvalue.ConstValue;
 import com.sunqian.constvalue.ShortCutType;
@@ -53,15 +55,15 @@ public class FormatTools {
     }
 
     private String valueFormat(Double px, ShortCutType shortCutType) {
-        return Optional.of(this.constValue.baseValueType().get(shortCutType)).map(value ->
-                Optional.of(px / value).map(rem ->
-                        Optional.of(check(Double.toString(px), Double.toString(value))).filter(ifDivide -> ifDivide).map(ifDivide ->
-                                (rem.toString()).replaceAll("0*$", "").replaceAll("\\.$", "") + STYLE_TAG_TYPE.get(shortCutType) + showComment(px, value)
-                        ).orElseGet(() ->
-                                String.format(getAccuracy(value + ""), rem).replaceAll("0*$", "").replaceAll("\\.$", "").trim() + STYLE_TAG_TYPE.get(shortCutType) + showComment(px, value)
-                        )
-                ).orElse(px.toString())
-        ).orElse(px.toString());
+        Double baseValue = this.constValue.baseValueType().get(shortCutType);
+        if (Objects.isNull(baseValue)) {
+            return px.toString();
+        }
+        Double rem = px / baseValue;
+        if (check(Double.toString(px), Double.toString(baseValue))) {
+            return rem.toString().replaceAll("0*$", "").replaceAll("\\.$", "") + STYLE_TAG_TYPE.get(shortCutType) + showComment(px, baseValue);
+        }
+        return String.format(getAccuracy(baseValue + ""), rem).replaceAll("0*$", "").replaceAll("\\.$", "").trim() + STYLE_TAG_TYPE.get(shortCutType) + showComment(px, baseValue);
     }
 
     /**
@@ -72,10 +74,17 @@ public class FormatTools {
      * @return 返回回退的结果
      */
     private String valueRollback(String result, ShortCutType shortCutType) {
-        return Optional.ofNullable(result).filter(text -> StringUtils.containsAny(result, REM_STYLE_TAG, VW_STYLE_TAG, VH_STYLE_TAG) && !Objects.equals(NULL_STRING, text)).flatMap(text -> Optional.of(NumberUtils.toDouble(text.substring(0, text.indexOf(STYLE_TAG_TYPE.get(shortCutType))).trim())).map(res ->
-                Optional.ofNullable(this.constValue.baseValueType().get(shortCutType)).map(value ->
-                        Optional.of(Math.round(res * value) + PX_STYLE_TAG).orElse(result)).orElse(result)
-        )).orElse(result);
+        if (!StringUtils.containsAny(result, REM_STYLE_TAG, VW_STYLE_TAG, VH_STYLE_TAG)) {
+            return result;
+        }
+        if (Objects.equals(NULL_STRING, result)) {
+            return result;
+        }
+        Double baseValue = this.constValue.baseValueType().get(shortCutType);
+        if (Objects.isNull(baseValue)) {
+            return result;
+        }
+        return Math.round(NumberUtils.toDouble(result.substring(0, result.indexOf(STYLE_TAG_TYPE.get(shortCutType))).trim()) * baseValue) + PX_STYLE_TAG;
     }
 
     private String getFormatLine(String content, ShortCutType shortCutType, String styleTag, FormatStyleValue<String> formatStyleValue) {
@@ -110,18 +119,27 @@ public class FormatTools {
      * @param lineNum         行号
      */
     public void rollbackStyle(ActionPerformer actionPerformer, int lineNum) {
-        Optional.of(actionPerformer.getDocument().getLineStartOffset(lineNum)).ifPresent(lineStartOffset ->
-                Optional.of(actionPerformer.getDocument().getLineEndOffset(lineNum)).ifPresent(lineEndOffset ->
-                        Optional.of(actionPerformer.getDocument().getText(new TextRange(lineStartOffset, lineEndOffset)))
-                                .map(lineContent -> {
-                                    WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
-                                            actionPerformer.getDocument().replaceString(
-                                                    lineStartOffset,
-                                                    lineEndOffset,
-                                                    getFormatLine(getFormatLine(getFormatLine(lineContent, ShortCutType.REM, REM_STYLE_TAG, this::valueRollback), ShortCutType.VW, VW_STYLE_TAG, this::valueRollback), ShortCutType.VH, VH_STYLE_TAG, this::valueRollback))
-                                    );
-                                    return lineContent;
-                                })
+        int lineStartOffset = actionPerformer.getDocument().getLineStartOffset(lineNum);
+        int lineEndOffset = actionPerformer.getDocument().getLineEndOffset(lineNum);
+        String lineContent = actionPerformer.getDocument().getText(new TextRange(lineStartOffset, lineEndOffset));
+        WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
+                actionPerformer.getDocument().replaceString(
+                        lineStartOffset,
+                        lineEndOffset,
+                        getFormatLine(
+                                getFormatLine(
+                                        getFormatLine(
+                                                lineContent,
+                                                ShortCutType.REM,
+                                                REM_STYLE_TAG,
+                                                this::valueRollback),
+                                        ShortCutType.VW,
+                                        VW_STYLE_TAG,
+                                        this::valueRollback),
+                                ShortCutType.VH,
+                                VH_STYLE_TAG,
+                                this::valueRollback
+                        )
                 )
         );
     }
@@ -145,9 +163,24 @@ public class FormatTools {
      */
     @SuppressWarnings("BigDecimalMethodWithoutRoundingCalled")
     private boolean check(String amount, String count) {
-        return Optional.of(new BigDecimal(amount.replaceAll("\\.", "")).divideAndRemainder(new BigDecimal(count.replaceAll("\\.", "")))[1]).filter(times -> Objects.equals(times, new BigDecimal("0"))).map(times -> true).orElseGet(() ->
-                Objects.equals(new BigDecimal(amount.replaceAll("\\.", "")).divideAndRemainder(LogicUtils.getLogic().funWithWhile(LogicUtils.getLogic().funWithWhile(new BigDecimal(count.replaceAll("\\.", "")), m -> Objects.equals(m.divideAndRemainder(new BigDecimal("2"))[1], new BigDecimal("0")), m -> m.divide(new BigDecimal("2"))), n -> Objects.equals(n.divideAndRemainder(new BigDecimal("5"))[1], new BigDecimal("0")), n -> n.divide(new BigDecimal("5"))))[1], new BigDecimal("0"))
-        );
+        BigDecimal dividend = new BigDecimal(amount.replaceAll("\\.", ""));
+        BigDecimal divisor = new BigDecimal(count.replaceAll("\\.", ""));
+        BigDecimal zero = new BigDecimal("0");
+        BigDecimal two = new BigDecimal("2");
+        BigDecimal five = new BigDecimal("5");
+        BigDecimal[] results = dividend.divideAndRemainder(divisor);
+        if (Objects.equals(zero, results[1])) {
+            return true;
+        }
+        results = dividend.divideAndRemainder(
+                LogicUtils.getLogic().funWithWhile(
+                        LogicUtils.getLogic().funWithWhile(divisor, m ->
+                                Objects.equals(
+                                        m.divideAndRemainder(two)[1],
+                                        zero
+                                ), m -> m.divide(two)
+                        ), n -> Objects.equals(n.divideAndRemainder(five)[1], zero), n -> n.divide(five)));
+        return Objects.equals(results[1], zero);
     }
 
     /**
@@ -173,7 +206,7 @@ public class FormatTools {
      * @param actionPerformer 获取的动作参数
      */
     public void formatLineCode(ActionPerformer actionPerformer, ShortCutType shortCutType) {
-        actionPerformer.getCaretModel().runForEachCaret(caret -> formatLineCode(actionPerformer, caret.getLogicalPosition().line, shortCutType));
+        actionPerformer.getCaretModel().runForEachCaret(caret -> formatLineCode(actionPerformer, actionPerformer.getDocument().getLineNumber(caret.getOffset()), shortCutType));
     }
 
     /**
@@ -208,12 +241,20 @@ public class FormatTools {
      * @param actionPerformer 获取的动作参数
      */
     public void formatNearCode(ActionPerformer actionPerformer, ShortCutType shortCutType, ShortCutType unit) {
-        Optional.of(actionPerformer.getDocument()).ifPresent(document ->
-                Optional.of(actionPerformer.getCaretModel()).ifPresent(caretModel ->
-                        Optional.of(document.getText(new TextRange(document.getLineStartOffset(document.getLineNumber(caretModel.getOffset())), actionPerformer.getCaretModel().getOffset()))).flatMap(lineContent -> Optional.of(lineContent.substring(getNearCode(lineContent) + 1, lineContent.length() - STYLE_TAG_TYPE.get(unit).length()).trim())).ifPresent(content ->
-                                formatText(content, caretModel.getOffset() - content.length() - STYLE_TAG_TYPE.get(unit).length(), caretModel.getOffset(), actionPerformer, shortCutType))
-                )
-        );
+        Document document = actionPerformer.getDocument();
+        CaretModel caretModel = actionPerformer.getCaretModel();
+        int lineNum = document.getLineNumber(caretModel.getOffset());
+        int lineStartOffset = document.getLineStartOffset(lineNum);
+        String lineContent = document.getText(new TextRange(lineStartOffset, caretModel.getOffset()));
+        String content = lineContent.substring(getNearCode(lineContent) + 1, lineContent.length() - STYLE_TAG_TYPE.get(unit).length()).trim();
+        formatText(
+                content,
+                new int[]{
+                        caretModel.getOffset() - content.length() - STYLE_TAG_TYPE.get(unit).length(),
+                        caretModel.getOffset(),
+                },
+                actionPerformer,
+                shortCutType);
     }
 
     public void formatNearCode(ActionPerformer actionPerformer, ShortCutType shortCutType) {
@@ -237,38 +278,44 @@ public class FormatTools {
      */
     public void formatSelectCode(ActionPerformer actionPerformer, ShortCutType shortCutType) {
         // 光标选择的文字
-        Optional.ofNullable(actionPerformer.getSelectionModel().getSelectedText(true)).ifPresent(selectTexts -> {
-            String [] testArray = selectTexts.split("\n");
-            if (testArray.length == actionPerformer.getSelectionModel().getBlockSelectionStarts().length && testArray.length == actionPerformer.getSelectionModel().getBlockSelectionEnds().length) {
-                for (int i = 0; i < testArray.length; i++) {
-                    String selectText = testArray[i];
-                    if (selectText.contains(PX_STYLE_TAG)) {
-                        formatText(
-                                selectText.substring(0, selectText.indexOf(PX_STYLE_TAG)),
-                                actionPerformer.getSelectionModel().getBlockSelectionStarts()[i],
-                                actionPerformer.getSelectionModel().getBlockSelectionEnds()[i],
-                                actionPerformer,
-                                shortCutType);
-                    }
-                }
+        String selectTexts = actionPerformer.getSelectionModel().getSelectedText(true);
+        if (Objects.isNull(selectTexts)) {
+            return;
+        }
+        String[] testArray = selectTexts.split("\n");
+        int[] starts = actionPerformer.getSelectionModel().getBlockSelectionStarts();
+        int[] ends = actionPerformer.getSelectionModel().getBlockSelectionEnds();
+        if (testArray.length != starts.length || testArray.length != ends.length) {
+            return;
+        }
+        for (int i = 0; i < testArray.length; i++) {
+            String selectText = testArray[i];
+            if (selectText.contains(PX_STYLE_TAG)) {
+                formatText(
+                        selectText.substring(0, selectText.indexOf(PX_STYLE_TAG)),
+                        new int[]{
+                                starts[i],
+                                ends[i]
+                        },
+                        actionPerformer,
+                        shortCutType);
             }
-        });
+        }
     }
 
     /**
      * 格式化指定的style文本
      *
      * @param style           style文本
-     * @param start           起始index
-     * @param end             结束index
+     * @param position        起止index
      * @param actionPerformer 动作参数
      */
-    private void formatText(String style, int start, int end, ActionPerformer actionPerformer, ShortCutType shortCutType) {
+    private void formatText(String style, int[] position, ActionPerformer actionPerformer, ShortCutType shortCutType) {
         Optional.of(style).filter(FormatTools::isNumeric).ifPresent(text ->
                 WriteCommandAction.runWriteCommandAction(actionPerformer.getProject(), () ->
                         actionPerformer.getDocument().replaceString(
-                                start,
-                                end,
+                                position[0],
+                                position[1],
                                 getFormatText(style + PX_STYLE_TAG, shortCutType))
                 )
         );

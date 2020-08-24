@@ -42,7 +42,6 @@ public class ProjectSettingsPage {
         this.constValue = constValue;
     }
 
-    @SuppressWarnings("RedundantOperationOnEmptyContainer")
     private void setShowParams() {
         remBaseValue.setText(constValue.getRemBaseValue() + "");
         vwValue.setText(constValue.getWidthValue().toString());
