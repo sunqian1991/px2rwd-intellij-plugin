@@ -13,9 +13,7 @@ This is a tool of converting px to rem/vw/vh in a css/less file by a few setting
 
 #### Install
 
-<iframe frameborder="none" width="245px" height="48px" src="https://plugins.jetbrains.com/embeddable/install/11187"></iframe>
-
-This plugin has been put in the market and you can find it in 'file - settings - plugins - markerplace' by searching a text of  'px2rem'.
+This plugin has been put in the market and you can find it in `file - settings - plugins - marketplace` by searching a text of `px2rem`.
 
 You can also download the plugin file which has been put in [release](https://github.com/sunqian1991/px2rwd-intellij-plugin/releases), and install the plugin from disk.
 
@@ -63,4 +61,4 @@ Instructions:
 ![image][opt_gif]
 
 
-[opt_gif]:https://github.com/sunqian1991/px2rwd-intellij-plugin/blob/master/src/main/resources/images/px2rwd.gif
+[opt_gif]:https://github.com/sunqian1991/px2rwd-intellij-plugin/raw/master/src/main/resources/images/px2rwd.gif

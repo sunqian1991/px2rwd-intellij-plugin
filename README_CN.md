@@ -11,9 +11,7 @@
 
 #### 安装
 
-<iframe frameborder="none" width="245px" height="48px" src="https://plugins.jetbrains.com/embeddable/install/11187"></iframe>
-
-此插件已经提交到插件仓库中，可以直接在插件市场 `file - settings - plugins - markerplace` 中搜索 `px2rem`.
+此插件已经提交到插件仓库中，可以直接在插件市场 `file - settings - plugins - marketplace` 中搜索 `px2rem`.
 
 你也可以直接从 [release](https://github.com/sunqian1991/px2rwd-intellij-plugin/releases) 库中下载最新的版本，然后从本地安装。
 
@@ -73,4 +71,4 @@ Email: sunqian1991@gmail.com
 ![image][opt_gif]
 
 
-[opt_gif]:https://github.com/sunqian1991/px2rwd-intellij-plugin/blob/master/src/main/resources/images/px2rwd.gif
+[opt_gif]:https://github.com/sunqian1991/px2rwd-intellij-plugin/raw/master/src/main/resources/images/px2rwd.gif
