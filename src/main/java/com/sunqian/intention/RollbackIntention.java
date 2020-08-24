@@ -29,7 +29,7 @@ public class RollbackIntention extends PsiElementBaseIntentionAction implements 
     public void invoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) throws IncorrectOperationException {
         Optional.ofNullable(ActionPerformer.getActionPerformer(project, editor)).ifPresent(ap ->
                 Optional.of(FormatTools.getFormatTools(ap.getConstValue())).ifPresent(formatTools ->
-                        formatTools.rollbackStyle(ap, ap.getDocument().getLineNumber(ap.getCaretModel().getOffset()))
+                        ap.getCaretModel().runForEachCaret(caret -> formatTools.rollbackStyle(ap, ap.getDocument().getLineNumber(caret.getOffset())))
                 )
         );
     }
