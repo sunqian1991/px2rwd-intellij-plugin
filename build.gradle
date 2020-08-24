@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.sunqian'
-version '2.1.2'
+version '2.1.3'
 
 sourceCompatibility = 1.8
 
@@ -22,7 +22,7 @@ dependencies {
 intellij {
 //    version 'IU-191.7479.19'
     version 'IU-172.4574.19'
-    pluginName = 'px2rwd'
+    pluginName = 'px2rem'
     plugins = ['CSS']
     intellij.updateSinceUntilBuild false
 }
@@ -34,19 +34,5 @@ publishPlugin {
 
 patchPluginXml {
     changeNotes """
-      <ul>
-        <li>V2.1.2: add the rollback action(rem/vw/vh to px) into code intention. add the option if limit the file type with css files when use short-cut key.</li>
-        <li>V2.1.1: deal with the compatibility problem; add a rollback action.</li>
-        <li>V2.1.0: change the default short-cut key from <kbd>shift</kbd> + <kbd>d</kbd> to <kbd>alt</kbd> + <kbd>d</kbd>; add px to vw and px to vh; change the plugin-settings location to 'File - Settings - Px to Rwd'; add a code completion; add a code intention</li>
-        <li>V2.0.2: give a option of showing the calculation process in comment block; change the accuracy set</li>
-        <li>V2.0.1: change the accuracy set, which can be matched with the font size of root element</li>
-        <li>V2.0.0: give a short-cut key of <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>d</kbd> to convert the px to rem in a whole css file</li>
-        <li>V1.1.5: add some comments</li>
-        <li>V1.1.4: add some comments</li>
-        <li>V1.1.3: correct some errors</li>
-        <li>V1.1.2: add a persistence state of saving the custom settings</li>
-        <li>V1.1.1: correct some errors; change the setting location to 'File-Other settings'</li>
-        <li>V1.1.0: add a function of converting a line by short-cut key</li>
-        <li>V1.0.0: give a location to change the font size of root element</li>
-      </ul>"""
+      support multi-line conversion."""
 }

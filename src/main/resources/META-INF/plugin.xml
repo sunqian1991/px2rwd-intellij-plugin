@@ -1,12 +1,12 @@
 <idea-plugin url="https://plugins.jetbrains.com/plugin/11187-px2remforwebstorm">
     <id>com.sunq.action.WebStormPX2REMTools</id>
-    <name>px2rwd</name>
-    <version>2.1.2</version>
+    <name>px2rem</name>
+    <version>2.1.3</version>
     <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/px2rwd-intellij-plugin">sunqian</vendor>
     <description><![CDATA[
     <p>this is a tool of converting px to <span style="color:#117ebf;font-weight: bold;">rem/vw/vh</span> in a css/less file by a few settings.</p>
     <br />
-    <p>there are three ways to convert: short-cut key, code intention, code completion. you can find the settings related to these converting ways in settings page with the path 'File - Settings - Px to Rwd'</p>
+    <p>there are three ways to convert: short-cut key, code intention, code completion. you can find the settings related to these converting ways in settings page with the path 'File - Settings - Px to Rem'</p>
     <br />
     <p>1. short-cut key</p>
     <br />
@@ -27,9 +27,9 @@
     <p>the unselected code completion types in settings page will not show in the list of code completion in a css file</p>
     <br />
     <p>Instructions:</p>
-    <p>1. find menu at 'File - Settings - Px to Rwd', and give some settings.</p>
+    <p>1. find menu at 'File - Settings - Px to Rem', and give some settings.</p>
     <p>2. select a text or move cursor at a line which contains a 'px' value.</p>
-    <p>3. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span> to convert px to rem/vw/vh with a line; btw, you can change the shortcut at 'File - Settings - keymap - Plug-ins - px2rwd'.</p>
+    <p>3. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span> to convert px to rem/vw/vh with a line; btw, you can change the shortcut at 'File - Settings - keymap - Plug-ins - px2rem'.</p>
     <p>4. use default shortcut key <span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span> to convert px to rem/vw/vh in a whole file.</p>
     <p>5. use a code intention to convert px to rem/vw/vh in a css file</p>
     <p>6. use a code completion to convert px to rem/vw/vh in a css file</p>
@@ -63,7 +63,7 @@
     <p><span style="color:red;font-weight: bold;">插件仅支持css和less两种文件类型，在其他的样式文件类型如sass中也可以使用某一些功能，但可能会引起某些未知的错误，请谨慎使用！</span></p>
     <br />
     <p>使用说明：</p>
-    <p>1. File-Settings-Px to Rwd进行必要的参数配置</p>
+    <p>1. File-Settings-Px to Rem进行必要的参数配置</p>
     <p>2. 选择一个需要转换的样式或者将光标移动到一个包含需要转换样式的行中，使用快捷键<span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>d</kbd></span>来转换，也可以使用<span style="color:#117ebf;font-weight: bold;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>d</kbd></span>来转换整个文件中的可转换样式</p>
     <p>3. 通过code intention<span style="color:#117ebf;font-weight: bold;"><kbd>Alt</kbd> + <kbd>Enter</kbd></span>来转换某一行中涉及到的样式</p>
     <p>4. 通过在输入'px'字符后显示的自动完成提示列表中选择相应的选项来转换相应的样式</p>
@@ -106,20 +106,20 @@
             <className>com.sunqian.intention.RollbackIntention</className>
             <category>CSS</category>
         </intentionAction>
-        <applicationConfigurable instance="com.sunqian.settings.ProjectSettingConfig" displayName="Px to Rwd" id="px2rwdSettings" groupId="root" />
+        <applicationConfigurable instance="com.sunqian.settings.ProjectSettingConfig" displayName="Px to Rem" id="px2rwdSettings" groupId="root" />
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
-        <action id="PX2RWDWithLineID" class="com.sunqian.action.PX2RWDWithLine" text="PX2RWDWithLine"
-                description="PX2RWDWithLine">
+        <action id="PX2RWDWithLineID" class="com.sunqian.action.PX2RWDWithLine" text="PX2REMWithLine"
+                description="CONVERT PX TO REM WITHIN A LINE">
             <keyboard-shortcut keymap="$default" first-keystroke="alt d"/>
         </action>
-        <action id="PX2RWDWithFileID" class="com.sunqian.action.PX2RWDWithFile" text="PX2RWDWithFile"
-                description="PX2RWDWithFile">
+        <action id="PX2RWDWithFileID" class="com.sunqian.action.PX2RWDWithFile" text="PX2REMWithFile"
+                description="CONVERT PX TO REM WITHIN A FILE">
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt d"/>
         </action>
-        <action class="com.sunqian.action.ConvertRollback" id="convertRollback" text="ConvertRollback" description="ConvertRollback">
+        <action class="com.sunqian.action.ConvertRollback" id="convertRollback" text="ConvertRollback" description="ROLLBACK">
             <keyboard-shortcut first-keystroke="ctrl shift alt d" keymap="$default" />
         </action>
     </actions>
