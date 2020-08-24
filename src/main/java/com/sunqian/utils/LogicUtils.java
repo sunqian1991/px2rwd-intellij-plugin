@@ -13,7 +13,7 @@ import java.util.function.Predicate;
  * 逻辑判断工具类
  *
  * @author sunqian
- * @date 2019/3/22
+ * date 2019/3/22
  */
 @SuppressWarnings("unused")
 @NoArgsConstructor
