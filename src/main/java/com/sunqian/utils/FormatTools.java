@@ -299,6 +299,8 @@ public class FormatTools {
                         },
                         actionPerformer,
                         shortCutType);
+                starts = actionPerformer.getSelectionModel().getBlockSelectionStarts();
+                ends = actionPerformer.getSelectionModel().getBlockSelectionEnds();
             }
         }
     }
