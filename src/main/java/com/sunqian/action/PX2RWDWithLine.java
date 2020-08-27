@@ -7,7 +7,7 @@ import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.sunqian.model.ActionPerformer;
 import com.sunqian.utils.FormatTools;
 import com.sunqian.utils.LogicUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.sunqian.utils.StringUtils;
 
 import java.util.HashMap;
 import java.util.Objects;

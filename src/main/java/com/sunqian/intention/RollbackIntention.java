@@ -9,7 +9,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.util.IncorrectOperationException;
 import com.sunqian.model.ActionPerformer;
 import com.sunqian.utils.FormatTools;
-import org.apache.commons.lang3.StringUtils;
+import com.sunqian.utils.StringUtils;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,11 +36,9 @@ public class RollbackIntention extends PsiElementBaseIntentionAction implements 
 
     @Override
     public boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
-        return Optional.of(element.getLanguage()).filter(language -> Objects.equals(language.getID(), STYLE_SHEET_LANGUAGE_ID)).map(language -> Optional.of(editor.getDocument().getLineNumber(editor.getCaretModel().getOffset())).map(lineNum ->
-                Optional.of(editor.getDocument().getText(
-                        new TextRange(editor.getDocument().getLineStartOffset(lineNum), editor.getDocument().getLineEndOffset(lineNum))
-                )).map(text -> StringUtils.containsAny(text, REM_STYLE_TAG, VW_STYLE_TAG, VH_STYLE_TAG)).get()
-        ).orElse(false)).orElse(false);
+        return Optional.of(element.getLanguage()).filter(language -> Objects.equals(language.getID(), STYLE_SHEET_LANGUAGE_ID)).map(language -> Optional.of(editor.getDocument().getLineNumber(editor.getCaretModel().getOffset())).flatMap(lineNum -> Optional.of(editor.getDocument().getText(
+                new TextRange(editor.getDocument().getLineStartOffset(lineNum), editor.getDocument().getLineEndOffset(lineNum))
+        )).map(text -> StringUtils.containsAny(text, REM_STYLE_TAG, VW_STYLE_TAG, VH_STYLE_TAG))).orElse(false)).orElse(false);
     }
 
     @Nls(capitalization = Nls.Capitalization.Sentence)

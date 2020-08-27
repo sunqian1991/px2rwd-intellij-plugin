@@ -1,7 +1,6 @@
 package com.sunqian.utils;
 
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -54,7 +53,7 @@ public class LogicUtils {
         if (predicate.test(t)) {
             consumer.accept(t);
         } else {
-            throw new RuntimeException(ExceptionUtils.getRootCause(e).getMessage());
+            throw new RuntimeException(ExceptionUtils.getRootMessage(e));
         }
     }
 
@@ -62,7 +61,7 @@ public class LogicUtils {
         if (predicate.test(t)) {
             return function.apply(t);
         } else {
-            throw new RuntimeException(ExceptionUtils.getRootCause(e).getMessage());
+            throw new RuntimeException(ExceptionUtils.getRootMessage(e));
         }
     }
 
@@ -113,7 +112,7 @@ public class LogicUtils {
             try {
                 acceptException(t);
             } catch (Exception e) {
-                throw new RuntimeException(ExceptionUtils.getRootCause(e).getMessage());
+                throw new RuntimeException(ExceptionUtils.getRootMessage(e));
             }
         }
 
@@ -141,7 +140,7 @@ public class LogicUtils {
             try {
                 return applyException(t);
             } catch (Exception e) {
-                throw new RuntimeException(ExceptionUtils.getRootCause(e).getMessage());
+                throw new RuntimeException(ExceptionUtils.getRootMessage(e));
             }
         }
 
@@ -170,7 +169,7 @@ public class LogicUtils {
             try {
                 return testException(t);
             } catch (Exception e) {
-                throw new RuntimeException(ExceptionUtils.getRootCause(e).getMessage());
+                throw new RuntimeException(ExceptionUtils.getRootMessage(e));
             }
         }
 

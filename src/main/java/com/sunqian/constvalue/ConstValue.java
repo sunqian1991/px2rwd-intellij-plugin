@@ -6,8 +6,8 @@ import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import com.sunqian.utils.LogicUtils;
+import com.sunqian.utils.NumberUtils;
 import lombok.Data;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
