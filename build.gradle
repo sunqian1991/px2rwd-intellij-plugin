@@ -16,7 +16,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+//    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
 }
 
 intellij {
@@ -34,5 +34,8 @@ publishPlugin {
 
 patchPluginXml {
     changeNotes """
-      support multi-line conversion."""
+      <ul>
+        <li>support multi-line conversion.</li>
+        <li>optimize some business logic.</li>
+      </ul>"""
 }
