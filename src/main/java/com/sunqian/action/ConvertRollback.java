@@ -16,7 +16,7 @@ import static com.sunqian.constvalue.MagicValue.*;
 import static com.sunqian.constvalue.MagicValue.STYLUS_LANGUAGE_ID;
 
 /**
- * 转换回退action
+ * back action
  *
  * @author sunqian
  * date 2019/6/25

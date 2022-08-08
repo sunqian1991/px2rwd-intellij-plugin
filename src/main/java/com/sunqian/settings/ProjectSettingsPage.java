@@ -34,6 +34,8 @@ public class ProjectSettingsPage {
     private JCheckBox vwCompletion;
     private JCheckBox vhCompletion;
     private JCheckBox onlyCssFiles;
+    private JRadioButton cmRadioButton;
+    private JTextField dpiBaseValue;
     private ButtonGroup buttonGroup;
 
     private ConstValue constValue;
@@ -49,7 +51,8 @@ public class ProjectSettingsPage {
         LogicUtils.getLogic().generateObject(new HashMap<ShortCutType, Consumer<String>>(), map ->
                 map.put(ShortCutType.REM, type -> remRadioButton.setSelected(true)), map ->
                 map.put(ShortCutType.VW, type -> vwRadioButton.setSelected(true)), map ->
-                map.put(ShortCutType.VH, type -> vhRadioButton.setSelected(true))).get(constValue.getShortCutType()).accept(null);
+                map.put(ShortCutType.VH, type -> vhRadioButton.setSelected(true)), map ->
+                map.put(ShortCutType.CM, type -> cmRadioButton.setSelected(true))).get(constValue.getShortCutType()).accept(null);
         showCalculationProcessInCheckBox.setSelected(constValue.getShowCalculationProcess());
         remIntention.setSelected(constValue.getRemIntention());
         vwIntention.setSelected(constValue.getVwIntention());

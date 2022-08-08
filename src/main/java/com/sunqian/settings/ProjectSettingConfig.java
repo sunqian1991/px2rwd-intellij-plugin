@@ -77,9 +77,11 @@ public class ProjectSettingConfig implements SearchableConfigurable {
         mainGui.getRemRadioButton().setSelected(constValue.getShortCutType() == ShortCutType.REM);
         mainGui.getVwRadioButton().setSelected(constValue.getShortCutType() == ShortCutType.VW);
         mainGui.getVhRadioButton().setSelected(constValue.getShortCutType() == ShortCutType.VH);
+        mainGui.getCmRadioButton().setSelected(constValue.getShortCutType() == ShortCutType.CM);
         mainGui.getRemBaseValue().setText(constValue.getRemBaseValue() + "");
         mainGui.getVwValue().setText(constValue.getWidthValue().toString());
         mainGui.getVhValue().setText(constValue.getHeightValue().toString());
+        mainGui.getDpiBaseValue().setText(constValue.getDpiBaseValue());
         mainGui.getRemIntention().setSelected(constValue.getRemIntention());
         mainGui.getVwIntention().setSelected(constValue.getVwIntention());
         mainGui.getVhIntention().setSelected(constValue.getVhIntention());

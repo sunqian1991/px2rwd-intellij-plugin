@@ -50,6 +50,11 @@ public class ConstValue implements PersistentStateComponent<ConstValue> {
     public String heightValue;
 
     /**
+     * dpi
+     */
+    public String dpiBaseValue;
+
+    /**
      * 是否启用code intention
      */
     public Boolean remIntention;
