@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.sunqian'
-version '2.1.4'
+version '2.1.5'
 
 sourceCompatibility = 1.8
 
@@ -40,4 +40,9 @@ patchPluginXml {
         <li>support multi-line conversion.</li>
         <li>optimize some business logic.</li>
       </ul>"""
+}
+
+tasks.withType(JavaCompile) {
+    options.incremental = false
+    options.encoding = "UTF-8"
 }

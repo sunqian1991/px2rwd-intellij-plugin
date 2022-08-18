@@ -59,9 +59,9 @@ public class FormatTools {
         }
         Double rem = px / baseValue;
         if (check(Double.toString(px), Double.toString(baseValue))) {
-            return rem.toString().replaceAll("0*$", "").replaceAll("\\.$", "") + STYLE_TAG_TYPE.get(shortCutType) + showComment(px, baseValue);
+            return rem.toString().replaceAll("0*$", "").replaceAll("\\.$", "").replaceAll(",", ".") + STYLE_TAG_TYPE.get(shortCutType) + showComment(px, baseValue);
         }
-        return String.format(getAccuracy(baseValue + ""), rem).replaceAll("0*$", "").replaceAll("\\.$", "").trim() + STYLE_TAG_TYPE.get(shortCutType) + showComment(px, baseValue);
+        return String.format(getAccuracy(baseValue + ""), rem).replaceAll("0*$", "").replaceAll("\\.$", "").replaceAll(",", ".").trim() + STYLE_TAG_TYPE.get(shortCutType) + showComment(px, baseValue);
     }
 
     /**

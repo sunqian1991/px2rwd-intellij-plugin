@@ -1,7 +1,7 @@
 <idea-plugin url="https://plugins.jetbrains.com/plugin/11187-px2remforwebstorm">
     <id>com.sunq.action.WebStormPX2REMTools</id>
     <name>px2rem</name>
-    <version>2.1.4</version>
+    <version>2.1.5</version>
     <vendor email="sunqian1991@gmail.com" url="https://github.com/sunqian1991/px2rwd-intellij-plugin">sunqian</vendor>
     <description><![CDATA[
     <p>this is a tool of converting px to <span style="color:#117ebf;font-weight: bold;">rem/vw/vh</span> in a css/less file by a few settings.</p>
